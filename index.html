@@ -1544,9 +1544,11 @@
   }
   .quote-item .q-del { position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 1rem; }
   .quote-item .q-del:hover { color: #c66; }
-  .quote-add-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .quote-add-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
   .quote-add-row input { flex: 1; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.9rem; background: var(--input-bg); color: var(--text); }
   .quote-add-row input:focus { outline: none; border-color: var(--primary); }
+  .quote-add-row input#quoteAuthor { flex: 0 1 220px; min-width: 150px; }
+  .quote-item .q-author { display: block; margin-top: 0.3rem; font-family: sans-serif; font-size: 0.8rem; font-style: normal; color: var(--text-muted); }
 
   /* Sleep/energy rating */
   .se-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
@@ -2788,6 +2790,7 @@
       <p class="sub">Collect quotes that inspire, comfort, or motivate you. A random quote from your list appears in the footer.</p>
       <div class="quote-add-row">
         <input type="text" id="quoteInput" placeholder="Type or paste a quote and press Enter...">
+        <input type="text" id="quoteAuthor" placeholder="Who said it? (optional)">
         <button class="btn btn-primary" id="quoteAdd" style="font-size:0.85rem;padding:0.5rem 1.2rem;white-space:nowrap;">Add Quote</button>
       </div>
       <div class="quotes-list" id="quotesList"></div>
@@ -6195,7 +6198,7 @@ function renderQuotes() {
   quotes.forEach((q) => {
     var item = document.createElement("div");
     item.className = "quote-item";
-    item.innerHTML = '" ' + escapeHtml(q.text) + ' "<button class="q-del" data-id="' + q.id + '">×</button>';
+    item.innerHTML = '&ldquo;' + escapeHtml(q.text) + '&rdquo;' + (q.author ? '<span class="q-author">&mdash; ' + escapeHtml(q.author) + '</span>' : '') + '<button class="q-del" data-id="' + q.id + '">×</button>';
     container.appendChild(item);
   });
   container.querySelectorAll(".q-del").forEach((b) => {
@@ -6209,15 +6212,20 @@ function renderQuotes() {
 }
 document.getElementById("quoteAdd").addEventListener("click", addQuote);
 document.getElementById("quoteInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") document.getElementById("quoteAuthor").focus();
+});
+document.getElementById("quoteAuthor").addEventListener("keydown", (e) => {
   if (e.key === "Enter") addQuote();
 });
 function addQuote() {
   var input = document.getElementById("quoteInput");
+  var authorInput = document.getElementById("quoteAuthor");
   var text = input.value.trim();
   if (!text) return;
-  quotes.push({ id: Date.now().toString(), text: text });
+  quotes.push({ id: Date.now().toString(), text: text, author: authorInput.value.trim() });
   saveQuotes();
   input.value = "";
+  authorInput.value = "";
   renderQuotes();
   updateFooterQuote();
 }
@@ -6225,7 +6233,7 @@ function updateFooterQuote() {
   loadQuotes();
   if (quotes.length > 0) {
     var random = quotes[Math.floor(Math.random() * quotes.length)];
-    document.getElementById("quote").innerHTML = "💬 &ldquo;" + escapeHtml(random.text) + "&rdquo;";
+    document.getElementById("quote").innerHTML = "💬 &ldquo;" + escapeHtml(random.text) + "&rdquo;" + (random.author ? " &mdash; " + escapeHtml(random.author) : "");
   } else {
     document.getElementById("quote").textContent = "\u201C" + QUOTES[Math.floor(Math.random() * QUOTES.length)] + "\u201D";
   }
