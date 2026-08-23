@@ -1452,6 +1452,10 @@
   }
   .cbt-tool h2 { font-weight: normal; color: var(--primary-dark); margin-bottom: 0.4rem; }
   .cbt-tool p.cbt-sub { color: var(--text); font-style: italic; font-size: 0.85rem; font-family: sans-serif; margin-bottom: 1rem; opacity: 0.88; }
+  .res-item { font-family: sans-serif; font-size: 0.85rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--border); line-height: 1.55; }
+  .res-item:last-child { border-bottom: none; }
+  .res-item a { color: var(--primary-dark); word-break: break-all; }
+  .res-item strong { color: var(--text); }
   .cbt-tool h3 { font-weight: normal; color: var(--primary-dark); margin: 1.5rem 0 0.5rem; font-size: 1.05rem; }
 
   /* Thought record */
@@ -1745,7 +1749,7 @@
   <button class="tab-btn" data-view="insights">Insights</button>
   <button class="tab-btn" data-view="schedule">Schedule</button>
   <button class="tab-btn" data-view="selfcare">Self-Care</button>
-  <button class="tab-btn" data-view="cbt">CBT</button>
+  <button class="tab-btn" data-view="cbt">Mental Health</button>
   <button class="tab-btn" data-view="quotes">Quotes</button>
 </nav>
 
@@ -2131,8 +2135,8 @@
   <!-- CBT -->
   <section class="view" id="view-cbt">
     <div class="tracker">
-      <h2>CBT & ERP Tools</h2>
-      <p class="cbt-sub">CBT with Exposure and Response Prevention (ERP) is the gold-standard treatment for OCD. DBT is the gold-standard for BPD. These tools help you practice between sessions — not a replacement for professional therapy.</p>
+      <h2>Mental Health Toolkit</h2>
+      <p class="cbt-sub">Evidence-based tools drawn from CBT, ERP, and DBT to practice between sessions — plus a library of trusted resources for all kinds of mental health stuff. Not a replacement for professional therapy.</p>
 
       <div class="cbt-subnav">
         <button class="cbt-subtab active" data-sub="overview">📋 Overview</button>
@@ -2141,6 +2145,7 @@
         <button class="cbt-subtab" data-sub="bpd">💔 BPD / DBT</button>
         <button class="cbt-subtab" data-sub="action">⚡ Action</button>
         <button class="cbt-subtab" data-sub="safety">🛡 Safety Plan</button>
+        <button class="cbt-subtab" data-sub="resources">📚 Resources</button>
       </div>
 
       <!-- ===== OVERVIEW ===== -->
@@ -2169,6 +2174,10 @@
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
               <h4 style="font-family:sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">⚡ Action</h4>
               <p style="font-family:sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Behavioral Activation, Problem Solving</p>
+            </div>
+            <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
+              <h4 style="font-family:sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">📚 Resources</h4>
+              <p style="font-family:sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Crisis lines, therapist finders, and trusted organizations for anxiety, depression, bipolar, OCD, BPD, trauma, ADHD, autism, eating disorders, grief, and more</p>
             </div>
           </div>
         </div>
@@ -2653,6 +2662,123 @@
         <button class="btn btn-secondary" id="spPrint">Print</button>
       </div>
       </div>
+      </div>
+
+      <!-- ===== RESOURCES ===== -->
+      <div class="cbt-subpage" data-sub="resources">
+        <div class="cbt-tool">
+          <h3>🆘 If you need help right now</h3>
+          <p class="cbt-sub">If you might hurt yourself or someone else, reach out now. Crisis workers are there for exactly this, and you are not being dramatic.</p>
+          <div class="res-item"><strong>988 Suicide &amp; Crisis Lifeline (US)</strong> — call or text <strong>988</strong>, 24/7 · <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a></div>
+          <div class="res-item"><strong>Crisis Text Line</strong> — text <strong>HOME</strong> to <strong>741741</strong> · <a href="https://www.crisistextline.org" target="_blank" rel="noopener">crisistextline.org</a></div>
+          <div class="res-item"><strong>Samaritans (UK &amp; Ireland)</strong> — call <strong>116 123</strong>, free, 24/7 · <a href="https://www.samaritans.org" target="_blank" rel="noopener">samaritans.org</a></div>
+          <div class="res-item"><strong>The Trevor Project</strong> — LGBTQ+ young people, 24/7 · call 1-866-488-7386 or text START to 678-678 · <a href="https://www.thetrevorproject.org" target="_blank" rel="noopener">thetrevorproject.org</a></div>
+          <div class="res-item"><strong>Helplines in other countries</strong> · <a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a></div>
+          <div class="res-item"><strong>In immediate danger?</strong> Call <strong>911</strong> (US) or your local emergency number.</div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🔍 Learn &amp; get screened</h3>
+          <div class="res-item"><strong>Mental Health America</strong> — free, anonymous screenings for depression, anxiety, bipolar, and more · <a href="https://screening.mhanational.org" target="_blank" rel="noopener">screening.mhanational.org</a></div>
+          <div class="res-item"><strong>NAMI</strong> — National Alliance on Mental Illness; education, family support groups, helpline 1-800-950-6264 · <a href="https://www.nami.org" target="_blank" rel="noopener">nami.org</a></div>
+          <div class="res-item"><strong>HelpGuide</strong> — plain-language guides on nearly every condition and coping skill · <a href="https://www.helpguide.org" target="_blank" rel="noopener">helpguide.org</a></div>
+          <div class="res-item"><strong>Mind (UK)</strong> — trustworthy info and advice for every diagnosis · <a href="https://www.mind.org.uk" target="_blank" rel="noopener">mind.org.uk</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🧭 Find a therapist or treatment</h3>
+          <div class="res-item"><strong>Psychology Today</strong> — therapist finder; filter by issue, insurance, and location · <a href="https://www.psychologytoday.com" target="_blank" rel="noopener">psychologytoday.com</a></div>
+          <div class="res-item"><strong>Open Path Collective</strong> — affordable therapy sessions ($40–$80) for people without insurance coverage · <a href="https://openpathcollective.org" target="_blank" rel="noopener">openpathcollective.org</a></div>
+          <div class="res-item"><strong>SAMHSA Treatment Locator</strong> — find licensed treatment near you, or call 1-800-662-4357 · <a href="https://findtreatment.gov" target="_blank" rel="noopener">findtreatment.gov</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>💭 Anxiety &amp; depression</h3>
+          <div class="res-item"><strong>ADAA</strong> — Anxiety &amp; Depression Association of America; info, webinars, therapist directory · <a href="https://adaa.org" target="_blank" rel="noopener">adaa.org</a></div>
+          <div class="res-item"><strong>DBSA</strong> — Depression &amp; Bipolar Support Alliance; free peer support groups · <a href="https://www.dbsalliance.org" target="_blank" rel="noopener">dbsalliance.org</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🔄 OCD &amp; related disorders</h3>
+          <div class="res-item"><strong>IOCDF</strong> — International OCD Foundation; everything OCD, including how to find real ERP therapy · <a href="https://iocdf.org" target="_blank" rel="noopener">iocdf.org</a></div>
+          <div class="res-item"><strong>NOCD</strong> — ERP therapy app with live therapists · <a href="https://www.treatmyocd.com" target="_blank" rel="noopener">treatmyocd.com</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>💔 BPD &amp; emotion regulation</h3>
+          <div class="res-item"><strong>NEABPD</strong> — National Education Alliance for Borderline Personality Disorder; free call-in series · <a href="https://www.borderlinepersonalitydisorder.org" target="_blank" rel="noopener">borderlinepersonalitydisorder.org</a></div>
+          <div class="res-item"><strong>DBT Self Help</strong> — free walkthroughs of every DBT skills module · <a href="https://dbtselfhelp.com" target="_blank" rel="noopener">dbtselfhelp.com</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🌩 Trauma &amp; PTSD</h3>
+          <div class="res-item"><strong>VA National Center for PTSD</strong> — top-quality PTSD education + the free PTSD Coach app (for anyone, not just veterans) · <a href="https://www.ptsd.va.gov" target="_blank" rel="noopener">ptsd.va.gov</a></div>
+          <div class="res-item"><strong>RAINN</strong> — sexual assault support; hotline 1-800-656-4673 · <a href="https://www.rainn.org" target="_blank" rel="noopener">rainn.org</a></div>
+          <div class="res-item"><strong>National Domestic Violence Hotline</strong> — 1-800-799-7233, text START to 88788 · <a href="https://www.thehotline.org" target="_blank" rel="noopener">thehotline.org</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🍽 Eating disorders</h3>
+          <div class="res-item"><strong>ANAD</strong> — free virtual peer support groups and helpline · <a href="https://anad.org" target="_blank" rel="noopener">anad.org</a></div>
+          <div class="res-item"><strong>NEDA</strong> — National Eating Disorders Association; info, screening tool, treatment map · <a href="https://www.nationaleatingdisorders.org" target="_blank" rel="noopener">nationaleatingdisorders.org</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>⚡ ADHD</h3>
+          <div class="res-item"><strong>CHADD</strong> — Children &amp; Adults with ADHD; education, local chapters, parent support · <a href="https://chadd.org" target="_blank" rel="noopener">chadd.org</a></div>
+          <div class="res-item"><strong>ADDA</strong> — Attention Deficit Disorder Association, focused on adult ADHD · <a href="https://add.org" target="_blank" rel="noopener">add.org</a></div>
+          <div class="res-item"><strong>ADDitude</strong> — practical strategies, webinars, and articles · <a href="https://www.additudemag.com" target="_blank" rel="noopener">additudemag.com</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🧩 Autism</h3>
+          <div class="res-item"><strong>Autism Society</strong> — support, advocacy, and a national helpline · <a href="https://autismsociety.org" target="_blank" rel="noopener">autismsociety.org</a></div>
+          <div class="res-item"><strong>ASAN</strong> — Autistic Self Advocacy Network; resources by autistic people, for autistic people · <a href="https://autisticadvocacy.org" target="_blank" rel="noopener">autisticadvocacy.org</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🌀 Psychosis &amp; schizophrenia</h3>
+          <div class="res-item"><strong>SARDAA</strong> — Schizophrenia &amp; Psychosis Action Alliance; support lines and education · <a href="https://sardaa.org" target="_blank" rel="noopener">sardaa.org</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🍷 Substance use &amp; recovery</h3>
+          <div class="res-item"><strong>SAMHSA National Helpline</strong> — free, confidential, 24/7: 1-800-662-4357 · <a href="https://www.samhsa.gov/find-help/national-helpline" target="_blank" rel="noopener">samhsa.gov</a></div>
+          <div class="res-item"><strong>SMART Recovery</strong> — science-based mutual support meetings, in person and online · <a href="https://smartrecovery.org" target="_blank" rel="noopener">smartrecovery.org</a></div>
+          <div class="res-item"><strong>Alcoholics Anonymous / Narcotics Anonymous</strong> · <a href="https://www.aa.org" target="_blank" rel="noopener">aa.org</a> · <a href="https://na.org" target="_blank" rel="noopener">na.org</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🤕 Self-harm</h3>
+          <div class="res-item"><strong>SAFE Alternatives</strong> — the oldest self-harm treatment referral program in the US · <a href="https://selfinjury.com" target="_blank" rel="noopener">selfinjury.com</a></div>
+          <div class="res-item"><strong>Tip:</strong> the <em>Urges Log</em> in the 💔 BPD / DBT tab can help you track urges and what helps them pass.</div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🌙 Sleep</h3>
+          <div class="res-item"><strong>Sleep Foundation</strong> — sleep hygiene guides and CBT-I info for insomnia · <a href="https://www.sleepfoundation.org" target="_blank" rel="noopener">sleepfoundation.org</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>👶 Pregnancy &amp; postpartum</h3>
+          <div class="res-item"><strong>Postpartum Support International</strong> — helpline 1-800-944-4773 (call/text), local volunteers worldwide · <a href="https://www.postpartum.net" target="_blank" rel="noopener">postpartum.net</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🫂 Grief &amp; loss</h3>
+          <div class="res-item"><strong>The Dougy Center</strong> — grief support for children, teens, and families · <a href="https://www.dougy.org" target="_blank" rel="noopener">dougy.org</a></div>
+          <div class="res-item"><strong>GriefShare</strong> — local grief support groups · <a href="https://www.griefshare.org" target="_blank" rel="noopener">griefshare.org</a></div>
+        </div>
+
+        <div class="cbt-tool">
+          <h3>🏳️‍🌈 LGBTQ+</h3>
+          <div class="res-item"><strong>LGBT National Help Center</strong> — talk lines and chat, all ages: 1-888-843-4564 · <a href="https://lgbthotline.org" target="_blank" rel="noopener">lgbthotline.org</a></div>
+          <div class="res-item"><strong>Trans Lifeline</strong> — peer support run by trans people: 1-877-565-8860 · <a href="https://translifeline.org" target="_blank" rel="noopener">translifeline.org</a></div>
+        </div>
+
+        <div class="cbt-tool" style="border-color:#f5a623;">
+          <p style="font-family:sans-serif;font-size:0.78rem;color:var(--text-muted);margin:0;">Groundwork isn't affiliated with these organizations — they're listed because they're trusted. This app supports you between sessions; it doesn't replace doctors, therapists, or crisis services.</p>
+        </div>
       </div>
     </div>
   </section>
