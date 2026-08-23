@@ -692,6 +692,18 @@
     line-height: 1;
   }
   .preset-chip .pc-del:hover { color: #c66; }
+  .preset-chip .pc-edit {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 0.1rem 0.3rem;
+    line-height: 1;
+  }
+  .preset-chip .pc-edit:hover { color: var(--primary-dark); }
+  .pe-row { padding: 0.55rem 0; border-bottom: 1px dashed var(--border); }
+  .pe-row:last-child { border-bottom: none; }
   .slot-empty {
     text-align: center;
     padding: 2.5rem 1rem;
@@ -2020,18 +2032,30 @@
       </div>
 
       <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1rem;">
-        <button class="btn btn-secondary" id="presetMorning" style="font-size:0.8rem;padding:0.5rem 1rem;">🌅 Morning routine</button>
-        <button class="btn btn-secondary" id="presetEvening" style="font-size:0.8rem;padding:0.5rem 1rem;">🌙 Evening routine</button>
-        <button class="btn btn-secondary" id="presetTherapy" style="font-size:0.8rem;padding:0.5rem 1rem;">🧠 Therapy schedule</button>
         <button class="btn btn-secondary" id="printSchedule" style="font-size:0.8rem;padding:0.5rem 1rem;">🖨️ Print schedule</button>
         <button class="btn btn-danger" id="clearSchedule" style="font-size:0.8rem;padding:0.5rem 1rem;">🗑 Clear all</button>
       </div>
 
       <div style="margin-bottom:0.6rem;">
-        <label style="font-family:sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;display:block;margin-bottom:0.4rem;">Your preset schedules</label>
+        <label style="font-family:sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;display:block;margin-bottom:0.4rem;">Preset schedules</label>
         <div id="userPresetBtns" style="display:flex;gap:0.4rem;flex-wrap:wrap;"></div>
-        <p id="noPresetsNote" style="font-family:sans-serif;font-size:0.78rem;color:var(--text-muted);font-style:italic;margin:0.2rem 0 0;">None saved yet. Set up the slots you like below, then click "💾 Save current as preset". Click a saved preset any time to add it back into your schedule.</p>
+        <p id="noPresetsNote" style="font-family:sans-serif;font-size:0.78rem;color:var(--text-muted);font-style:italic;margin:0.2rem 0 0;">No presets right now — set up the slots you like below, then click "💾 Save current as preset".</p>
       </div>
+
+      <div id="presetEditor" style="display:none;border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1rem;background:var(--input-bg);">
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-bottom:0.8rem;">
+          <label for="peName" style="font-family:sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;">Preset name</label>
+          <input type="text" id="peName" style="flex:1;min-width:180px;font-family:sans-serif;font-size:0.85rem;padding:0.45rem 0.6rem;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);">
+        </div>
+        <div id="peSlots"></div>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.9rem;">
+          <button class="btn btn-secondary" id="peAddSlot" style="font-size:0.78rem;padding:0.4rem 0.8rem;">➕ Add slot</button>
+          <span style="flex:1;"></span>
+          <button class="btn btn-primary" id="peSave" style="font-size:0.78rem;padding:0.4rem 0.9rem;">💾 Save preset</button>
+          <button class="btn btn-secondary" id="peCancel" style="font-size:0.78rem;padding:0.4rem 0.9rem;">Cancel</button>
+        </div>
+      </div>
+
       <div style="margin-bottom:1rem;">
         <button class="btn btn-secondary" id="saveAsPreset" style="font-size:0.8rem;padding:0.5rem 1rem;">💾 Save current as preset</button>
       </div>
@@ -4976,43 +5000,6 @@ document.querySelectorAll(".cd-btn").forEach((b) => {
   b.addEventListener("click", () => b.classList.toggle("selected"));
 });
 
-document.getElementById("presetMorning").addEventListener("click", () => {
-  var presets = [
-    { time: "07:00", label: "Wake up & hydrate", type: "other", duration: 5, days: "daily" },
-    { time: "07:15", label: "Morning mindfulness", type: "mindfulness", duration: 10, days: "daily" },
-    { time: "08:00", label: "How am I feeling today?", type: "checkin", duration: 5, days: "daily" },
-    { time: "09:00", label: "Take medication", type: "medication", duration: 2, days: "daily" },
-  ];
-  presets.forEach((p) => scheduleSlots.push({ id: Date.now().toString() + Math.random().toString(36).slice(2, 6), ...p }));
-  saveSchedule();
-  renderScheduleSlots();
-});
-
-document.getElementById("presetEvening").addEventListener("click", () => {
-  var presets = [
-    { time: "18:00", label: "Evening reflection", type: "reflect", duration: 15, days: "daily" },
-    { time: "20:00", label: "Gratitude check-in", type: "checkin", duration: 5, days: "daily" },
-    { time: "21:30", label: "Wind down / no screens", type: "sleep", duration: 30, days: "daily" },
-    { time: "22:00", label: "Wind down meditation", type: "mindfulness", duration: 10, days: "daily" },
-    { time: "22:30", label: "Bedtime", type: "sleep", duration: 480, days: "daily" },
-  ];
-  presets.forEach((p) => scheduleSlots.push({ id: Date.now().toString() + Math.random().toString(36).slice(2, 6), ...p }));
-  saveSchedule();
-  renderScheduleSlots();
-});
-
-document.getElementById("presetTherapy").addEventListener("click", () => {
-  var presets = [
-    { time: "10:00", label: "Therapy session", type: "meeting", duration: 50, days: "custom", customDays: [1] },
-    { time: "10:00", label: "Therapy session", type: "meeting", duration: 50, days: "custom", customDays: [4] },
-    { time: "12:00", label: "Midday mood check", type: "checkin", duration: 5, days: "weekdays" },
-    { time: "17:00", label: "CBT thought record", type: "reflect", duration: 15, days: "weekdays" },
-  ];
-  presets.forEach((p) => scheduleSlots.push({ id: Date.now().toString() + Math.random().toString(36).slice(2, 6), ...p }));
-  saveSchedule();
-  renderScheduleSlots();
-});
-
 document.getElementById("clearSchedule").addEventListener("click", () => {
   if (confirm("Delete ALL scheduled slots? This cannot be undone.")) {
     scheduleSlots = [];
@@ -5090,8 +5077,29 @@ function formatIcsTime(h, m) {
 }
 
 /* ============================================================ *
- *  User-defined schedule presets
+ *  Schedule presets (editable)
  * ============================================================ */
+const BUILTIN_PRESETS = [
+  { id: "builtin-morning", name: "🌅 Morning routine", builtin: true, slots: [
+    { time: "07:00", label: "Wake up & hydrate", type: "other", duration: 5, days: "daily", customDays: [] },
+    { time: "07:15", label: "Morning mindfulness", type: "mindfulness", duration: 10, days: "daily", customDays: [] },
+    { time: "08:00", label: "How am I feeling today?", type: "checkin", duration: 5, days: "daily", customDays: [] },
+    { time: "09:00", label: "Take medication", type: "medication", duration: 2, days: "daily", customDays: [] },
+  ]},
+  { id: "builtin-evening", name: "🌙 Evening routine", builtin: true, slots: [
+    { time: "18:00", label: "Evening reflection", type: "reflect", duration: 15, days: "daily", customDays: [] },
+    { time: "20:00", label: "Gratitude check-in", type: "checkin", duration: 5, days: "daily", customDays: [] },
+    { time: "21:30", label: "Wind down / no screens", type: "sleep", duration: 30, days: "daily", customDays: [] },
+    { time: "22:00", label: "Wind down meditation", type: "mindfulness", duration: 10, days: "daily", customDays: [] },
+    { time: "22:30", label: "Bedtime", type: "sleep", duration: 480, days: "daily", customDays: [] },
+  ]},
+  { id: "builtin-therapy", name: "🧠 Therapy schedule", builtin: true, slots: [
+    { time: "10:00", label: "Therapy session", type: "meeting", duration: 50, days: "custom", customDays: [1] },
+    { time: "10:00", label: "Therapy session", type: "meeting", duration: 50, days: "custom", customDays: [4] },
+    { time: "12:00", label: "Midday mood check", type: "checkin", duration: 5, days: "weekdays", customDays: [] },
+    { time: "17:00", label: "CBT thought record", type: "reflect", duration: 15, days: "weekdays", customDays: [] },
+  ]},
+];
 let schedulePresets = [];
 function loadSchedulePresets() {
   try {
@@ -5102,8 +5110,23 @@ function loadSchedulePresets() {
 function persistSchedulePresets() {
   localStorage.setItem("mj_schedulePresets", JSON.stringify(schedulePresets));
 }
-function renderUserPresets() {
+function hiddenPresetIds() {
+  try { return JSON.parse(localStorage.getItem("mj_presetsDeleted") || "[]"); } catch (e) { return []; }
+}
+function ensureBuiltinPresets() {
   loadSchedulePresets();
+  const hidden = hiddenPresetIds();
+  let changed = false;
+  BUILTIN_PRESETS.forEach((b) => {
+    if (!hidden.includes(b.id) && !schedulePresets.some((p) => p.id === b.id)) {
+      schedulePresets.push(JSON.parse(JSON.stringify(b)));
+      changed = true;
+    }
+  });
+  if (changed) persistSchedulePresets();
+}
+function renderUserPresets() {
+  ensureBuiltinPresets();
   const box = document.getElementById("userPresetBtns");
   const note = document.getElementById("noPresetsNote");
   if (!box) return;
@@ -5113,17 +5136,24 @@ function renderUserPresets() {
     return;
   }
   if (note) note.style.display = "none";
+  schedulePresets.sort((a, b) => (b.builtin ? 1 : 0) - (a.builtin ? 1 : 0));
   schedulePresets.forEach((p) => {
     const chip = document.createElement("span");
     chip.className = "preset-chip";
-    chip.innerHTML = `<span class="pc-name">${escapeHtml(p.name)} <span style="color:var(--text-muted);">· ${p.slots.length} slot${p.slots.length === 1 ? "" : "s"}</span></span><button class="pc-del" title="Delete preset" data-id="${p.id}">✕</button>`;
+    chip.innerHTML = `<span class="pc-name">${escapeHtml(p.name)} <span style="color:var(--text-muted);">· ${p.slots.length} slot${p.slots.length === 1 ? "" : "s"}</span></span><button class="pc-edit" title="Edit this preset">✏️</button><button class="pc-del" title="Delete preset">✕</button>`;
     chip.querySelector(".pc-name").addEventListener("click", () => applySchedulePreset(p.id));
+    chip.querySelector(".pc-edit").addEventListener("click", () => openPresetEditor(p.id));
     chip.querySelector(".pc-del").addEventListener("click", () => {
-      if (confirm(`Delete preset "${p.name}"? Your scheduled slots won't change.`)) {
-        schedulePresets = schedulePresets.filter((x) => x.id !== p.id);
-        persistSchedulePresets();
-        renderUserPresets();
+      if (!confirm(`Delete preset "${p.name}"? Your scheduled slots won't change.`)) return;
+      if (p.builtin) {
+        const hidden = hiddenPresetIds();
+        hidden.push(p.id);
+        try { localStorage.setItem("mj_presetsDeleted", JSON.stringify(hidden)); } catch (e) {}
       }
+      schedulePresets = schedulePresets.filter((x) => x.id !== p.id);
+      persistSchedulePresets();
+      if (editingPresetId === p.id) closePresetEditor();
+      renderUserPresets();
     });
     box.appendChild(chip);
   });
@@ -5137,6 +5167,72 @@ function applySchedulePreset(id) {
   editingSlotId = null;
   renderScheduleSlots();
 }
+
+/* ---- preset editor ---- */
+let editingPresetId = null;
+function peAddRow(slot) {
+  const s = slot || {};
+  const box = document.getElementById("peSlots");
+  box.insertAdjacentHTML("beforeend", `
+    <div class="se-grid pe-row">
+      <input type="time" class="se-time" value="${s.time || "08:00"}">
+      <input type="text" class="se-label" placeholder="Label (optional)">
+      <select class="se-type">${Object.keys(SLOT_TYPE_LABELS).map((k) => `<option value="${k}"${(s.type || "checkin") === k ? " selected" : ""}>${SLOT_TYPE_LABELS[k]}</option>`).join("")}</select>
+      <input type="number" class="se-dur" value="${s.duration || 15}" min="1" max="480" title="Duration (min)" style="width:64px;">
+      <select class="se-days">${["daily","weekdays","weekends","custom"].map((d) => `<option value="${d}"${(s.days || "daily") === d ? " selected" : ""}>${d === "daily" ? "Every day" : d === "weekdays" ? "Weekdays only" : d === "weekends" ? "Weekends only" : "Custom days"}</option>`).join("")}</select>
+      <div class="sed-row" style="display:${s.days === "custom" ? "flex" : "none"};">${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((n, i) => `<button type="button" class="sed-btn${(s.customDays || []).includes((i + 1) % 7) ? " selected" : ""}" data-day="${(i + 1) % 7}">${n}</button>`).join("")}</div>
+      <button type="button" class="slot-del pe-remove" title="Remove this slot">🗑</button>
+    </div>`);
+  const row = box.lastElementChild;
+  row.querySelector(".se-label").value = s.label || "";
+  row.querySelector(".se-days").addEventListener("change", (e) => {
+    row.querySelector(".sed-row").style.display = e.target.value === "custom" ? "flex" : "none";
+  });
+  row.querySelectorAll(".sed-btn").forEach((b) => b.addEventListener("click", () => b.classList.toggle("selected")));
+  row.querySelector(".pe-remove").addEventListener("click", () => row.remove());
+}
+function openPresetEditor(id) {
+  loadSchedulePresets();
+  const p = schedulePresets.find((x) => x.id === id);
+  if (!p) return;
+  editingPresetId = id;
+  document.getElementById("peName").value = p.name;
+  document.getElementById("peSlots").innerHTML = "";
+  (p.slots || []).forEach((s) => peAddRow(s));
+  const panel = document.getElementById("presetEditor");
+  panel.style.display = "";
+  panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+function closePresetEditor() {
+  editingPresetId = null;
+  document.getElementById("presetEditor").style.display = "none";
+}
+document.getElementById("peAddSlot").addEventListener("click", () => peAddRow(null));
+document.getElementById("peCancel").addEventListener("click", closePresetEditor);
+document.getElementById("peSave").addEventListener("click", () => {
+  const name = document.getElementById("peName").value.trim();
+  if (!name) { alert("Give this preset a name."); return; }
+  const rows = [...document.querySelectorAll("#peSlots .pe-row")];
+  if (rows.length === 0) { alert("Add at least one slot to this preset."); return; }
+  const slots = [];
+  for (const r of rows) {
+    const time = r.querySelector(".se-time").value;
+    if (!time) { alert("Every slot needs a time — fill it in or remove the row."); return; }
+    const days = r.querySelector(".se-days").value;
+    let customDays = [];
+    if (days === "custom") {
+      customDays = [...r.querySelectorAll(".sed-btn.selected")].map((b) => parseInt(b.dataset.day));
+      if (customDays.length === 0) { alert("Pick at least one day for every custom-days slot."); return; }
+    }
+    slots.push({ time, label: r.querySelector(".se-label").value.trim(), type: r.querySelector(".se-type").value, duration: parseInt(r.querySelector(".se-dur").value) || 15, days, customDays });
+  }
+  loadSchedulePresets();
+  const p = schedulePresets.find((x) => x.id === editingPresetId);
+  if (p) { p.name = name; p.slots = slots; }
+  persistSchedulePresets();
+  closePresetEditor();
+  renderUserPresets();
+});
 document.getElementById("saveAsPreset").addEventListener("click", () => {
   loadSchedule();
   if (scheduleSlots.length === 0) { alert("Add some slots to your schedule first, then save them as a preset."); return; }
@@ -5190,6 +5286,7 @@ document.getElementById("printSchedule").addEventListener("click", () => {
   w.print();
 });
 
+ensureBuiltinPresets();
 renderScheduleSlots();
 
 /* ============================================================ *
