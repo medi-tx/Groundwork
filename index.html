@@ -3190,6 +3190,13 @@ function clearForm() {
   document.getElementById("checkinNote").value = "";
   document.getElementById("ctxTagInput").value = "";
   updateCheckinBtn();
+  // Safety sweep: clear any remaining text boxes in the + Entry view
+  document.querySelectorAll(
+    '#view-write input:not([type="color"]):not([type="button"]):not([type="submit"]), #view-write textarea, #view-write select'
+  ).forEach((el) => {
+    if (el.type === "checkbox" || el.type === "radio") el.checked = false;
+    else el.value = "";
+  });
   localStorage.removeItem("mindfulDraft");
 }
 
