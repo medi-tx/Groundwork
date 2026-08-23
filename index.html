@@ -348,39 +348,6 @@
     margin: 0 auto 1.5rem;
     max-width: 560px;
   }
-  svg.emotion-wheel {
-    width: 100%;
-    height: auto;
-    max-width: 560px;
-    display: block;
-    margin: 0 auto;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .seg {
-    cursor: pointer;
-    transition: filter 0.15s, stroke-width 0.15s;
-    stroke: var(--surface);
-    stroke-width: 1;
-    outline: none;
-  }
-  .seg:hover { filter: brightness(1.08); }
-  .seg.selected {
-    stroke: #ffffff;
-    stroke-width: 4;
-    filter: brightness(1.12) saturate(1.1);
-  }
-  .seg-label {
-    pointer-events: none;
-    user-select: none;
-    font-family: sans-serif;
-    text-anchor: middle;
-  }
-  .wheel-hint {
-    pointer-events: none;
-    user-select: none;
-    text-anchor: middle;
-    font-family: sans-serif;
-  }
   .selection-display {
     margin-top: 0.8rem;
     min-height: 1.6rem;
@@ -432,6 +399,36 @@
     transition: background 0.15s;
   }
   .feel-tag .ft-x:hover { background: rgba(255,255,255,0.6); }
+
+  /* Emotion picker buttons */
+  .emo-groups { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem; text-align: left; }
+  .emo-group-title {
+    display: flex; align-items: center; gap: 0.45rem;
+    font-family: sans-serif; font-size: 0.78rem; font-weight: bold;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 0.45rem;
+  }
+  .emo-group-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+  .emo-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .emo-btn {
+    font-family: sans-serif; font-size: 0.85rem; line-height: 1.3;
+    padding: 0.42rem 0.85rem; border-radius: 100px; cursor: pointer;
+    background: var(--surface); color: var(--text);
+    border: 1.5px solid var(--border);
+    transition: all 0.15s; user-select: none;
+  }
+  .emo-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+  .emo-btn.selected { font-weight: bold; }
+  .emo-btn .eb-del { margin-left: 0.35rem; opacity: 0.55; font-weight: normal; padding: 0 0.15rem; }
+  .emo-btn .eb-del:hover { opacity: 1; color: #c66; }
+  .emo-add-row { display: flex; gap: 0.5rem; margin: 0.25rem 0 1.25rem; }
+  .emo-add-row input {
+    flex: 1; min-width: 0; margin-bottom: 0;
+    padding: 0.55rem 0.85rem; border: 1px solid var(--border);
+    border-radius: 10px; font-family: sans-serif; font-size: 0.88rem;
+    background: var(--input-bg); color: var(--text);
+  }
+  .emo-add-row input:focus { outline: none; border-color: var(--primary); }
   @keyframes tagPop {
     from { transform: scale(0.7); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
@@ -1691,9 +1688,13 @@
       <label class="field-label" for="title">Title (optional)</label>
       <input type="text" id="title" placeholder="What's on your mind today?">
 
-      <label class="field-label">How are you feeling? Tap the wheel (pick as many as you need)</label>
-      <div class="wheel-wrap">
-        <svg class="emotion-wheel" id="emotionWheel" viewBox="0 0 500 500" role="img" aria-label="Emotion wheel"></svg>
+      <label class="field-label">How are you feeling? Tap an emotion (pick as many as you need)</label>
+      <div class="wheel-wrap emo-picker">
+        <div class="emo-groups" id="emoGroups"></div>
+        <div class="emo-add-row">
+          <input type="text" id="customEmoInput" maxlength="24" placeholder="Add your own emotion...">
+          <button type="button" class="ctx-tag-add-btn" id="customEmoAdd">+ Add</button>
+        </div>
         <div class="selection-display" id="selDisplay"></div>
         <div class="wheel-tags" id="wheelTags"></div>
         <div class="intensity-rows" id="intensityRows"></div>
@@ -2600,7 +2601,7 @@ let currentUser = null;       // logged-in Firebase user
 let accessMode = "locked";    // "locked" | "full" | "guest"
 let cloudTimer = null;
 let cloudLoading = false;     // suppress sync while writing from cloud
-const SYNC_KEYS = ["mindfulJournalEntries", "mindfulDraft", "mj_cbt", "mj_customTheme", "mj_erpHierarchy", "mj_fontSize", "mj_quotes", "mj_safetyPlan", "mj_schedule", "mj_todos", "mj_theme"];
+const SYNC_KEYS = ["mindfulJournalEntries", "mindfulDraft", "mj_cbt", "mj_customEmotions", "mj_customTheme", "mj_erpHierarchy", "mj_fontSize", "mj_quotes", "mj_safetyPlan", "mj_schedule", "mj_todos", "mj_theme"];
 
 function scheduleCloudPush() {
   if (cloudTimer) clearTimeout(cloudTimer);
@@ -2680,6 +2681,70 @@ CORE_EMOTIONS.forEach((core) => {
     };
   });
 });
+CORE_EMOTIONS.forEach((core) => {
+  FEELINGS_LOOKUP[core.key] = {
+    key: core.key,
+    label: core.label,
+    core: core.key,
+    emoji: core.emoji,
+    hue: core.hue,
+    color: core.color,
+  };
+});
+
+let customEmotions = [];
+const CUSTOM_EMO_KEY = "mj_customEmotions";
+const CUSTOM_HUES = [330, 190, 95, 20, 300, 172, 58, 250];
+function registerCustomEmotion(ce) {
+  FEELINGS_LOOKUP[ce.key] = {
+    key: ce.key,
+    label: ce.label,
+    core: "custom",
+    emoji: ce.emoji || "✨",
+    hue: ce.hue,
+    color: ce.color || `hsl(${ce.hue}, 62%, 46%)`,
+  };
+}
+function loadCustomEmotions() {
+  try { customEmotions = JSON.parse(localStorage.getItem(CUSTOM_EMO_KEY) || "[]"); }
+  catch (e) { customEmotions = []; }
+  customEmotions.forEach(registerCustomEmotion);
+}
+function saveCustomEmotions() {
+  localStorage.setItem(CUSTOM_EMO_KEY, JSON.stringify(customEmotions));
+}
+function addCustomEmotion(rawLabel) {
+  const label = rawLabel.trim().replace(/\s+/g, " ").slice(0, 24);
+  if (!label) return { ok: false };
+  const key = label.toLowerCase();
+  if (customEmotions.some((c) => c.key === key)) return { ok: false, dup: true };
+  if (FEELINGS_LOOKUP[key]) return { ok: false, dup: true };
+  const ce = {
+    key: key,
+    label: capitalize(key),
+    emoji: "✨",
+    hue: CUSTOM_HUES[customEmotions.length % CUSTOM_HUES.length],
+  };
+  ce.color = `hsl(${ce.hue}, 62%, 46%)`;
+  customEmotions.push(ce);
+  registerCustomEmotion(ce);
+  saveCustomEmotions();
+  return { ok: true, key: key };
+}
+function removeCustomEmotion(key) {
+  customEmotions = customEmotions.filter((c) => c.key !== key);
+  delete FEELINGS_LOOKUP[key];
+  selectedFeelings = selectedFeelings.filter((f) => f.key !== key);
+  saveCustomEmotions();
+  renderEmotionPicker();
+  renderTags();
+  renderIntensityRows();
+  updateSelectionSummary();
+  updateCheckinBtn();
+  populateEmotionFilter();
+  saveDraft();
+}
+loadCustomEmotions();
 
 const LEGACY_MAP = {
   great: { core: "happy", label: "Great", emoji: "😄" },
@@ -2735,7 +2800,8 @@ let editingId = null;
 
 function coreColor(key) {
   const c = CORE_EMOTIONS.find((c) => c.key === key);
-  return c ? c.color : "#888";
+  if (c) return c.color;
+  return "#9b7fc7";
 }
 
 function capitalize(s) {
@@ -2808,90 +2874,67 @@ function coresOfEntry(entry) {
 }
 
 /* ============================================================ *
- *  Emotion wheel
+ *  Emotion picker
  * ============================================================ */
-const CX = 250, CY = 250;
-const R_CORE_IN = 58, R_CORE_OUT = 122;
-const R_FEEL_IN = 132, R_FEEL_OUT = 236;
-const GAP = 0.35;
-
-function polarToCartesian(cx, cy, r, deg) {
-  const a = (deg - 90) * Math.PI / 180;
-  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+function feelingColor(f) {
+  if (f.color) return f.color;
+  if (typeof f.hue === "number") return `hsl(${f.hue}, 62%, 46%)`;
+  return coreColor(f.core);
 }
 
-function arcSegment(cx, cy, rInner, rOuter, a0, a1) {
-  const pOut0 = polarToCartesian(cx, cy, rOuter, a0);
-  const pOut1 = polarToCartesian(cx, cy, rOuter, a1);
-  const pIn1  = polarToCartesian(cx, cy, rInner, a1);
-  const pIn0  = polarToCartesian(cx, cy, rInner, a0);
-  return `M ${pOut0.x.toFixed(2)} ${pOut0.y.toFixed(2)} A ${rOuter} ${rOuter} 0 0 1 ${pOut1.x.toFixed(2)} ${pOut1.y.toFixed(2)} L ${pIn1.x.toFixed(2)} ${pIn1.y.toFixed(2)} A ${rInner} ${rInner} 0 0 0 ${pIn0.x.toFixed(2)} ${pIn0.y.toFixed(2)} Z`;
-}
-
-function labelRotation(deg) {
-  let a = Math.atan2(-Math.cos(deg * Math.PI / 180), Math.sin(deg * Math.PI / 180)) * 180 / Math.PI;
-  if (a > 90) a -= 180;
-  return a;
-}
-
-function renderEmotionWheel() {
-  const svg = document.getElementById("emotionWheel");
-  let html = "";
-  CORE_EMOTIONS.forEach((core, i) => {
-    const baseA = i * 60;
-    const words = FEELING_WORDS[core.key];
-    words.forEach((word, idx) => {
-      const fBase = baseA + idx * (60 / words.length);
-      const a0 = fBase + GAP;
-      const a1 = fBase + (60 / words.length) - GAP;
-      const lightness = 56 + idx * 1.8;
-      const fill = `hsl(${core.hue}, 68%, ${lightness}%)`;
-      const feeling = FEELINGS_LOOKUP[word.toLowerCase()];
-      const midA = (a0 + a1) / 2;
-      const lblPos = polarToCartesian(CX, CY, (R_FEEL_IN + R_FEEL_OUT) / 2, midA);
-      const rot = labelRotation(midA);
-      html += `<path class="seg seg-feel" data-key="${feeling.key}" d="${arcSegment(CX, CY, R_FEEL_IN, R_FEEL_OUT, a0, a1)}" fill="${fill}"></path>`;
-      html += `<text class="seg-label" x="${lblPos.x.toFixed(1)}" y="${lblPos.y.toFixed(1)}" transform="rotate(${rot.toFixed(1)} ${lblPos.x.toFixed(1)} ${lblPos.y.toFixed(1)})" font-size="9.5" fill="${word === 'hopeless' ? '#fff' : '#2c2c2c'}">${escapeHtml(feeling.label)}</text>`;
+function renderEmotionPicker() {
+  const host = document.getElementById("emoGroups");
+  let html = `<div class="emo-group"><div class="emo-group-title">Quick picks</div><div class="emo-row">`;
+  CORE_EMOTIONS.forEach((core) => {
+    html += `<button type="button" class="emo-btn" data-key="${core.key}">${core.emoji} ${escapeHtml(core.label)}</button>`;
+  });
+  html += `</div></div>`;
+  CORE_EMOTIONS.forEach((core) => {
+    html += `<div class="emo-group"><div class="emo-group-title"><span class="emo-group-dot" style="background:${core.color}"></span>${core.emoji} ${escapeHtml(core.label)}</div><div class="emo-row">`;
+    FEELING_WORDS[core.key].forEach((w) => {
+      const f = FEELINGS_LOOKUP[w.toLowerCase()];
+      html += `<button type="button" class="emo-btn" data-key="${f.key}">${f.emoji} ${escapeHtml(f.label)}</button>`;
+    });
+    html += `</div></div>`;
+  });
+  if (customEmotions.length) {
+    html += `<div class="emo-group"><div class="emo-group-title"><span class="emo-group-dot" style="background:#9b7fc7"></span>✨ Your emotions</div><div class="emo-row">`;
+    customEmotions.forEach((ce) => {
+      const f = FEELINGS_LOOKUP[ce.key];
+      html += `<button type="button" class="emo-btn" data-key="${ce.key}">${f.emoji} ${escapeHtml(f.label)}<span class="eb-del" data-del="${ce.key}" title="Remove this emotion">&times;</span></button>`;
+    });
+    html += `</div></div>`;
+  }
+  host.innerHTML = html;
+  host.querySelectorAll(".emo-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const del = e.target.closest(".eb-del");
+      if (del) {
+        e.stopPropagation();
+        removeCustomEmotion(del.dataset.del);
+        return;
+      }
+      const f = FEELINGS_LOOKUP[btn.dataset.key];
+      if (f) toggleFeeling({ key: f.key, label: f.label, core: f.core, emoji: f.emoji, hue: f.hue, color: f.color });
     });
   });
-  CORE_EMOTIONS.forEach((core, i) => {
-    const baseA = i * 60;
-    const a0 = baseA + GAP;
-    const a1 = baseA + 60 - GAP;
-    const fill = `hsl(${core.hue}, 70%, 46%)`;
-    const midA = baseA + 30;
-    const lblPos = polarToCartesian(CX, CY, (R_CORE_IN + R_CORE_OUT) / 2, midA);
-    const rot = labelRotation(midA);
-    html += `<path class="seg seg-core" data-key="${core.key}" d="${arcSegment(CX, CY, R_CORE_IN, R_CORE_OUT, a0, a1)}" fill="${fill}"></path>`;
-    html += `<text class="seg-label" x="${lblPos.x.toFixed(1)}" y="${lblPos.y.toFixed(1)}" transform="rotate(${rot.toFixed(1)} ${lblPos.x.toFixed(1)} ${lblPos.y.toFixed(1)})" font-size="13" font-weight="bold" fill="#ffffff">${escapeHtml(core.label)}</text>`;
-  });
-  html += `<circle cx="${CX}" cy="${CY}" r="${R_CORE_IN - 3}" fill="var(--input-bg)" stroke="var(--border)"></circle>`;
-  html += `<text class="wheel-hint" id="hubEmoji" x="${CX}" y="${CY - 6}" font-size="26"></text>`;
-  html += `<text class="wheel-hint" id="hubLabel" x="${CX}" y="${CY + 18}" font-size="12.5" fill="#888" font-family="sans-serif">Tap feelings</text>`;
-  svg.innerHTML = html;
-  svg.querySelectorAll(".seg-core").forEach((seg) => {
-    seg.addEventListener("click", () => {
-      const core = CORE_EMOTIONS.find((c) => c.key === seg.dataset.key);
-      toggleFeeling({ key: core.key, label: core.label, core: core.key, emoji: core.emoji });
-    });
-  });
-  svg.querySelectorAll(".seg-feel").forEach((seg) => {
-    seg.addEventListener("click", () => {
-      const f = FEELINGS_LOOKUP[seg.dataset.key];
-      toggleFeeling({ key: f.key, label: f.label, core: f.core, emoji: f.emoji });
-    });
-  });
+  updateWheelHighlights();
 }
 
 function clearWheelSelection() {
-  document.querySelectorAll(".seg").forEach((s) => s.classList.remove("selected"));
+  document.querySelectorAll(".emo-btn.selected").forEach((b) => b.classList.remove("selected"));
 }
 
 function updateWheelHighlights() {
-  clearWheelSelection();
-  selectedFeelings.forEach((f) => {
-    const seg = document.querySelector(`.seg[data-key="${CSS.escape(f.key)}"]`);
-    if (seg) seg.classList.add("selected");
+  document.querySelectorAll(".emo-btn").forEach((btn) => {
+    const f = FEELINGS_LOOKUP[btn.dataset.key];
+    if (!f) return;
+    const sel = selectedFeelings.some((x) => x.key === btn.dataset.key);
+    btn.classList.toggle("selected", sel);
+    const col = feelingColor(f);
+    btn.style.background = sel ? col : "";
+    btn.style.borderColor = sel ? col : "";
+    btn.style.color = sel ? "#fff" : "";
   });
 }
 
@@ -2906,12 +2949,13 @@ function toggleFeeling(feeling) {
       core: feeling.core,
       emoji: feeling.emoji,
       intensity: feeling.intensity || 3,
+      color: feeling.color || (typeof feeling.hue === "number" ? `hsl(${feeling.hue}, 62%, 46%)` : null),
     });
   }
   updateWheelHighlights();
   renderTags();
   renderIntensityRows();
-  updateHub();
+  updateSelectionSummary();
   updateCheckinBtn();
   saveDraft();
 }
@@ -2955,7 +2999,7 @@ function renderIntensityRows() {
 function updateCheckinBtn() {
   const hint = document.getElementById("checkinHint");
   if (selectedFeelings.length === 0) {
-    hint.textContent = "👆 Select at least one feeling on the wheel above first";
+    hint.textContent = "👆 Select at least one feeling above first";
     hint.className = "checkin-hint warn";
   } else {
     hint.textContent = "Ready to log " + selectedFeelings.length + " feeling" + (selectedFeelings.length === 1 ? "" : "s");
@@ -2969,7 +3013,7 @@ function renderTags() {
   selectedFeelings.forEach((f) => {
     const tag = document.createElement("span");
     tag.className = "feel-tag";
-    tag.style.background = coreColor(f.core);
+    tag.style.background = f.color || coreColor(f.core);
     tag.innerHTML = `<span class="ft-emoji">${f.emoji}</span><span>${escapeHtml(f.label)}</span><span class="ft-x" data-key="${f.key}" role="button">×</span>`;
     container.appendChild(tag);
   });
@@ -2981,30 +3025,37 @@ function renderTags() {
   });
 }
 
-function updateHub() {
-  const hubEmoji = document.getElementById("hubEmoji");
-  const hubLabel = document.getElementById("hubLabel");
+function updateSelectionSummary() {
   const disp = document.getElementById("selDisplay");
-  if (!hubEmoji) return;
+  if (!disp) return;
   if (selectedFeelings.length === 0) {
-    hubEmoji.textContent = "";
-    hubLabel.textContent = "Tap feelings";
-    hubLabel.setAttribute("fill", "#888");
-    hubLabel.removeAttribute("font-weight");
     disp.textContent = "";
+  } else if (selectedFeelings.length === 1) {
+    const f = selectedFeelings[0];
+    disp.innerHTML = `You selected: <span class="pick-emoji">${f.emoji}</span> <strong>${escapeHtml(f.label)}</strong>`;
   } else {
-    hubEmoji.textContent = selectedFeelings[0].emoji;
-    hubLabel.setAttribute("fill", "#5e7a68");
-    hubLabel.setAttribute("font-weight", "bold");
-    if (selectedFeelings.length === 1) {
-      hubLabel.textContent = selectedFeelings[0].label;
-      disp.innerHTML = `You selected: <span class="pick-emoji">${selectedFeelings[0].emoji}</span> <strong>${escapeHtml(selectedFeelings[0].label)}</strong>`;
-    } else {
-      hubLabel.textContent = selectedFeelings.length + " feelings";
-      disp.innerHTML = `<strong>${selectedFeelings.length} feelings selected</strong>`;
-    }
+    disp.innerHTML = `<strong>${selectedFeelings.length} feelings selected</strong>`;
   }
 }
+
+function submitCustomEmotion() {
+  const inp = document.getElementById("customEmoInput");
+  const res = addCustomEmotion(inp.value);
+  inp.value = "";
+  if (res.dup) {
+    inp.placeholder = "Already on your list";
+    setTimeout(() => { inp.placeholder = "Add your own emotion..."; }, 1500);
+    return;
+  }
+  if (res.ok) {
+    populateEmotionFilter();
+    toggleFeeling(FEELINGS_LOOKUP[res.key]);
+  }
+}
+document.getElementById("customEmoAdd").addEventListener("click", submitCustomEmotion);
+document.getElementById("customEmoInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { e.preventDefault(); submitCustomEmotion(); }
+});
 
 /* ============================================================ *
  *  Context tags
@@ -3142,7 +3193,7 @@ document.getElementById("cancelEdit").addEventListener("click", () => {
 document.getElementById("quickCheckin").addEventListener("click", () => {
   if (selectedFeelings.length === 0) {
     const hint = document.getElementById("checkinHint");
-    hint.textContent = "⚠️ Please select at least one feeling on the wheel above";
+    hint.textContent = "⚠️ Please select at least one feeling above";
     hint.className = "checkin-hint warn";
     setTimeout(() => updateCheckinBtn(), 4000);
     return;
@@ -3180,10 +3231,6 @@ function clearForm() {
   selectedCtxTags = [];
   clearWheelSelection();
   renderCtxTags();
-  const hubEmoji = document.getElementById("hubEmoji");
-  const hubLabel = document.getElementById("hubLabel");
-  if (hubEmoji) hubEmoji.textContent = "";
-  if (hubLabel) { hubLabel.textContent = "Tap feelings"; hubLabel.setAttribute("fill", "#888"); hubLabel.removeAttribute("font-weight"); }
   document.getElementById("selDisplay").textContent = "";
   document.getElementById("wheelTags").innerHTML = "";
   document.getElementById("intensityRows").innerHTML = "";
@@ -3217,7 +3264,7 @@ function startEdit(id) {
   renderTags();
   renderIntensityRows();
   renderCtxTags();
-  updateHub();
+  updateSelectionSummary();
   updateCheckinBtn();
   document.getElementById("saveEntry").textContent = "Update Entry";
   document.getElementById("cancelEdit").style.display = "";
@@ -3382,6 +3429,14 @@ function populateEmotionFilter() {
     });
   });
   html += '</optgroup>';
+  if (customEmotions.length) {
+    html += '<optgroup label="Your emotions">';
+    customEmotions.forEach((c) => {
+      const f = FEELINGS_LOOKUP[c.key];
+      html += `<option value="${f.key}">${f.emoji} ${f.label}</option>`;
+    });
+    html += '</optgroup>';
+  }
   sel.innerHTML = html;
   sel.value = current;
 }
@@ -3390,9 +3445,13 @@ function populateEmotionFilter() {
  *  Charts + Heatmap + Trend + Summary
  * ============================================================ */
 function renderLegend() {
-  document.getElementById("legend").innerHTML = CORE_EMOTIONS.map((c) =>
+  let html = CORE_EMOTIONS.map((c) =>
     `<span class="legend-item"><span class="legend-swatch" style="background:${c.color}"></span>${c.emoji} ${c.label}</span>`
   ).join("");
+  if (customEmotions.length) {
+    html += `<span class="legend-item"><span class="legend-swatch" style="background:#9b7fc7"></span>✨ Yours</span>`;
+  }
+  document.getElementById("legend").innerHTML = html;
 }
 
 function renderChart() {
@@ -3841,7 +3900,7 @@ document.getElementById("darkToggle").addEventListener("click", () => {
     localStorage.setItem("mj_theme", "dark");
   }
   refreshAllViews();
-  renderEmotionWheel();
+  renderEmotionPicker();
   updateWheelHighlights();
 });
 
@@ -4153,7 +4212,7 @@ function restoreDraft() {
       updateWheelHighlights();
       renderTags();
       renderIntensityRows();
-      updateHub();
+      updateSelectionSummary();
       updateCheckinBtn();
     }
     if (Array.isArray(d.ctxTags)) {
@@ -4182,7 +4241,7 @@ updateFooterQuote();
 
 function initApp() {
   loadEntries();
-  renderEmotionWheel();
+  renderEmotionPicker();
   renderPrompts();
   renderLegend();
   populateEmotionFilter();
