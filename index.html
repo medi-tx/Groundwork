@@ -630,6 +630,68 @@
     padding: 0 0.3rem;
   }
   .slot-item .slot-del:hover { color: #c66; }
+  .slot-item .slot-act {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 1rem;
+    transition: color 0.2s;
+    padding: 0 0.3rem;
+  }
+  .slot-item .slot-act:hover { color: var(--primary); }
+  .slot-item.editing { flex-wrap: wrap; border-color: var(--primary); }
+  .se-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; width: 100%; align-items: center; }
+  .se-grid input,
+  .se-grid select {
+    font-family: sans-serif;
+    font-size: 0.82rem;
+    padding: 0.35rem 0.45rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+  }
+  .se-grid .se-label { flex: 1; min-width: 140px; }
+  .sed-row { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+  .sed-btn {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 0.72rem;
+    padding: 0.25rem 0.5rem;
+    color: var(--text);
+    transition: all 0.15s;
+  }
+  .sed-btn.selected { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .preset-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.3rem 0.45rem 0.3rem 0.9rem;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    color: var(--text);
+    transition: border 0.2s;
+  }
+  .preset-chip:hover { border-color: var(--primary); }
+  .preset-chip .pc-name { cursor: pointer; user-select: none; }
+  .preset-chip .pc-name:hover { color: var(--primary-dark); }
+  .preset-chip .pc-del {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 0.1rem 0.35rem;
+    line-height: 1;
+  }
+  .preset-chip .pc-del:hover { color: #c66; }
   .slot-empty {
     text-align: center;
     padding: 2.5rem 1rem;
@@ -1961,7 +2023,17 @@
         <button class="btn btn-secondary" id="presetMorning" style="font-size:0.8rem;padding:0.5rem 1rem;">🌅 Morning routine</button>
         <button class="btn btn-secondary" id="presetEvening" style="font-size:0.8rem;padding:0.5rem 1rem;">🌙 Evening routine</button>
         <button class="btn btn-secondary" id="presetTherapy" style="font-size:0.8rem;padding:0.5rem 1rem;">🧠 Therapy schedule</button>
+        <button class="btn btn-secondary" id="printSchedule" style="font-size:0.8rem;padding:0.5rem 1rem;">🖨️ Print schedule</button>
         <button class="btn btn-danger" id="clearSchedule" style="font-size:0.8rem;padding:0.5rem 1rem;">🗑 Clear all</button>
+      </div>
+
+      <div style="margin-bottom:0.6rem;">
+        <label style="font-family:sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;display:block;margin-bottom:0.4rem;">Your preset schedules</label>
+        <div id="userPresetBtns" style="display:flex;gap:0.4rem;flex-wrap:wrap;"></div>
+        <p id="noPresetsNote" style="font-family:sans-serif;font-size:0.78rem;color:var(--text-muted);font-style:italic;margin:0.2rem 0 0;">None saved yet. Set up the slots you like below, then click "💾 Save current as preset". Click a saved preset any time to add it back into your schedule.</p>
+      </div>
+      <div style="margin-bottom:1rem;">
+        <button class="btn btn-secondary" id="saveAsPreset" style="font-size:0.8rem;padding:0.5rem 1rem;">💾 Save current as preset</button>
       </div>
 
       <h3>Today's Schedule <span id="todayLabel" style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-weight:normal;"></span></h3>
@@ -2601,7 +2673,7 @@ let currentUser = null;       // logged-in Firebase user
 let accessMode = "locked";    // "locked" | "full" | "guest"
 let cloudTimer = null;
 let cloudLoading = false;     // suppress sync while writing from cloud
-const SYNC_KEYS = ["mindfulJournalEntries", "mindfulDraft", "mj_cbt", "mj_customEmotions", "mj_customTheme", "mj_erpHierarchy", "mj_fontSize", "mj_quotes", "mj_safetyPlan", "mj_schedule", "mj_todos", "mj_theme"];
+const SYNC_KEYS = ["mindfulJournalEntries", "mindfulDraft", "mj_cbt", "mj_customEmotions", "mj_customTheme", "mj_erpHierarchy", "mj_fontSize", "mj_quotes", "mj_safetyPlan", "mj_schedule", "mj_schedulePresets", "mj_todos", "mj_theme"];
 
 function scheduleCloudPush() {
   if (cloudTimer) clearTimeout(cloudTimer);
@@ -4595,38 +4667,105 @@ function saveSchedule() {
   localStorage.setItem("mj_schedule", JSON.stringify(scheduleSlots));
 }
 
+const SLOT_TYPE_LABELS = { checkin: "Check-in", reflect: "Reflection", meeting: "Therapy/Meeting", medication: "Medication", exercise: "Exercise", mindfulness: "Mindfulness", social: "Social", sleep: "Sleep", other: "Other" };
+const SLOT_TYPE_EMOJIS = { checkin: "📝", reflect: "🤔", meeting: "🧠", medication: "💊", exercise: "🏋️", mindfulness: "🧘", social: "👥", sleep: "😴", other: "📌" };
+const SLOT_DAY_LABELS = { daily: "Daily", weekdays: "Weekdays", weekends: "Weekends" };
+let editingSlotId = null;
+
+function slotDaysLabel(slot) {
+  if (slot.days === "custom") {
+    return (slot.customDays || []).map((d) => ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][d]).join(", ") || "Custom";
+  }
+  return SLOT_DAY_LABELS[slot.days] || "Daily";
+}
+
 function renderScheduleSlots() {
   loadSchedule();
   const list = document.getElementById("slotList");
   if (!list) return;
   list.innerHTML = "";
   scheduleSlots.sort((a, b) => a.time.localeCompare(b.time));
-  const typeLabels = { checkin: "Check-in", reflect: "Reflection", meeting: "Therapy/Meeting", medication: "Medication", exercise: "Exercise", mindfulness: "Mindfulness", social: "Social", sleep: "Sleep", other: "Other" };
-  const typeEmojis = { checkin: "📝", reflect: "🤔", meeting: "🧠", medication: "💊", exercise: "🏋️", mindfulness: "🧘", social: "👥", sleep: "😴", other: "📌" };
-  const dayLabels = { daily: "Daily", weekdays: "Weekdays", weekends: "Weekends" };
   if (scheduleSlots.length === 0) {
     list.innerHTML = `<div class="slot-empty"><span class="big-emoji">📋</span>No scheduled slots yet. Add times above or try a preset.</div>`;
     renderTodaySchedule();
+    renderUserPresets();
     return;
   }
   scheduleSlots.forEach((slot) => {
     const item = document.createElement("div");
+    if (editingSlotId === slot.id) {
+      item.className = "slot-item editing";
+      item.innerHTML = `
+        <div class="se-grid">
+          <input type="time" class="se-time" value="${slot.time}">
+          <input type="text" class="se-label" placeholder="Label (optional)">
+          <select class="se-type">${Object.keys(SLOT_TYPE_LABELS).map((k) => `<option value="${k}"${slot.type === k ? " selected" : ""}>${SLOT_TYPE_LABELS[k]}</option>`).join("")}</select>
+          <input type="number" class="se-dur" value="${slot.duration || 15}" min="1" max="480" title="Duration (min)" style="width:64px;">
+          <select class="se-days">${["daily","weekdays","weekends","custom"].map((d) => `<option value="${d}"${slot.days === d ? " selected" : ""}>${d === "daily" ? "Every day" : d === "weekdays" ? "Weekdays only" : d === "weekends" ? "Weekends only" : "Custom days"}</option>`).join("")}</select>
+          <div class="sed-row" style="display:${slot.days === "custom" ? "flex" : "none"};">${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((n, i) => `<button type="button" class="sed-btn${(slot.customDays || []).includes((i + 1) % 7) ? " selected" : ""}" data-day="${(i + 1) % 7}">${n}</button>`).join("")}</div>
+          <button class="btn btn-primary se-save" style="font-size:0.75rem;padding:0.4rem 0.8rem;">💾 Save</button>
+          <button class="btn btn-secondary se-cancel" style="font-size:0.75rem;padding:0.4rem 0.8rem;">Cancel</button>
+        </div>`;
+      list.appendChild(item);
+      item.querySelector(".se-label").value = slot.label || "";
+      item.querySelector(".se-days").addEventListener("change", (e) => {
+        item.querySelector(".sed-row").style.display = e.target.value === "custom" ? "flex" : "none";
+      });
+      item.querySelectorAll(".sed-btn").forEach((b) => b.addEventListener("click", () => b.classList.toggle("selected")));
+      item.querySelector(".se-cancel").addEventListener("click", () => {
+        editingSlotId = null;
+        renderScheduleSlots();
+      });
+      item.querySelector(".se-save").addEventListener("click", () => {
+        const time = item.querySelector(".se-time").value;
+        if (!time) { alert("Pick a time for this slot."); return; }
+        const days = item.querySelector(".se-days").value;
+        let customDays = slot.customDays || [];
+        if (days === "custom") {
+          customDays = [...item.querySelectorAll(".sed-btn.selected")].map((b) => parseInt(b.dataset.day));
+          if (customDays.length === 0) { alert("Pick at least one day for this slot."); return; }
+        }
+        slot.time = time;
+        slot.label = item.querySelector(".se-label").value.trim();
+        slot.type = item.querySelector(".se-type").value;
+        slot.duration = parseInt(item.querySelector(".se-dur").value) || 15;
+        slot.days = days;
+        slot.customDays = customDays;
+        editingSlotId = null;
+        saveSchedule();
+        renderScheduleSlots();
+      });
+      return;
+    }
     item.className = "slot-item";
-    const daysLabel = slot.days === "custom" ? (slot.customDays || []).map(d => ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][d]).join(", ") : (dayLabels[slot.days] || "Daily");
+    const daysLabel = slotDaysLabel(slot);
     item.innerHTML = `
       <span class="slot-time">${escapeHtml(formatTimeString(slot.time))}</span>
-      <span class="slot-type t-${slot.type}">${typeEmojis[slot.type] || "📌"} ${typeLabels[slot.type] || slot.type}</span>
+      <span class="slot-type t-${slot.type}">${SLOT_TYPE_EMOJIS[slot.type] || "📌"} ${SLOT_TYPE_LABELS[slot.type] || slot.type}</span>
       <span class="slot-label">${escapeHtml(slot.label || "")}</span>
       <span class="slot-dur">${slot.duration || 15} min</span>
       <span class="slot-days">${escapeHtml(daysLabel)}</span>
+      <button class="slot-act slot-edit" data-id="${slot.id}" title="Edit">✏️</button>
       <button class="slot-del" data-id="${slot.id}" title="Delete">🗑</button>`;
     list.appendChild(item);
   });
+  list.querySelectorAll(".slot-edit").forEach((b) => {
+    b.addEventListener("click", () => {
+      editingSlotId = b.dataset.id;
+      renderScheduleSlots();
+    });
+  });
   list.querySelectorAll(".slot-del").forEach((b) => {
     b.addEventListener("click", () => {
+      if (editingSlotId === b.dataset.id) editingSlotId = null;
       scheduleSlots = scheduleSlots.filter((s) => s.id !== b.dataset.id);
       saveSchedule();
-renderScheduleSlots();
+      renderScheduleSlots();
+    });
+  });
+  renderTodaySchedule();
+  renderUserPresets();
+}
 
 /* ============================================================ *
  *  To-Do List
@@ -4708,10 +4847,6 @@ function updateTodoFilterButtons() {
   document.getElementById("todoFilterDone").classList.toggle("selected", todoFilter === "done");
 }
 renderTodos();
-    });
-  });
-  renderTodaySchedule();
-}
 
 function renderTodaySchedule() {
   var container = document.getElementById("todaySchedule");
@@ -4953,6 +5088,107 @@ document.getElementById("exportIcsBtn").addEventListener("click", () => {
 function formatIcsTime(h, m) {
   return String(h).padStart(2, "0") + String(m).padStart(2, "0") + "00";
 }
+
+/* ============================================================ *
+ *  User-defined schedule presets
+ * ============================================================ */
+let schedulePresets = [];
+function loadSchedulePresets() {
+  try {
+    schedulePresets = JSON.parse(localStorage.getItem("mj_schedulePresets") || "[]");
+  } catch (e) { schedulePresets = []; }
+  if (!Array.isArray(schedulePresets)) schedulePresets = [];
+}
+function persistSchedulePresets() {
+  localStorage.setItem("mj_schedulePresets", JSON.stringify(schedulePresets));
+}
+function renderUserPresets() {
+  loadSchedulePresets();
+  const box = document.getElementById("userPresetBtns");
+  const note = document.getElementById("noPresetsNote");
+  if (!box) return;
+  box.innerHTML = "";
+  if (schedulePresets.length === 0) {
+    if (note) note.style.display = "";
+    return;
+  }
+  if (note) note.style.display = "none";
+  schedulePresets.forEach((p) => {
+    const chip = document.createElement("span");
+    chip.className = "preset-chip";
+    chip.innerHTML = `<span class="pc-name">${escapeHtml(p.name)} <span style="color:var(--text-muted);">· ${p.slots.length} slot${p.slots.length === 1 ? "" : "s"}</span></span><button class="pc-del" title="Delete preset" data-id="${p.id}">✕</button>`;
+    chip.querySelector(".pc-name").addEventListener("click", () => applySchedulePreset(p.id));
+    chip.querySelector(".pc-del").addEventListener("click", () => {
+      if (confirm(`Delete preset "${p.name}"? Your scheduled slots won't change.`)) {
+        schedulePresets = schedulePresets.filter((x) => x.id !== p.id);
+        persistSchedulePresets();
+        renderUserPresets();
+      }
+    });
+    box.appendChild(chip);
+  });
+}
+function applySchedulePreset(id) {
+  loadSchedulePresets();
+  const p = schedulePresets.find((x) => x.id === id);
+  if (!p || !p.slots || !p.slots.length) { alert("That preset has no slots left."); return; }
+  p.slots.forEach((s) => scheduleSlots.push(Object.assign({}, s, { id: Date.now().toString() + Math.random().toString(36).slice(2, 6) })));
+  saveSchedule();
+  editingSlotId = null;
+  renderScheduleSlots();
+}
+document.getElementById("saveAsPreset").addEventListener("click", () => {
+  loadSchedule();
+  if (scheduleSlots.length === 0) { alert("Add some slots to your schedule first, then save them as a preset."); return; }
+  const name = prompt("Name this preset schedule:", "My routine");
+  if (name === null) return;
+  const clean = name.trim() || "Untitled routine";
+  loadSchedulePresets();
+  schedulePresets.push({
+    id: Date.now().toString(),
+    name: clean,
+    slots: scheduleSlots.map((s) => ({ time: s.time, label: s.label || "", type: s.type, duration: s.duration || 15, days: s.days || "daily", customDays: (s.customDays || []).slice() })),
+  });
+  persistSchedulePresets();
+  renderUserPresets();
+});
+
+/* ============================================================ *
+ *  Print schedule
+ * ============================================================ */
+function schedPrintGroup(title, rows) {
+  return `<h2>${title}</h2>` + rows.map((s) => `<div class="row"><span class="time">${formatTimeString(s.time)}</span><span class="type">${SLOT_TYPE_EMOJIS[s.type] || "📌"} ${SLOT_TYPE_LABELS[s.type] || s.type}</span><span class="lbl">${escapeHtml(s.label || "")}</span><span class="dur">${s.duration || 15} min</span></div>`).join("");
+}
+document.getElementById("printSchedule").addEventListener("click", () => {
+  loadSchedule();
+  if (scheduleSlots.length === 0) { alert("Nothing to print yet — add some slots first."); return; }
+  let body = "";
+  [
+    { title: "Every day", match: (s) => s.days === "daily" },
+    { title: "Weekdays (Mon–Fri)", match: (s) => s.days === "weekdays" },
+    { title: "Weekends (Sat–Sun)", match: (s) => s.days === "weekends" },
+  ].forEach((g) => {
+    const rows = scheduleSlots.filter(g.match).sort((a, b) => a.time.localeCompare(b.time));
+    if (rows.length) body += schedPrintGroup(g.title, rows);
+  });
+  const byDays = {};
+  scheduleSlots.filter((s) => s.days === "custom").forEach((s) => {
+    const key = (s.customDays || []).slice().sort().join("-");
+    (byDays[key] = byDays[key] || []).push(s);
+  });
+  Object.keys(byDays).sort().forEach((key) => {
+    const names = key.split("-").filter(Boolean).map((d) => ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][parseInt(d)]).join(", ");
+    body += schedPrintGroup(names || "Custom days", byDays[key].sort((a, b) => a.time.localeCompare(b.time)));
+  });
+  const w = window.open("", "_blank");
+  if (!w) { alert("Your browser blocked the print window. Please allow pop-ups for this site, then try again."); return; }
+  w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>My Schedule</title><style>' +
+    'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;margin:32px;color:#111;} h1{font-weight:normal;font-size:26px;margin:0;} .meta{color:#777;font-size:12px;margin:4px 0 24px;} h2{font-size:14px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #333;padding-bottom:4px;margin:24px 0 8px;} .row{display:flex;gap:14px;padding:7px 2px;border-bottom:1px solid #ddd;font-size:13px;align-items:baseline;} .time{font-weight:bold;width:92px;flex-shrink:0;} .type{width:160px;flex-shrink:0;} .dur{color:#777;margin-left:auto;white-space:nowrap;} .footer{margin-top:28px;color:#999;font-size:11px;}' +
+    '</style></head><body><h1>🗓️ My Schedule</h1><div class="meta">Printed ' + new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" }) + '</div>' + body + '<div class="footer">Made with Groundwork</div></body></html>');
+  w.document.close();
+  w.focus();
+  w.print();
+});
 
 renderScheduleSlots();
 
