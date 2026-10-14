@@ -3,65 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="theme-color" content="#5e7a68">
+<meta name="theme-color" content="#e85d93">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Groundwork">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='36' fill='%235e7a68'/%3E%3Ctext x='90' y='115' font-size='90' text-anchor='middle' fill='white'%3E%F0%9F%92%9A%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='36' fill='%23e85d93'/%3E%3Ctext x='90' y='115' font-size='90' text-anchor='middle' fill='white'%3E%F0%9F%8C%B8%3C/text%3E%3C/svg%3E">
 <link rel="manifest" id="manifestLink">
-<title>Groundwork - Mental Health Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Groundwork 🌸 - Mental Health Journal</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <style>
   :root {
-    --bg: #f7f5f0;
+    --bg: #fdf2f6;
     --surface: #ffffff;
-    --primary: #7c9885;
-    --primary-dark: #3d5444;
-    --text: #000000;
-    --text-muted: #555555;
-    --border: #d5cfc2;
-    --shadow: 0 2px 12px rgba(0,0,0,0.06);
-    --shadow-lg: 0 6px 24px rgba(0,0,0,0.12);
-    --radius: 14px;
-    --input-bg: #fdfdfb;
-    --heat-0: #ebedf0;
-    --heat-1: #c6e48b;
-    --heat-2: #7bc96f;
-    --heat-3: #239a3b;
-    --heat-4: #196127;
+    --primary: #e85d93;
+    --primary-dark: #b23a68;
+    --text: #3a2b33;
+    --text-muted: #8b6a7a;
+    --border: #f4d3de;
+    --shadow: 0 2px 12px rgba(232, 93, 147, 0.10);
+    --shadow-lg: 0 6px 24px rgba(232, 93, 147, 0.18);
+    --radius: 18px;
+    --input-bg: #fffaFC;
+    --accent: #f48fb1;
+    --heat-0: #f6e6ec;
+    --heat-1: #fbc7d9;
+    --heat-2: #f798ba;
+    --heat-3: #ee5f93;
+    --heat-4: #b8356a;
   }
 
   [data-theme="dark"] {
-    --bg: #0d0d1a;
-    --surface: #1a1a2e;
-    --primary: #88a;
-    --primary-dark: #b8d4c0;
-    --text: #f0f0f8;
-    --text-muted: #c0c0d8;
-    --border: #3a3a5c;
+    --bg: #1c1219;
+    --surface: #2a1c26;
+    --primary: #e86a9c;
+    --primary-dark: #f8bbd0;
+    --text: #fceef4;
+    --text-muted: #d4b6c4;
+    --border: #4d3544;
     --shadow: 0 2px 12px rgba(0,0,0,0.3);
     --shadow-lg: 0 6px 24px rgba(0,0,0,0.45);
-    --input-bg: #22223e;
-    --heat-0: #2a2a4a;
-    --heat-1: #0e4429;
-    --heat-2: #006d32;
-    --heat-3: #26a641;
-    --heat-4: #39d353;
+    --input-bg: #33232f;
+    --accent: #f8bbd0;
+    --heat-0: #3a2632;
+    --heat-1: #5c2b40;
+    --heat-2: #a33a63;
+    --heat-3: #e05a90;
+    --heat-4: #f9a8c9;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: "Georgia", "Times New Roman", serif;
+    font-family: "Quicksand", "Segoe UI", sans-serif;
+    font-weight: 500;
     background: var(--bg);
     color: var(--text);
     line-height: 1.7;
     min-height: 100vh;
     padding-bottom: 60px;
     transition: background 0.3s, color 0.3s;
+  }
+
+  .entry-card p, .quote-item, footer .quote, .tr-saved-item .tr-row-val, .sm-preview {
+    font-family: "Georgia", "Times New Roman", serif;
+  }
+
+  /* Falling cherry blossom petals */
+  .petal-rain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 900;
+  }
+  .petal {
+    position: absolute;
+    top: -24px;
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(135deg, #ffd7e6, #f79ac0);
+    border-radius: 70% 10% 70% 70%;
+    opacity: 0.75;
+    animation: petalFall linear infinite;
+    box-shadow: 0 0 6px rgba(244, 143, 177, 0.5);
+  }
+  .petal:nth-child(1)  { left: 4%;  animation-duration: 13s; animation-delay: 0s;    transform: scale(0.8); }
+  .petal:nth-child(2)  { left: 12%; animation-duration: 17s; animation-delay: 2.5s;  transform: scale(1.1); }
+  .petal:nth-child(3)  { left: 21%; animation-duration: 15s; animation-delay: 6s;    transform: scale(0.7); }
+  .petal:nth-child(4)  { left: 30%; animation-duration: 19s; animation-delay: 1s;    transform: scale(0.95); }
+  .petal:nth-child(5)  { left: 39%; animation-duration: 14s; animation-delay: 8s;    transform: scale(0.85); }
+  .petal:nth-child(6)  { left: 48%; animation-duration: 18s; animation-delay: 4s;    transform: scale(1); }
+  .petal:nth-child(7)  { left: 57%; animation-duration: 16s; animation-delay: 10s;   transform: scale(0.75); }
+  .petal:nth-child(8)  { left: 66%; animation-duration: 20s; animation-delay: 3s;    transform: scale(1.05); }
+  .petal:nth-child(9)  { left: 75%; animation-duration: 15s; animation-delay: 7s;    transform: scale(0.8); }
+  .petal:nth-child(10) { left: 84%; animation-duration: 18s; animation-delay: 12s;   transform: scale(0.9); }
+  .petal:nth-child(11) { left: 91%; animation-duration: 16s; animation-delay: 5s;    transform: scale(1.1); }
+  .petal:nth-child(12) { left: 97%; animation-duration: 21s; animation-delay: 9s;    transform: scale(0.7); }
+  @keyframes petalFall {
+    0%   { transform: translate3d(0, -24px, 0) rotate(0deg); opacity: 0; }
+    8%   { opacity: 0.75; }
+    50%  { transform: translate3d(40px, 52vh, 0) rotate(180deg); }
+    92%  { opacity: 0.75; }
+    100% { transform: translate3d(-30px, 110vh, 0) rotate(360deg); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .petal-rain { display: none; }
+    .title-blossom, .gate-card .gate-icon, .big-emoji { animation: none; }
+    .btn:hover, .icon-btn:hover, nav button:hover, .entry-card:hover, .stat-card:hover { transform: none; }
+  }
+  @media print {
+    .petal-rain { display: none; }
   }
 
   /* Access gate */
@@ -88,7 +145,7 @@
   }
   .gate-card .gate-icon { font-size: 3rem; display: block; margin-bottom: 0.8rem; }
   .gate-card h2 { font-weight: normal; color: var(--primary-dark); margin-bottom: 0.4rem; }
-  .gate-card .gate-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; font-family: sans-serif; }
+  .gate-card .gate-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; font-family:Quicksand,sans-serif; }
   .gate-card input {
     width: 100%;
     padding: 0.8rem 1rem;
@@ -99,34 +156,34 @@
     background: var(--input-bg);
     color: var(--text);
     margin-bottom: 1rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
   }
   .gate-card input:focus { outline: none; border-color: var(--primary); }
   .gate-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; }
-  .gate-tab { flex: 1; padding: 0.6rem; border: 1px solid var(--border); border-radius: 50px; background: var(--input-bg); color: var(--text); font-family: sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; }
+  .gate-tab { flex: 1; padding: 0.6rem; border: 1px solid var(--border); border-radius: 50px; background: var(--input-bg); color: var(--text); font-family:Quicksand,sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; }
   .gate-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: bold; }
-  .gate-err { color: #c66; font-size: 0.85rem; font-family: sans-serif; min-height: 1.2rem; margin-bottom: 0.5rem; }
+  .gate-err { color: #c66; font-size: 0.85rem; font-family:Quicksand,sans-serif; min-height: 1.2rem; margin-bottom: 0.5rem; }
   .gate-or {
     display: flex;
     align-items: center;
     gap: 0.8rem;
     margin: 1rem 0;
     color: var(--text-muted);
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.8rem;
   }
   .gate-or::before, .gate-or::after { content: ""; flex: 1; height: 1px; background: var(--border); }
   .gate-btns { display: flex; flex-direction: column; gap: 0.6rem; }
-  .gate-badge { display: inline-block; font-family: sans-serif; font-size: 0.72rem; padding: 0.15rem 0.5rem; border-radius: 100px; background: var(--primary); color: #fff; margin-left: 0.4rem; vertical-align: middle; }
-  .guest-badge { display: inline-block; font-family: sans-serif; font-size: 0.72rem; padding: 0.15rem 0.5rem; border-radius: 100px; background: var(--accent); color: #fff; margin-left: 0.4rem; vertical-align: middle; }
+  .gate-badge { display: inline-block; font-family:Quicksand,sans-serif; font-size: 0.72rem; padding: 0.15rem 0.5rem; border-radius: 100px; background: var(--primary); color: #fff; margin-left: 0.4rem; vertical-align: middle; }
+  .guest-badge { display: inline-block; font-family:Quicksand,sans-serif; font-size: 0.72rem; padding: 0.15rem 0.5rem; border-radius: 100px; background: var(--accent); color: #fff; margin-left: 0.4rem; vertical-align: middle; }
 
   /* Reminder banner */
   .reminder-banner {
-    background: linear-gradient(135deg, #f0e6d3, #eadecb);
+    background: linear-gradient(135deg, #ffe4ef, #ffd3e3);
     border-bottom: 1px solid var(--border);
     padding: 0.9rem 1.5rem;
     text-align: center;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.9rem;
     color: var(--primary-dark);
     display: flex;
@@ -135,7 +192,7 @@
     gap: 0.8rem;
     flex-wrap: wrap;
   }
-  [data-theme="dark"] .reminder-banner { background: linear-gradient(135deg, #2a2a4a, #332); }
+  [data-theme="dark"] .reminder-banner { background: linear-gradient(135deg, #3d2437, #4a2b41); }
   .reminder-banner.hidden { display: none; }
   .reminder-banner .rb-close {
     cursor: pointer;
@@ -152,7 +209,7 @@
     border-radius: 10px;
     padding: 1rem 1.2rem;
     margin-bottom: 1.5rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.85rem;
     color: #7a6100;
     display: flex;
@@ -289,7 +346,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 0.6rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
   }
 
   /* Prompts */
@@ -311,7 +368,7 @@
     border-radius: 10px;
     padding: 0.8rem 1rem;
     cursor: pointer;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.85rem;
     color: var(--text);
     transition: all 0.2s;
@@ -335,7 +392,7 @@
     color: var(--text-muted);
     cursor: pointer;
     font-size: 0.8rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     margin-bottom: 0.6rem;
     padding: 0;
     transition: color 0.2s;
@@ -351,7 +408,7 @@
   .selection-display {
     margin-top: 0.8rem;
     min-height: 1.6rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     color: var(--primary-dark);
     font-size: 1.05rem;
   }
@@ -374,7 +431,7 @@
     gap: 0.4rem;
     padding: 0.42rem 0.7rem 0.42rem 0.9rem;
     border-radius: 100px;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.85rem;
     color: #fff;
     user-select: none;
@@ -404,14 +461,14 @@
   .emo-groups { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem; text-align: left; }
   .emo-group-title {
     display: flex; align-items: center; gap: 0.45rem;
-    font-family: sans-serif; font-size: 0.78rem; font-weight: bold;
+    font-family:Quicksand,sans-serif; font-size: 0.78rem; font-weight: bold;
     letter-spacing: 0.5px; text-transform: uppercase;
     color: var(--text-muted); margin-bottom: 0.45rem;
   }
   .emo-group-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
   .emo-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
   .emo-btn {
-    font-family: sans-serif; font-size: 0.85rem; line-height: 1.3;
+    font-family:Quicksand,sans-serif; font-size: 0.85rem; line-height: 1.3;
     padding: 0.42rem 0.85rem; border-radius: 100px; cursor: pointer;
     background: var(--surface); color: var(--text);
     border: 1.5px solid var(--border);
@@ -425,7 +482,7 @@
   .emo-add-row input {
     flex: 1; min-width: 0; margin-bottom: 0;
     padding: 0.55rem 0.85rem; border: 1px solid var(--border);
-    border-radius: 10px; font-family: sans-serif; font-size: 0.88rem;
+    border-radius: 10px; font-family:Quicksand,sans-serif; font-size: 0.88rem;
     background: var(--input-bg); color: var(--text);
   }
   .emo-add-row input:focus { outline: none; border-color: var(--primary); }
@@ -453,7 +510,7 @@
     animation: tagPop 0.18s ease-out;
   }
   .intensity-row .ir-emoji { font-size: 1.1rem; flex-shrink: 0; }
-  .intensity-row .ir-label { font-size: 0.85rem; font-family: sans-serif; min-width: 80px; color: var(--text); }
+  .intensity-row .ir-label { font-size: 0.85rem; font-family:Quicksand,sans-serif; min-width: 80px; color: var(--text); }
   .intensity-row .ir-bar { flex: 1; display: flex; gap: 6px; }
   .intensity-bar-btn {
     flex: 1;
@@ -463,7 +520,7 @@
     background: var(--surface);
     cursor: pointer;
     transition: all 0.15s;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.7rem;
     color: var(--text-muted);
     display: flex;
@@ -473,14 +530,14 @@
   }
   .intensity-bar-btn:hover { border-color: var(--primary); }
   .intensity-bar-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: bold; }
-  .intensity-bar-btn.ir-bar-1.active { background: #93c5b0; border-color: #93c5b0; }
-  .intensity-bar-btn.ir-bar-2.active { background: #7ab497; border-color: #7ab497; }
+  .intensity-bar-btn.ir-bar-1.active { background: #f9bcd3; border-color: #f9bcd3; }
+  .intensity-bar-btn.ir-bar-2.active { background: #f596ba; border-color: #f596ba; }
   .intensity-bar-btn.ir-bar-3.active { background: var(--primary-dark); border-color: var(--primary-dark); }
-  .intensity-bar-btn.ir-bar-4.active { background: #4a6a52; border-color: #4a6a52; }
-  .intensity-bar-btn.ir-bar-5.active { background: #355040; border-color: #355040; }
-  [data-theme="dark"] .intensity-bar-btn.ir-bar-1.active { background: #5a8870; border-color: #5a8870; }
-  [data-theme="dark"] .intensity-bar-btn.ir-bar-4.active { background: #3a5a42; border-color: #3a5a42; }
-  [data-theme="dark"] .intensity-bar-btn.ir-bar-5.active { background: #2a4a32; border-color: #2a4a32; }
+  .intensity-bar-btn.ir-bar-4.active { background: #c94a7c; border-color: #c94a7c; }
+  .intensity-bar-btn.ir-bar-5.active { background: #a83a66; border-color: #a83a66; }
+  [data-theme="dark"] .intensity-bar-btn.ir-bar-1.active { background: #c76a90; border-color: #c76a90; }
+  [data-theme="dark"] .intensity-bar-btn.ir-bar-4.active { background: #8f4463; border-color: #8f4463; }
+  [data-theme="dark"] .intensity-bar-btn.ir-bar-5.active { background: #6e3350; border-color: #6e3350; }
   .intensity-row .ir-remove {
     background: none; border: none; cursor: pointer;
     color: var(--text-muted); font-size: 1.1rem; padding: 0 0.3rem;
@@ -494,7 +551,7 @@
     width: 100%;
     padding: 0.6rem;
     margin-bottom: 1rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.85rem;
     color: #fff;
     background: var(--primary);
@@ -504,7 +561,7 @@
     transition: background 0.2s;
   }
   .quick-checkin:hover { background: var(--primary-dark); }
-  .checkin-hint { display: block; text-align: center; font-family: sans-serif; font-size: 0.75rem; color: var(--text); margin: -0.5rem 0 0.8rem; font-weight: bold; }
+  .checkin-hint { display: block; text-align: center; font-family:Quicksand,sans-serif; font-size: 0.75rem; color: var(--text); margin: -0.5rem 0 0.8rem; font-weight: bold; }
   .checkin-hint.warn { color: var(--primary-dark); }
   .checkin-note {
     width: 100%;
@@ -512,7 +569,7 @@
     padding: 0.6rem 0.8rem;
     border: 1px solid var(--border);
     border-radius: 10px;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.9rem;
     background: var(--input-bg);
     color: var(--text);
@@ -541,7 +598,7 @@
     text-align: center;
   }
   .tod-block .tod-label {
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -563,7 +620,7 @@
   }
   .schedule-row .sr-field { display: flex; flex-direction: column; gap: 0.3rem; }
   .schedule-row .sr-field label {
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -574,7 +631,7 @@
     padding: 0.6rem 0.7rem;
     border: 1px solid var(--border);
     border-radius: 8px;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.85rem;
     background: var(--input-bg);
     color: var(--text);
@@ -595,14 +652,14 @@
   }
   .slot-item:hover { border-color: var(--primary); }
   .slot-item .slot-time {
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-weight: bold;
     color: var(--primary-dark);
     min-width: 120px;
     font-size: 0.9rem;
   }
   .slot-item .slot-label {
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     flex: 1;
     color: var(--text);
     font-size: 0.9rem;
@@ -610,7 +667,7 @@
   .slot-item .slot-type {
     padding: 0.2rem 0.6rem;
     border-radius: 100px;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -644,7 +701,7 @@
   .se-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; width: 100%; align-items: center; }
   .se-grid input,
   .se-grid select {
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.82rem;
     padding: 0.35rem 0.45rem;
     border: 1px solid var(--border);
@@ -659,7 +716,7 @@
     border: 1px solid var(--border);
     border-radius: 6px;
     cursor: pointer;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.72rem;
     padding: 0.25rem 0.5rem;
     color: var(--text);
@@ -674,7 +731,7 @@
     border: 1px solid var(--border);
     border-radius: 100px;
     padding: 0.3rem 0.45rem 0.3rem 0.9rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.8rem;
     color: var(--text);
     transition: border 0.2s;
@@ -715,7 +772,7 @@
   .ical-note {
     color: var(--text-muted);
     font-size: 0.82rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-style: italic;
     margin-top: 1rem;
   }
@@ -735,7 +792,7 @@
     margin-bottom: 0;
   }
   .ctx-tag-add-btn {
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     padding: 0.5rem 1rem;
     border: 1px solid var(--border);
     border-radius: 10px;
@@ -760,7 +817,7 @@
     border-radius: 100px;
     background: var(--bg);
     border: 1px solid var(--border);
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.8rem;
     color: var(--text);
     animation: tagPop 0.18s ease-out;
@@ -786,7 +843,7 @@
     gap: 0.3rem;
     padding: 0.25rem 0.6rem;
     border-radius: 100px;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.72rem;
     color: #fff;
     letter-spacing: 0.2px;
@@ -803,7 +860,7 @@
     border-radius: 100px;
     background: var(--bg);
     border: 1px solid var(--border);
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.7rem;
     color: var(--text-muted);
   }
@@ -816,7 +873,7 @@
     flex-wrap: wrap;
   }
   .btn {
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.95rem;
     padding: 0.7rem 1.8rem;
     border: none;
@@ -873,7 +930,7 @@
   .entry-card .e-date {
     color: var(--text-muted);
     font-size: 0.82rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     letter-spacing: 0.5px;
     display: flex;
     align-items: center;
@@ -912,7 +969,7 @@
     border: none;
     color: var(--text-muted);
     cursor: pointer;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.85rem;
     padding: 0.2rem 0.5rem;
     border-radius: 6px;
@@ -939,7 +996,7 @@
     padding: 0.7rem 1rem;
     border: 1px solid var(--border);
     border-radius: 100px;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.9rem;
     background: var(--surface);
     color: var(--text);
@@ -957,7 +1014,7 @@
     padding: 0.5rem 0.7rem;
     border: 1px solid var(--border);
     border-radius: 8px;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.8rem;
     background: var(--surface);
     color: var(--text);
@@ -965,7 +1022,7 @@
   .filter-row select:focus,
   .filter-row input[type="date"]:focus { outline: none; border-color: var(--primary); }
   .filter-row label {
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.78rem;
     color: var(--text-muted);
   }
@@ -974,7 +1031,7 @@
     border: none;
     color: var(--text-muted);
     cursor: pointer;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.78rem;
     text-decoration: underline;
   }
@@ -1047,20 +1104,20 @@
     white-space: nowrap;
     opacity: 0;
     transition: opacity 0.2s;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     margin-bottom: 4px;
   }
   .bar-group .label { margin-top: 0.6rem; font-size: 1.2rem; }
   .bar-group .label-name {
     font-size: 0.65rem;
     color: var(--text-muted);
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     margin-top: 0.1rem;
   }
   .bar-group .count {
     font-size: 0.7rem;
     color: var(--text-muted);
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
   }
 
   /* Heatmap */
@@ -1098,7 +1155,7 @@
     white-space: nowrap;
     opacity: 0;
     transition: opacity 0.15s;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     pointer-events: none;
     z-index: 10;
   }
@@ -1107,14 +1164,14 @@
     align-items: center;
     gap: 0.3rem;
     margin-top: 0.5rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.7rem;
     color: var(--text-muted);
   }
   .heatmap-months {
     display: flex;
     margin-bottom: 0.3rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.65rem;
     color: var(--text-muted);
   }
@@ -1123,7 +1180,7 @@
   .trend-chart-wrap { overflow-x: auto; }
   svg.trend-chart { display: block; width: 100%; min-width: 400px; height: auto; }
   .trend-grid line { stroke: var(--border); stroke-width: 0.5; }
-  .trend-axis { font-family: sans-serif; font-size: 9px; fill: var(--text-muted); }
+  .trend-axis { font-family:Quicksand,sans-serif; font-size: 9px; fill: var(--text-muted); }
   .trend-line { fill: none; stroke-width: 2; }
   .trend-dot { cursor: pointer; }
   .trend-dot:hover { r: 5; }
@@ -1137,7 +1194,7 @@
     margin-bottom: 1rem;
   }
   .summary-box .sum-title {
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -1172,7 +1229,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--text-muted);
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     margin-top: 0.3rem;
   }
 
@@ -1187,7 +1244,7 @@
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.78rem;
     color: var(--text-muted);
   }
@@ -1209,7 +1266,7 @@
     font-size: 0.85rem;
     font-style: italic;
     margin-bottom: 1rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
   }
   .ls-warning {
     background: #fff3e0;
@@ -1217,7 +1274,7 @@
     border-radius: 10px;
     padding: 1rem;
     margin: 1rem 0;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.82rem;
     color: #7a5600;
     text-align: left;
@@ -1233,7 +1290,7 @@
   .passcode-section p {
     color: var(--text-muted);
     font-size: 0.85rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     margin-bottom: 0.8rem;
   }
 
@@ -1243,7 +1300,7 @@
     color: var(--text-muted);
     font-size: 0.8rem;
     font-style: italic;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
   }
   footer .quote {
     max-width: 500px;
@@ -1272,7 +1329,7 @@
     left: 1.2rem;
     background: #e0a800;
     color: #fff;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.7rem;
     padding: 0.15rem 0.6rem;
     border-radius: 100px;
@@ -1290,27 +1347,27 @@
     margin: 2rem auto;
   }
   .guest-view-box h2 { color: var(--primary-dark); font-weight: normal; margin-bottom: 0.4rem; }
-  .guest-view-box .gv-sub { color: var(--text-muted); font-size: 0.85rem; font-family: sans-serif; margin-bottom: 1.5rem; }
+  .guest-view-box .gv-sub { color: var(--text-muted); font-size: 0.85rem; font-family:Quicksand,sans-serif; margin-bottom: 1.5rem; }
   .guest-view-box .gv-note {
     background: var(--input-bg);
     border: 1px dashed var(--border);
     border-radius: 10px;
     padding: 1rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-bottom: 1.5rem;
   }
   .guest-mode-banner {
-    background: linear-gradient(135deg, #f0e6d3, #eadecb);
+    background: linear-gradient(135deg, #ffe4ef, #ffd3e3);
     border-bottom: 1px solid var(--border);
     padding: 0.7rem 1.5rem;
     text-align: center;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.82rem;
     color: var(--primary-dark);
   }
-  [data-theme="dark"] .guest-mode-banner { background: linear-gradient(135deg, #2a2a4a, #332); }
+  [data-theme="dark"] .guest-mode-banner { background: linear-gradient(135deg, #3d2437, #4a2b41); }
 
   /* PWA install */
   .pwa-banner {
@@ -1323,7 +1380,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 0.8rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.85rem;
     color: var(--text);
   }
@@ -1352,14 +1409,14 @@
     padding: 1.8rem;
   }
   .share-modal-content h2 { font-weight: normal; color: var(--primary-dark); margin-bottom: 0.4rem; }
-  .share-modal-content .sm-sub { color: var(--text-muted); font-size: 0.85rem; font-family: sans-serif; margin-bottom: 1.5rem; }
+  .share-modal-content .sm-sub { color: var(--text-muted); font-size: 0.85rem; font-family:Quicksand,sans-serif; margin-bottom: 1.5rem; }
   .share-modal-content .sm-preview {
     background: var(--input-bg);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 1.2rem;
     margin-bottom: 1rem;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 0.88rem;
     color: var(--text);
     line-height: 1.6;
@@ -1380,11 +1437,11 @@
   .breathing-tool {
     text-align: center;
     padding: 2.5rem 2rem;
-    background: linear-gradient(135deg, #e8f5e9, #e0f2f1);
+    background: linear-gradient(135deg, #ffeef5, #ffe4f0);
     border-radius: var(--radius);
     margin-bottom: 1.5rem;
   }
-  [data-theme="dark"] .breathing-tool { background: linear-gradient(135deg, #1a2a1e, #1a2a2a); }
+  [data-theme="dark"] .breathing-tool { background: linear-gradient(135deg, #331f2c, #3a2437); }
   .breathing-circle {
     width: 180px;
     height: 180px;
@@ -1395,7 +1452,7 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-family: sans-serif;
+    font-family:Quicksand,sans-serif;
     font-size: 1.1rem;
     font-weight: bold;
     transition: transform 4s ease-in-out, background 4s ease-in-out;
@@ -1424,8 +1481,8 @@
     text-align: center;
   }
   .grounding-step .gs-num { font-size: 1.8rem; color: var(--primary-dark); font-weight: bold; }
-  .grounding-step .gs-label { font-family: sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-top: 0.3rem; }
-  .grounding-step .gs-hint { font-family: sans-serif; font-size: 0.78rem; color: var(--text); margin-top: 0.3rem; }
+  .grounding-step .gs-label { font-family:Quicksand,sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-top: 0.3rem; }
+  .grounding-step .gs-hint { font-family:Quicksand,sans-serif; font-size: 0.78rem; color: var(--text); margin-top: 0.3rem; }
 
   .crisis-box {
     background: #fff3e0;
@@ -1437,8 +1494,8 @@
   [data-theme="dark"] .crisis-box { background: #2a2010; border-color: #5a4810; }
   .crisis-box h3 { color: #e65100; font-weight: normal; margin-bottom: 0.5rem; }
   [data-theme="dark"] .crisis-box h3 { color: #ffb74d; }
-  .crisis-box p { font-family: sans-serif; font-size: 0.85rem; color: var(--text); margin-bottom: 0.4rem; }
-  .crisis-box a { color: var(--primary-dark); font-family: sans-serif; font-size: 0.85rem; }
+  .crisis-box p { font-family:Quicksand,sans-serif; font-size: 0.85rem; color: var(--text); margin-bottom: 0.4rem; }
+  .crisis-box a { color: var(--primary-dark); font-family:Quicksand,sans-serif; font-size: 0.85rem; }
   .crisis-box .crisis-num { font-size: 1rem; font-weight: bold; }
 
   /* CBT tools */
@@ -1451,8 +1508,8 @@
     margin-bottom: 1.5rem;
   }
   .cbt-tool h2 { font-weight: normal; color: var(--primary-dark); margin-bottom: 0.4rem; }
-  .cbt-tool p.cbt-sub { color: var(--text); font-style: italic; font-size: 0.85rem; font-family: sans-serif; margin-bottom: 1rem; opacity: 0.88; }
-  .res-item { font-family: sans-serif; font-size: 0.85rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--border); line-height: 1.55; }
+  .cbt-tool p.cbt-sub { color: var(--text); font-style: italic; font-size: 0.85rem; font-family:Quicksand,sans-serif; margin-bottom: 1rem; opacity: 0.88; }
+  .res-item { font-family:Quicksand,sans-serif; font-size: 0.85rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--border); line-height: 1.55; }
   .res-item:last-child { border-bottom: none; }
   .res-item a { color: var(--primary-dark); word-break: break-all; }
   .res-item strong { color: var(--text); }
@@ -1461,7 +1518,7 @@
   /* Thought record */
   .tr-field { margin-bottom: 1rem; }
   .tr-field label {
-    display: block; font-family: sans-serif; font-size: 0.82rem;
+    display: block; font-family:Quicksand,sans-serif; font-size: 0.82rem;
     text-transform: uppercase; letter-spacing: 0.5px; color: var(--text); margin-bottom: 0.3rem; font-weight: bold;
     opacity: 0.75;
   }
@@ -1478,7 +1535,7 @@
   .distortion-card {
     background: var(--input-bg); border: 1px solid var(--border); border-radius: 10px; padding: 0.7rem 0.9rem;
     cursor: pointer; transition: all 0.15s; user-select: none;
-    font-family: sans-serif; font-size: 0.82rem; color: var(--text);
+    font-family:Quicksand,sans-serif; font-size: 0.82rem; color: var(--text);
   }
   .distortion-card:hover { border-color: var(--primary); }
   .distortion-card.selected { border-color: var(--primary); border-width: 2px; background: var(--primary); color: #fff; }
@@ -1493,30 +1550,30 @@
   .ba-card:hover { border-color: var(--primary); }
   .ba-card.selected { border-color: var(--primary); border-width: 2px; box-shadow: 0 0 0 1px var(--primary); }
   .ba-card .ba-emoji { font-size: 1.6rem; display: block; margin-bottom: 0.3rem; }
-  .ba-card .ba-name { font-family: sans-serif; font-size: 0.82rem; color: var(--text); }
+  .ba-card .ba-name { font-family:Quicksand,sans-serif; font-size: 0.82rem; color: var(--text); }
 
   /* Saved thought records */
   .tr-saved-item {
     background: var(--input-bg); border: 1px solid var(--border); border-left: 3px solid var(--primary);
     border-radius: 8px; padding: 1rem 1.2rem; margin-bottom: 0.8rem; position: relative;
   }
-  .tr-saved-item .tr-date { font-family: sans-serif; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .tr-saved-item .tr-date { font-family:Quicksand,sans-serif; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
   .tr-saved-item .tr-row { margin-bottom: 0.5rem; }
-  .tr-saved-item .tr-row-label { font-family: sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 0.1rem; }
+  .tr-saved-item .tr-row-label { font-family:Quicksand,sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 0.1rem; }
   .tr-saved-item .tr-row-val { font-size: 0.88rem; color: var(--text); }
-  .tr-saved-item .tr-del { background: none; border: none; cursor: pointer; color: var(--text-muted); font-family: sans-serif; font-size: 0.78rem; position: absolute; top: 0.8rem; right: 0.8rem; }
+  .tr-saved-item .tr-del { background: none; border: none; cursor: pointer; color: var(--text-muted); font-family:Quicksand,sans-serif; font-size: 0.78rem; position: absolute; top: 0.8rem; right: 0.8rem; }
   .tr-saved-item .tr-del:hover { color: #c66; }
   .tr-saved-item .tr-distortions { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
-  .tr-saved-item .tr-distortions span { font-family: sans-serif; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 100px; background: var(--primary); color: #fff; }
+  .tr-saved-item .tr-distortions span { font-family:Quicksand,sans-serif; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 100px; background: var(--primary); color: #fff; }
 
   /* ABC model */
   .abc-step { display: flex; gap: 0.8rem; margin-bottom: 0.8rem; align-items: flex-start; }
   .abc-letter {
     flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: #fff;
-    display: flex; align-items: center; justify-content: center; font-family: sans-serif; font-weight: bold; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center; font-family:Quicksand,sans-serif; font-weight: bold; font-size: 0.9rem;
   }
   .abc-content { flex: 1; }
-  .abc-content label { font-family: sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+  .abc-content label { font-family:Quicksand,sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
   .abc-content textarea { width: 100%; font-family: inherit; font-size: 0.9rem; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--input-bg); color: var(--text); resize: vertical; min-height: 50px; margin-top: 0.2rem; }
   .abc-content textarea:focus { outline: none; border-color: var(--primary); }
 
@@ -1529,7 +1586,7 @@
   }
   .theme-preset:hover { transform: scale(1.1); }
   .theme-preset.selected { border-color: var(--text); border-width: 3px; transform: scale(1.1); }
-  .theme-label { font-family: sans-serif; font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .theme-label { font-family:Quicksand,sans-serif; font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
   .color-picker-wrap { display: flex; align-items: center; gap: 0.4rem; }
   .color-picker-wrap input[type="color"] { width: 40px; height: 40px; border: none; border-radius: 50%; cursor: pointer; background: none; padding: 0; }
   .color-picker-wrap input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
@@ -1548,19 +1605,19 @@
   .quote-add-row input { flex: 1; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.9rem; background: var(--input-bg); color: var(--text); }
   .quote-add-row input:focus { outline: none; border-color: var(--primary); }
   .quote-add-row input#quoteAuthor { flex: 0 1 220px; min-width: 150px; }
-  .quote-item .q-author { display: block; margin-top: 0.3rem; font-family: sans-serif; font-size: 0.8rem; font-style: normal; color: var(--text-muted); }
+  .quote-item .q-author { display: block; margin-top: 0.3rem; font-family:Quicksand,sans-serif; font-size: 0.8rem; font-style: normal; color: var(--text-muted); }
 
   /* Sleep/energy rating */
   .se-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
   .se-field { flex: 1; min-width: 140px; }
-  .se-field label { display: block; font-family: sans-serif; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: bold; }
+  .se-field label { display: block; font-family:Quicksand,sans-serif; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: bold; }
   .star-rating { display: flex; gap: 0.2rem; }
   .star { font-size: 1.5rem; cursor: pointer; color: var(--border); transition: color 0.15s; user-select: none; }
   .star.active { color: #f5a623; }
   .star:hover { color: #f5a623; }
-  .se-field input[type="number"] { width: 80px; padding: 0.5rem; border: 1px solid var(--border); border-radius: 8px; font-family: sans-serif; font-size: 0.9rem; background: var(--input-bg); color: var(--text); }
+  .se-field input[type="number"] { width: 80px; padding: 0.5rem; border: 1px solid var(--border); border-radius: 8px; font-family:Quicksand,sans-serif; font-size: 0.9rem; background: var(--input-bg); color: var(--text); }
   .se-field input[type="number"]:focus { outline: none; border-color: var(--primary); }
-  .e-se { display: flex; gap: 0.8rem; margin-top: 0.3rem; font-family: sans-serif; font-size: 0.78rem; color: var(--text-muted); flex-wrap: wrap; }
+  .e-se { display: flex; gap: 0.8rem; margin-top: 0.3rem; font-family:Quicksand,sans-serif; font-size: 0.78rem; color: var(--text-muted); flex-wrap: wrap; }
   .e-se span { display: inline-flex; align-items: center; gap: 0.2rem; }
 
   /* Badges */
@@ -1570,17 +1627,17 @@
     width: 90px; text-align: center;
   }
   .badge-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; background: var(--input-bg); border: 2px solid var(--border); }
-  .badge.earned .badge-icon { border-color: #f5a623; background: linear-gradient(135deg, #fff8e1, #ffe0b2); box-shadow: 0 2px 8px rgba(245,166,35,0.3); }
-  [data-theme="dark"] .badge.earned .badge-icon { background: linear-gradient(135deg, #3a3010, #4a3a18); }
+  .badge.earned .badge-icon { border-color: #f48fb1; background: linear-gradient(135deg, #fff0f5, #ffd6e5); box-shadow: 0 2px 8px rgba(244,143,177,0.4); }
+  [data-theme="dark"] .badge.earned .badge-icon { background: linear-gradient(135deg, #4a2437, #5c2f45); }
   .badge.locked .badge-icon { opacity: 0.35; filter: grayscale(1); }
-  .badge-label { font-family: sans-serif; font-size: 0.7rem; color: var(--text); line-height: 1.2; }
+  .badge-label { font-family:Quicksand,sans-serif; font-size: 0.7rem; color: var(--text); line-height: 1.2; }
   .badge.locked .badge-label { color: var(--text-muted); }
 
   /* Font size control */
   .font-size-ctrl { display: flex; align-items: center; gap: 0.5rem; }
-  .fs-btn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; font-family: sans-serif; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .fs-btn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; font-family:Quicksand,sans-serif; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
   .fs-btn:hover { border-color: var(--primary); color: var(--primary-dark); }
-  .fs-label { font-family: sans-serif; font-size: 0.78rem; color: #3a3a3a; font-weight: bold; transition: color 0.2s; }
+  .fs-label { font-family:Quicksand,sans-serif; font-size: 0.78rem; color: #3a3a3a; font-weight: bold; transition: color 0.2s; }
   [data-theme="dark"] .fs-label { color: #d0d0e0; }
 
   /* Emoji contrast — pop on any background */
@@ -1594,31 +1651,31 @@
 
   /* Jump-to-date */
   .jump-date { display: flex; align-items: center; gap: 0.5rem; }
-  .jump-date input { padding: 0.5rem 0.7rem; border: 1px solid var(--border); border-radius: 8px; font-family: sans-serif; font-size: 0.8rem; background: var(--surface); color: var(--text); }
+  .jump-date input { padding: 0.5rem 0.7rem; border: 1px solid var(--border); border-radius: 8px; font-family:Quicksand,sans-serif; font-size: 0.8rem; background: var(--surface); color: var(--text); }
   .jump-date input:focus { outline: none; border-color: var(--primary); }
 
   /* Advanced schedule */
-  .cd-btn { padding: 0.4rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--input-bg); color: var(--text); font-family: sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.15s; }
+  .cd-btn { padding: 0.4rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--input-bg); color: var(--text); font-family:Quicksand,sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.15s; }
   .cd-btn:hover { border-color: var(--primary); }
   .cd-btn.selected { background: var(--primary); color: #fff; border-color: var(--primary); }
   .today-slot { display: flex; align-items: center; gap: 0.8rem; padding: 0.6rem 1rem; background: var(--input-bg); border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: 8px; margin-bottom: 0.5rem; }
-  .today-slot .ts-time { font-family: sans-serif; font-weight: bold; font-size: 0.9rem; color: var(--primary-dark); min-width: 90px; }
+  .today-slot .ts-time { font-family:Quicksand,sans-serif; font-weight: bold; font-size: 0.9rem; color: var(--primary-dark); min-width: 90px; }
   .today-slot .ts-type { font-size: 1.2rem; }
-  .today-slot .ts-label { font-family: sans-serif; font-size: 0.88rem; color: var(--text); flex: 1; }
-  .today-slot .ts-dur { font-family: sans-serif; font-size: 0.75rem; color: var(--text-muted); }
+  .today-slot .ts-label { font-family:Quicksand,sans-serif; font-size: 0.88rem; color: var(--text); flex: 1; }
+  .today-slot .ts-dur { font-family:Quicksand,sans-serif; font-size: 0.75rem; color: var(--text-muted); }
   .today-slot.next-up { border-left-color: #f5a623; box-shadow: 0 1px 6px rgba(245,166,35,0.2); }
   .today-slot.done { opacity: 0.4; }
   .today-slot .ts-check { cursor: pointer; font-size: 1.3rem; user-select: none; }
-  .slot-item .slot-dur { font-family: sans-serif; font-size: 0.78rem; color: var(--text-muted); margin-left: auto; padding-right: 0.5rem; }
-  .slot-item .slot-days { font-family: sans-serif; font-size: 0.72rem; color: var(--text-muted); padding: 0.15rem 0.4rem; background: var(--bg); border-radius: 4px; margin-left: 0.3rem; }
+  .slot-item .slot-dur { font-family:Quicksand,sans-serif; font-size: 0.78rem; color: var(--text-muted); margin-left: auto; padding-right: 0.5rem; }
+  .slot-item .slot-days { font-family:Quicksand,sans-serif; font-size: 0.72rem; color: var(--text-muted); padding: 0.15rem 0.4rem; background: var(--bg); border-radius: 4px; margin-left: 0.3rem; }
 
   /* To-do list */
   .todo-add-row { display: flex; gap: 0.5rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
-  .todo-add-row input { flex: 1; min-width: 200px; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; font-family: sans-serif; font-size: 0.9rem; background: var(--input-bg); color: var(--text); }
+  .todo-add-row input { flex: 1; min-width: 200px; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 8px; font-family:Quicksand,sans-serif; font-size: 0.9rem; background: var(--input-bg); color: var(--text); }
   .todo-add-row input:focus { outline: none; border-color: var(--primary); }
   .todo-filters { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.8rem; }
   .todo-list { display: flex; flex-direction: column; gap: 0.4rem; }
-  .todo-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; font-family: sans-serif; font-size: 0.88rem; color: var(--text); }
+  .todo-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; font-family:Quicksand,sans-serif; font-size: 0.88rem; color: var(--text); }
   .todo-item.high { border-left: 3px solid #f5a623; }
   .todo-item.low { border-left: 3px solid var(--border); }
   .todo-item.done { opacity: 0.45; }
@@ -1632,35 +1689,154 @@
   .todo-del:hover { color: #c66; }
 
   /* OCD / BPD notice box */
-  .ocd-notice { background: var(--input-bg); border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0 1.5rem; font-family: sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.55; }
+  .ocd-notice { background: var(--input-bg); border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0 1.5rem; font-family:Quicksand,sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.55; }
 
   /* DBT skills modules */
   .dbt-modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.8rem; margin-bottom: 1rem; }
   .dbt-module { background: var(--input-bg); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem; }
-  .dbt-module h4 { font-family: sans-serif; font-size: 0.95rem; color: var(--primary-dark); margin: 0 0 0.3rem; font-weight: bold; }
-  .dbt-module p { font-family: sans-serif; font-size: 0.78rem; color: var(--text-muted); margin: 0 0 0.6rem; }
+  .dbt-module h4 { font-family:Quicksand,sans-serif; font-size: 0.95rem; color: var(--primary-dark); margin: 0 0 0.3rem; font-weight: bold; }
+  .dbt-module p { font-family:Quicksand,sans-serif; font-size: 0.78rem; color: var(--text-muted); margin: 0 0 0.6rem; }
   .dbt-skills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .dbt-skill { padding: 0.35rem 0.7rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text); font-family: sans-serif; font-size: 0.78rem; cursor: pointer; user-select: none; transition: all 0.15s; }
+  .dbt-skill { padding: 0.35rem 0.7rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text); font-family:Quicksand,sans-serif; font-size: 0.78rem; cursor: pointer; user-select: none; transition: all 0.15s; }
   .dbt-skill:hover { border-color: var(--primary); }
   .dbt-skill.selected { background: var(--primary); color: #fff; border-color: var(--primary); }
 
   /* CBT sub-tabs */
   .cbt-subnav { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-  .cbt-subtab { padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 20px; background: var(--input-bg); color: var(--text); font-family: sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.15s; white-space: nowrap; user-select: none; }
+  .cbt-subtab { padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 20px; background: var(--input-bg); color: var(--text); font-family:Quicksand,sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.15s; white-space: nowrap; user-select: none; }
   .cbt-subtab:hover { border-color: var(--primary); }
   .cbt-subtab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
   .cbt-subpage { display: none; }
   .cbt-subpage.active { display: block; }
+
+  /* ===== 🌸 Cherry blossom cuteness layer ===== */
+  h2, h3, h4 { font-family:Quicksand,sans-serif; font-weight: 600; }
+
+  header {
+    background:
+      radial-gradient(circle at 10% -40%, rgba(255, 183, 213, 0.55), transparent 60%),
+      radial-gradient(circle at 90% -30%, rgba(244, 143, 177, 0.40), transparent 55%),
+      var(--surface);
+    border-bottom: 2px solid #ffd7e6;
+  }
+  [data-theme="dark"] header { border-bottom-color: #4d3544; }
+  header h1 { font-family:Quicksand,sans-serif; font-weight: 700; color: var(--primary-dark); }
+  .title-blossom {
+    display: inline-block;
+    transform-origin: bottom center;
+    animation: blossomSway 3.5s ease-in-out infinite;
+  }
+  .gate-card .gate-icon {
+    display: inline-block;
+    transform-origin: bottom center;
+    animation: blossomSway 4s ease-in-out infinite;
+  }
+  @keyframes blossomSway {
+    0%, 100% { transform: rotate(-7deg) scale(1); }
+    50% { transform: rotate(7deg) scale(1.05); }
+  }
+
+  nav { background: var(--surface); }
+  nav button { border-radius: 100px; font-weight: 600; transition: all 0.18s ease; }
+  nav button:hover { transform: translateY(-2px); background: #ffeef5; color: var(--primary-dark); }
+  nav button.active {
+    background: linear-gradient(135deg, var(--primary), #f48fb1);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(232, 93, 147, 0.35);
+  }
+  [data-theme="dark"] nav button:hover { background: #3d2437; }
+  [data-theme="dark"] nav button.active { color: #2a1c26; }
+
+  .btn { font-weight: 600; transition: all 0.2s ease; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0) scale(0.97); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), #f0709f);
+    box-shadow: 0 3px 12px rgba(232, 93, 147, 0.35);
+  }
+  .btn-primary:hover { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); box-shadow: 0 5px 16px rgba(232, 93, 147, 0.45); }
+
+  input:focus, textarea:focus, select:focus { box-shadow: 0 0 0 3px rgba(232, 93, 147, 0.18); }
+  [data-theme="dark"] input:focus, [data-theme="dark"] textarea:focus, [data-theme="dark"] select:focus { box-shadow: 0 0 0 3px rgba(244, 143, 177, 0.22); }
+
+  .icon-btn { transition: all 0.2s ease; }
+  .icon-btn:hover { transform: translateY(-2px) scale(1.08); border-color: var(--primary); color: var(--primary-dark); }
+
+  .gate-card {
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    background: linear-gradient(180deg, #fffbfd, var(--surface));
+    box-shadow: 0 12px 44px rgba(232, 93, 147, 0.28);
+  }
+  .gate-card h2 { font-family:Quicksand,sans-serif; font-weight: 700; }
+  .gate-tab.active {
+    background: linear-gradient(135deg, var(--primary), #f48fb1);
+    border-color: var(--primary);
+    box-shadow: 0 3px 10px rgba(232, 93, 147, 0.35);
+  }
+
+  .entry-card, .tracker, .cbt-tool, .guest-view-box, .share-modal-content, .entry-form {
+    border-radius: 22px;
+  }
+  .entry-card {
+    border-top: 3px solid #ffd7e6;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  [data-theme="dark"] .entry-card { border-top-color: #4d3544; }
+  .entry-card:hover { transform: translateY(-2px); }
+  .tracker, .cbt-tool, .entry-form { border-top: 3px solid #ffe4ef; }
+  [data-theme="dark"] .tracker, [data-theme="dark"] .cbt-tool, [data-theme="dark"] .entry-form { border-top-color: #4d3544; }
+
+  .quick-checkin {
+    background: linear-gradient(135deg, var(--primary), #f48fb1);
+    font-weight: 600;
+    box-shadow: 0 3px 12px rgba(232, 93, 147, 0.3);
+  }
+  .quick-checkin:hover { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); }
+
+  .breathing-circle {
+    background: linear-gradient(135deg, #f48fb1, #e85d93);
+    box-shadow: 0 10px 34px rgba(232, 93, 147, 0.45);
+  }
+  .breathing-circle.hold { background: linear-gradient(135deg, #e85d93, #b23a68); }
+
+  .stat-card { transition: transform 0.2s ease, box-shadow 0.2s ease; border-radius: 16px; }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+  .big-emoji { display: inline-block; animation: gentleFloat 4s ease-in-out infinite; }
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+  }
+
+  .prompt-card { border-radius: 14px; }
+  .prompt-card:hover { transform: translateY(-2px) scale(1.01); }
+
+  .save-confirm { color: var(--primary); }
+  ::-webkit-scrollbar { height: 10px; width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #f7b8ce; border-radius: 100px; border: 2px solid var(--bg); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+  * { scrollbar-color: #f7b8ce var(--bg); scrollbar-width: thin; }
+
 </style>
 </head>
 <body>
 
+<!-- Falling cherry blossom petals -->
+<div class="petal-rain" aria-hidden="true">
+  <span class="petal"></span><span class="petal"></span><span class="petal"></span>
+  <span class="petal"></span><span class="petal"></span><span class="petal"></span>
+  <span class="petal"></span><span class="petal"></span><span class="petal"></span>
+  <span class="petal"></span><span class="petal"></span><span class="petal"></span>
+</div>
+
 <!-- Lock screen -->
 <div class="gate-overlay" id="gateOverlay">
   <div class="gate-card">
-    <span class="gate-icon">🧠💚</span>
+    <span class="gate-icon">🌸</span>
     <h2>Groundwork</h2>
-    <p class="gate-sub">Your private space for feelings and mental health tracking</p>
+    <p class="gate-sub">A soft little space for your feelings and mental health tracking</p>
 
     <div class="gate-tabs">
       <button type="button" class="gate-tab active" id="tabLogin">Log In</button>
@@ -1675,7 +1851,7 @@
         <button type="button" id="loginShowPass" title="Show password" style="position:absolute;right:0.6rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-muted);padding:0.2rem;">👁</button>
       </div>
       <button class="btn btn-primary" id="loginBtn" style="width:100%;">Log In</button>
-      <p style="font-family:sans-serif;font-size:0.78rem;color:var(--text-muted);margin-top:0.6rem;"><a href="#" id="forgotLink" style="color:var(--primary-dark);">Forgot password?</a></p>
+      <p style="font-family:Quicksand,sans-serif;font-size:0.78rem;color:var(--text-muted);margin-top:0.6rem;"><a href="#" id="forgotLink" style="color:var(--primary-dark);">Forgot password?</a></p>
     </div>
 
     <!-- Signup form -->
@@ -1707,8 +1883,8 @@
 </div>
 
 <header>
-  <h1>Groundwork</h1>
-  <p>A safe space for your feelings, one entry at a time.</p>
+  <h1>Groundwork <span class="title-blossom" aria-hidden="true">🌸</span></h1>
+  <p>A soft, safe space for your feelings — one little entry at a time.</p>
   <div class="header-actions">
     <div class="font-size-ctrl">
       <button class="fs-btn" id="fsDecrease" title="Decrease font size">A-</button>
@@ -1729,8 +1905,8 @@
     <div style="margin-bottom:1rem;">
       <span class="theme-label">Accent color:</span>
       <div class="color-picker-wrap" style="margin-top:0.4rem;">
-        <input type="color" id="accentColorPicker" value="#5e7a68">
-        <span style="font-family:sans-serif;font-size:0.82rem;color:var(--text-muted);" id="accentHexLabel">#5e7a68</span>
+        <input type="color" id="accentColorPicker" value="#e85d93">
+        <span style="font-family:Quicksand,sans-serif;font-size:0.82rem;color:var(--text-muted);" id="accentHexLabel">#e85d93</span>
       </div>
     </div>
     <div style="margin-bottom:1rem;">
@@ -1798,7 +1974,7 @@
           <label>Sleep last night</label>
           <div style="display:flex;align-items:center;gap:0.5rem;">
             <input type="number" id="sleepHours" min="0" max="24" step="0.5" placeholder="0">
-            <span style="font-family:sans-serif;font-size:0.8rem;color:var(--text-muted);">hours</span>
+            <span style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);">hours</span>
           </div>
         </div>
         <div class="se-field">
@@ -1813,7 +1989,7 @@
         <button class="btn btn-primary" id="saveEntry">Save Entry</button>
         <button class="btn btn-secondary" id="clearForm">Clear</button>
         <button class="btn btn-secondary" id="cancelEdit" style="display:none;">Cancel Edit</button>
-        <span class="save-confirm" id="saveConfirm">Saved ✓</span>
+        <span class="save-confirm" id="saveConfirm">Saved 🌸</span>
       </div>
     </div>
   </section>
@@ -1871,7 +2047,7 @@
         <h2>🖨️ Print entries</h2>
         <p class="sm-sub">Choose what to print. You'll get a clean, printable copy of just the entries you pick.</p>
 
-        <div style="font-family:sans-serif;font-size:0.85rem;margin-bottom:0.8rem;">
+        <div style="font-family:Quicksand,sans-serif;font-size:0.85rem;margin-bottom:0.8rem;">
           <label style="display:block;font-weight:bold;margin-bottom:0.4rem;">1. How many entries?</label>
           <label style="display:block;margin-bottom:0.3rem;"><input type="radio" name="printScope" value="all" checked> All entries</label>
           <label style="display:block;margin-bottom:0.3rem;"><input type="radio" name="printScope" value="range" id="scopeRange"> By date range</label>
@@ -1879,22 +2055,22 @@
           <label style="display:block;"><input type="radio" name="printScope" value="selected" id="scopeSelected"> Only selected entries (check them below)</label>
         </div>
 
-        <div id="printRangeRow" style="display:none;font-family:sans-serif;font-size:0.85rem;margin-bottom:0.8rem;">
+        <div id="printRangeRow" style="display:none;font-family:Quicksand,sans-serif;font-size:0.85rem;margin-bottom:0.8rem;">
           <label>From: <input type="date" id="printDateFrom"></label>
           <label style="margin-left:0.6rem;">To: <input type="date" id="printDateTo"></label>
         </div>
 
-        <div id="printEmotionRow" style="display:none;font-family:sans-serif;font-size:0.85rem;margin-bottom:0.8rem;">
+        <div id="printEmotionRow" style="display:none;font-family:Quicksand,sans-serif;font-size:0.85rem;margin-bottom:0.8rem;">
           <label>Emotion: <select id="printEmotionSelect"><option value="">All emotions</option></select></label>
         </div>
 
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;" id="printSelectHeader">
-          <strong style="font-family:sans-serif;font-size:0.85rem;">2. Select entries</strong>
-          <span style="font-family:sans-serif;font-size:0.75rem;color:var(--text-muted);">
+          <strong style="font-family:Quicksand,sans-serif;font-size:0.85rem;">2. Select entries</strong>
+          <span style="font-family:Quicksand,sans-serif;font-size:0.75rem;color:var(--text-muted);">
             <a href="#" id="printCheckAll" style="color:var(--primary-dark);">Check all</a> · <a href="#" id="printUncheckAll" style="color:var(--primary-dark);">Uncheck all</a>
           </span>
         </div>
-        <div id="printEntryChecklist" style="max-height:260px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;padding:0.6rem;margin-bottom:1rem;font-family:sans-serif;font-size:0.82rem;"></div>
+        <div id="printEntryChecklist" style="max-height:260px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;padding:0.6rem;margin-bottom:1rem;font-family:Quicksand,sans-serif;font-size:0.82rem;"></div>
 
         <div class="btn-row">
           <button class="btn btn-primary" id="printGo">Print</button>
@@ -2025,7 +2201,7 @@
       </div>
 
       <div id="customDaysRow" style="display:none;margin-bottom:1rem;">
-        <label style="font-family:sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;display:block;margin-bottom:0.4rem;">Custom days:</label>
+        <label style="font-family:Quicksand,sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;display:block;margin-bottom:0.4rem;">Custom days:</label>
         <div id="customDaysBtns" style="display:flex;gap:0.4rem;flex-wrap:wrap;">
           <button class="cd-btn" data-day="1">Mon</button>
           <button class="cd-btn" data-day="2">Tue</button>
@@ -2043,15 +2219,15 @@
       </div>
 
       <div style="margin-bottom:0.6rem;">
-        <label style="font-family:sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;display:block;margin-bottom:0.4rem;">Preset schedules</label>
+        <label style="font-family:Quicksand,sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;display:block;margin-bottom:0.4rem;">Preset schedules</label>
         <div id="userPresetBtns" style="display:flex;gap:0.4rem;flex-wrap:wrap;"></div>
-        <p id="noPresetsNote" style="font-family:sans-serif;font-size:0.78rem;color:var(--text-muted);font-style:italic;margin:0.2rem 0 0;">No presets right now — set up the slots you like below, then click "💾 Save current as preset".</p>
+        <p id="noPresetsNote" style="font-family:Quicksand,sans-serif;font-size:0.78rem;color:var(--text-muted);font-style:italic;margin:0.2rem 0 0;">No presets right now — set up the slots you like below, then click "💾 Save current as preset".</p>
       </div>
 
       <div id="presetEditor" style="display:none;border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1rem;background:var(--input-bg);">
         <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-bottom:0.8rem;">
-          <label for="peName" style="font-family:sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;">Preset name</label>
-          <input type="text" id="peName" style="flex:1;min-width:180px;font-family:sans-serif;font-size:0.85rem;padding:0.45rem 0.6rem;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);">
+          <label for="peName" style="font-family:Quicksand,sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:bold;">Preset name</label>
+          <input type="text" id="peName" style="flex:1;min-width:180px;font-family:Quicksand,sans-serif;font-size:0.85rem;padding:0.45rem 0.6rem;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);">
         </div>
         <div id="peSlots"></div>
         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.9rem;">
@@ -2066,7 +2242,7 @@
         <button class="btn btn-secondary" id="saveAsPreset" style="font-size:0.8rem;padding:0.5rem 1rem;">💾 Save current as preset</button>
       </div>
 
-      <h3>Today's Schedule <span id="todayLabel" style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-weight:normal;"></span></h3>
+      <h3>Today's Schedule <span id="todayLabel" style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-weight:normal;"></span></h3>
       <div id="todaySchedule" style="margin-bottom:1.5rem;"></div>
 
       <h3>All Scheduled Slots</h3>
@@ -2082,7 +2258,7 @@
       <p class="sub">Tasks and reminders for today. Check them off as you go.</p>
       <div class="todo-add-row">
         <input type="text" id="todoInput" placeholder="Add a task and press Enter...">
-        <select id="todoPriority" style="padding:0.5rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.82rem;background:var(--input-bg);color:var(--text);">
+        <select id="todoPriority" style="padding:0.5rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.82rem;background:var(--input-bg);color:var(--text);">
           <option value="normal">Normal</option>
           <option value="high">⭐ High</option>
           <option value="low">Low</option>
@@ -2093,7 +2269,7 @@
         <button class="cd-btn selected" id="todoFilterAll">All</button>
         <button class="cd-btn" id="todoFilterActive">Active</button>
         <button class="cd-btn" id="todoFilterDone">Done</button>
-        <span id="todoCount" style="margin-left:auto;font-family:sans-serif;font-size:0.78rem;color:var(--text-muted);"></span>
+        <span id="todoCount" style="margin-left:auto;font-family:Quicksand,sans-serif;font-size:0.78rem;color:var(--text-muted);"></span>
       </div>
       <div id="todoList" class="todo-list"></div>
     </div>
@@ -2103,7 +2279,7 @@
   <section class="view" id="view-selfcare">
     <div class="breathing-tool">
       <h2 style="color:var(--primary-dark);font-weight:normal;">Breathing Exercise</h2>
-      <p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;">4-7-8 technique: inhale 4s, hold 7s, exhale 8s. Follow the circle.</p>
+      <p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;">4-7-8 technique: inhale 4s, hold 7s, exhale 8s. Follow the circle.</p>
       <div class="breathing-circle" id="breathingCircle">Ready?</div>
       <button class="btn btn-primary" id="breathingStart">Start</button>
       <button class="btn btn-secondary" id="breathingStop" style="display:none;">Stop</button>
@@ -2111,7 +2287,7 @@
 
     <div class="grounding-tool">
       <h3>5-4-3-2-1 Grounding Technique</h3>
-      <p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);">When you're overwhelmed, this brings you back to the present moment.</p>
+      <p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);">When you're overwhelmed, this brings you back to the present moment.</p>
       <div class="grounding-steps">
         <div class="grounding-step"><div class="gs-num">5</div><div class="gs-label">See</div><div class="gs-hint">Name 5 things you can see around you</div></div>
         <div class="grounding-step"><div class="gs-num">4</div><div class="gs-label">Touch</div><div class="gs-hint">Feel 4 things you can physically sense</div></div>
@@ -2162,24 +2338,24 @@
           <h3>What's in each section?</h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0.8rem;margin-top:0.8rem;">
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-              <h4 style="font-family:sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">🧠 Thought Tools</h4>
-              <p style="font-family:sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Thought Record, ABC Model, Socratic Questioning, Core Beliefs</p>
+              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">🧠 Thought Tools</h4>
+              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Thought Record, ABC Model, Socratic Questioning, Core Beliefs</p>
             </div>
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-              <h4 style="font-family:sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">🔄 OCD / ERP</h4>
-              <p style="font-family:sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">ERP Hierarchy, Obsession & Worry Tracker, Coping Cards</p>
+              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">🔄 OCD / ERP</h4>
+              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">ERP Hierarchy, Obsession & Worry Tracker, Coping Cards</p>
             </div>
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-              <h4 style="font-family:sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">💔 BPD / DBT</h4>
-              <p style="font-family:sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Reality Grounding, Emotion-Intensity Tracker, DBT Skills, Urges Log</p>
+              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">💔 BPD / DBT</h4>
+              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Reality Grounding, Emotion-Intensity Tracker, DBT Skills, Urges Log</p>
             </div>
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-              <h4 style="font-family:sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">⚡ Action</h4>
-              <p style="font-family:sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Behavioral Activation, Problem Solving</p>
+              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">⚡ Action</h4>
+              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Behavioral Activation, Problem Solving</p>
             </div>
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-              <h4 style="font-family:sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">📚 Resources</h4>
-              <p style="font-family:sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Crisis lines, therapist finders, and trusted organizations for anxiety, depression, bipolar, OCD, BPD, trauma, ADHD, autism, eating disorders, grief, and more</p>
+              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">📚 Resources</h4>
+              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Crisis lines, therapist finders, and trusted organizations for anxiety, depression, bipolar, OCD, BPD, trauma, ADHD, autism, eating disorders, grief, and more</p>
             </div>
           </div>
         </div>
@@ -2203,7 +2379,7 @@
         <input type="text" id="trEmotion" placeholder="e.g. Anxiety 85, Guilt 60, Shame 50 (SUDS score helpful for ERP)">
       </div>
 
-      <label style="display:block;font-family:sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:0.5rem;font-weight:bold;">Which cognitive distortions apply? (tap all that fit)</label>
+      <label style="display:block;font-family:Quicksand,sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:0.5rem;font-weight:bold;">Which cognitive distortions apply? (tap all that fit)</label>
       <div class="distortion-list" id="distortionList"></div>
 
       <div class="tr-field" style="margin-top:1rem;">
@@ -2288,7 +2464,7 @@
       <p class="cbt-sub">Core beliefs are deep, often unspoken assumptions about yourself, others, and the world. OCD and BPD often share similar themes: fear of abandonment, "I'm broken," "I can't trust myself," "Something is wrong with me." Identifying them is the first step to changing unhelpful ones.</p>
       <div class="tr-field">
         <label>What core belief do you hold? (e.g. "I'm not good enough", "People will abandon me", "I can't trust my own mind")</label>
-        <input type="text" id="cbBelief" placeholder="State the belief in one sentence" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="cbBelief" placeholder="State the belief in one sentence" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Where does this belief come from?</label>
@@ -2319,7 +2495,7 @@
       <div class="cbt-tool">
       <h3>Behavioral Activation</h3>
       <p class="cbt-sub">When you're low, action often comes before motivation — not after. Pick one small activity to do today. Log how you feel before and after. <em>For BPD/anhedonia or OCD-avoidance: small actions bypass the avoidance cycle. Don't wait until you "feel like it."</em></p>
-      <label style="display:block;font-family:sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:0.5rem;font-weight:bold;">Pick an activity:</label>
+      <label style="display:block;font-family:Quicksand,sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:0.5rem;font-weight:bold;">Pick an activity:</label>
       <div class="ba-grid" id="baGrid"></div>
       <div class="tr-field" style="margin-top:1rem;">
         <label>How do you feel BEFORE? (0-10)</label>
@@ -2386,16 +2562,16 @@
       <p class="cbt-sub">List OCD triggers and obsessions, rate SUDS (Subjective Units of Distress, 0-100), then face them from <em>lowest</em> to highest while <em>not</em> doing compulsions. Work with your therapist on higher rungs.</p>
       <div class="tr-field">
         <label>Obsession / situation (what triggers your anxiety?)</label>
-        <input type="text" id="ehSituation" placeholder="e.g. Touching a doorknob without washing hands" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="ehSituation" placeholder="e.g. Touching a doorknob without washing hands" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>SUDS level (0=calm, 100=worst anxiety imaginable)</label>
         <input type="range" id="ehAnxiety" min="0" max="100" value="50" style="width:100%;">
-        <span id="ehAnxietyVal" style="font-family:sans-serif;font-size:0.85rem;color:var(--primary-dark);font-weight:bold;">50</span>
+        <span id="ehAnxietyVal" style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--primary-dark);font-weight:bold;">50</span>
       </div>
       <div class="tr-field">
         <label>Compulsion you want to resist</label>
-        <input type="text" id="ehCompulsion" placeholder="e.g. Hand washing, checking, mental review" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="ehCompulsion" placeholder="e.g. Hand washing, checking, mental review" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" id="ehAdd">Add to Ladder</button>
@@ -2407,13 +2583,13 @@
     <div class="cbt-tool">
       <h3>Coping Cards</h3>
       <p class="cbt-sub">Write coping statements to read when you're distressed. Keep them on your phone or print them. <em>For OCD: avoid statements that seek certainty or neutralize the fear — the goal is acceptance, not reassurance.</em></p>
-      <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:0.8rem;margin-bottom:1rem;font-family:sans-serif;font-size:0.82rem;color:var(--text-muted);">
+      <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:0.8rem;margin-bottom:1rem;font-family:Quicksand,sans-serif;font-size:0.82rem;color:var(--text-muted);">
         <strong>Good OCD coping:</strong> "Maybe, maybe not. I can handle the uncertainty."<br>
         <strong>Avoid (reassurance):</strong> "You would never do that. You're a good person."
       </div>
       <div class="tr-field">
         <label>Trigger / situation (when will you use this card?)</label>
-        <input type="text" id="ccTrigger" placeholder="e.g. When I have a harm intrusive thought" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="ccTrigger" placeholder="e.g. When I have a harm intrusive thought" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Coping statement</label>
@@ -2431,11 +2607,11 @@
       <p class="cbt-sub">Track intrusive thoughts and worries over time. For OCD: the goal is <em>not</em> to check whether they came true (that becomes a compulsion). The goal is to log them and practice letting go of certainty.</p>
       <div class="tr-field">
         <label>Intrusive thought or worry</label>
-        <input type="text" id="wrWorry" placeholder="e.g. What if I lose control and hurt someone?" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="wrWorry" placeholder="e.g. What if I lose control and hurt someone?" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Anxiety level (0-100)</label>
-        <input type="number" id="wrLikely" min="0" max="100" value="50" style="width:80px;padding:0.5rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="number" id="wrLikely" min="0" max="100" value="50" style="width:80px;padding:0.5rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Stance (not a reassurance — just acceptance)</label>
@@ -2456,11 +2632,11 @@
       <p class="cbt-sub">Dissociation can make you feel unreal, disconnected, or unsure you existed moments ago. Use this when you "come to" to anchor yourself and log what you can remember — even fragments are valid. <em>You were real the whole time. You are real now.</em></p>
       <div class="tr-field">
         <label>Right now, I am in (where exactly?)</label>
-        <input type="text" id="rgPlace" placeholder="e.g. My bedroom, sitting on the bed" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="rgPlace" placeholder="e.g. My bedroom, sitting on the bed" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>The time and date is (be exact — even if it feels unreal)</label>
-        <input type="text" id="rgTime" placeholder="e.g. Sunday Aug 16, 2026, 3:45 PM" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="rgTime" placeholder="e.g. Sunday Aug 16, 2026, 3:45 PM" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>What is the last thing you remember before now? (fragments welcome)</label>
@@ -2468,11 +2644,11 @@
       </div>
       <div class="tr-field">
         <label>Right now I feel… (any words — or "blank" / "numb" / "nothing")</label>
-        <input type="text" id="rgNow" placeholder="e.g. Disconnected, shaky, foggy" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="rgNow" placeholder="e.g. Disconnected, shaky, foggy" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Who am I right now?</label>
-        <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-family:sans-serif;font-size:0.88rem;color:var(--text);margin-bottom:0.5rem;" id="rgIdentity">
+        <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-family:Quicksand,sans-serif;font-size:0.88rem;color:var(--text);margin-bottom:0.5rem;" id="rgIdentity">
           My name is <input type="text" id="rgName" placeholder="your name" style="border:none;border-bottom:1px solid var(--border);background:transparent;padding:0.2rem 0.4rem;font-family:inherit;font-size:0.9rem;color:var(--text);width:140px;display:inline-block;">.<br>
           I'm safe in this moment. <br>
           Today I am: <input type="text" id="rgToday" placeholder="one word for today" style="border:none;border-bottom:1px solid var(--border);background:transparent;padding:0.2rem 0.4rem;font-family:inherit;font-size:0.9rem;color:var(--text);width:160px;display:inline-block;">.<br>
@@ -2481,7 +2657,7 @@
       </div>
       <div class="tr-field">
         <label>5-4-3-2-1 grounding check (count what you actually sense right now)</label>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem;font-family:sans-serif;font-size:0.82rem;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem;font-family:Quicksand,sans-serif;font-size:0.82rem;">
           <div style="padding:0.6rem;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;"><strong>5 SEE:</strong><br><input type="text" id="rgSee" placeholder="5 things" style="border:none;background:transparent;font-family:inherit;font-size:0.85rem;width:100%;color:var(--text);"></div>
           <div style="padding:0.6rem;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;"><strong>4 TOUCH:</strong><br><input type="text" id="rgTouch" placeholder="4 things" style="border:none;background:transparent;font-family:inherit;font-size:0.85rem;width:100%;color:var(--text);"></div>
           <div style="padding:0.6rem;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;"><strong>3 HEAR:</strong><br><input type="text" id="rgHear" placeholder="3 things" style="border:none;background:transparent;font-family:inherit;font-size:0.85rem;width:100%;color:var(--text);"></div>
@@ -2492,7 +2668,7 @@
       <div class="tr-field">
         <label>Dissociation level right now (0=grounded, 10=fully checked out)</label>
         <input type="range" id="rgLevel" min="0" max="10" value="5" style="width:100%;">
-        <span id="rgLevelVal" style="font-family:sans-serif;font-size:0.85rem;color:var(--primary-dark);font-weight:bold;">5</span>
+        <span id="rgLevelVal" style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--primary-dark);font-weight:bold;">5</span>
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" id="rgSave">Save Grounding Log</button>
@@ -2506,24 +2682,24 @@
       <p class="cbt-sub">BPD emotions can spike fast and drop fast — but dissociation can wipe the memory of the spike. Logging intensity over the day builds a record you can review to validate what you actually felt. Pattern: emotions are real, even if you forgot them.</p>
       <div class="tr-field">
         <label>What emotion? (one word)</label>
-        <input type="text" id="eiEmotion" placeholder="e.g. Anger, shame, love, emptiness" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="eiEmotion" placeholder="e.g. Anger, shame, love, emptiness" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Intensity (0-10)</label>
         <input type="range" id="eiIntensity" min="0" max="10" value="5" style="width:100%;">
-        <span id="eiIntensityVal" style="font-family:sans-serif;font-size:0.85rem;color:var(--primary-dark);font-weight:bold;">5</span>
+        <span id="eiIntensityVal" style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--primary-dark);font-weight:bold;">5</span>
       </div>
       <div class="tr-field">
         <label>Trigger (what set it off? If "nothing" — that's valid)</label>
-        <input type="text" id="eiTrigger" placeholder="e.g. Read a text, or I don't know" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="eiTrigger" placeholder="e.g. Read a text, or I don't know" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Action urge (what did you want to do?)</label>
-        <input type="text" id="eiUrge" placeholder="e.g. Self-harm, text them, run, cry, disappear" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="eiUrge" placeholder="e.g. Self-harm, text them, run, cry, disappear" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Did you act on it?</label>
-        <select id="eiActed" style="padding:0.5rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <select id="eiActed" style="padding:0.5rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
           <option value="no">No — I used a skill</option>
           <option value="yes">Yes — I acted on it</option>
           <option value="partial">Partially</option>
@@ -2579,7 +2755,7 @@
       <p class="cbt-sub">Track specific urges (self-harm, substance use, contact someone, flee, etc.). Logging an urge doesn't mean you acted — and "resisted" is a win, even if the urge came back.</p>
       <div class="tr-field">
         <label>Urged behavior</label>
-        <select id="ulType" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <select id="ulType" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
           <option value="selfharm">Self-harm</option>
           <option value="substance">Use substance</option>
           <option value="contact">Contact someone impulsively</option>
@@ -2597,7 +2773,7 @@
       <div class="tr-field">
         <label>Intensity (0-10)</label>
         <input type="range" id="ulIntensity" min="0" max="10" value="5" style="width:100%;">
-        <span id="ulIntensityVal" style="font-family:sans-serif;font-size:0.85rem;color:var(--primary-dark);font-weight:bold;">5</span>
+        <span id="ulIntensityVal" style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--primary-dark);font-weight:bold;">5</span>
       </div>
       <div class="tr-field">
         <label>What triggered this urge?</label>
@@ -2605,7 +2781,7 @@
       </div>
       <div class="tr-field">
         <label>Outcome</label>
-        <select id="ulOutcome" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <select id="ulOutcome" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
           <option value="resisted">Resisted — used a skill</option>
           <option value="resisted_waited">Resisted — urge passed on its own</option>
           <option value="partial">Partially acted</option>
@@ -2615,7 +2791,7 @@
       </div>
       <div class="tr-field">
         <label>What skill did you use? (if any)</label>
-        <input type="text" id="ulSkill" placeholder="e.g. TIPP, opposite action,Urge surfing" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="ulSkill" placeholder="e.g. TIPP, opposite action,Urge surfing" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" id="ulAdd">Log Urge</button>
@@ -2644,17 +2820,17 @@
       </div>
       <div class="tr-field">
         <label>Person 1 (name + number)</label>
-        <input type="text" id="spContact1" placeholder="e.g. Maya — (555) 123-4567" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="spContact1" placeholder="e.g. Maya — (555) 123-4567" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Person 2 (name + number)</label>
-        <input type="text" id="spContact2" placeholder="e.g. Sam — (555) 987-6543" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="spContact2" placeholder="e.g. Sam — (555) 987-6543" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Person 3 / professional</label>
-        <input type="text" id="spContact3" placeholder="e.g. Dr. Lee, therapist — (555) 321-0000" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="spContact3" placeholder="e.g. Dr. Lee, therapist — (555) 321-0000" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
-      <div style="background:#fff3e0;border:1px solid #f5a623;border-radius:8px;padding:0.8rem;margin:1rem 0;font-family:sans-serif;font-size:0.88rem;">
+      <div style="background:#fff3e0;border:1px solid #f5a623;border-radius:8px;padding:0.8rem;margin:1rem 0;font-family:Quicksand,sans-serif;font-size:0.88rem;">
         <strong>Crisis lines:</strong> 988 (US/Canada call or text) · Samaritans 116 123 (UK) · Text HOME to 741741 · <a href="https://findahelpline.com" target="_blank" rel="noopener" style="color:var(--primary-dark);">findahelpline.com</a>
       </div>
       <div class="btn-row">
@@ -2790,7 +2966,7 @@
         </div>
 
         <div class="cbt-tool" style="border-color:#f5a623;">
-          <p style="font-family:sans-serif;font-size:0.78rem;color:var(--text-muted);margin:0;">Groundwork isn't affiliated with these organizations — they're listed because they're trusted. This app supports you between sessions; it doesn't replace doctors, therapists, or crisis services.</p>
+          <p style="font-family:Quicksand,sans-serif;font-size:0.78rem;color:var(--text-muted);margin:0;">Groundwork isn't affiliated with these organizations — they're listed because they're trusted. This app supports you between sessions; it doesn't replace doctors, therapists, or crisis services.</p>
         </div>
       </div>
     </div>
@@ -4286,7 +4462,7 @@ function renderGuestView() {
   html += `<div class="gv-note">🔒 This is a guest view. Only emotion statistics are visible. Entry text and titles are hidden. <a href="#" id="guestToFull" style="color:var(--primary-dark);">Log in for full access</a></div>`;
 
   if (total === 0) {
-    html += `<p style="font-family:sans-serif;color:var(--text-muted);text-align:center;padding:2rem 0;">No entries logged yet.</p>`;
+    html += `<p style="font-family:Quicksand,sans-serif;color:var(--text-muted);text-align:center;padding:2rem 0;">No entries logged yet.</p>`;
   } else {
     html += `<div class="stats" style="margin-bottom:1rem;">`;
     html += `<div class="stat-card"><div class="num">${total}</div><div class="lbl">Total Check-ins</div></div>`;
@@ -4306,7 +4482,7 @@ function renderGuestView() {
     last7.forEach((e) => { coresOfEntry(e).forEach((core) => { recent7Cores[core] = (recent7Cores[core] || 0) + 1; }); });
     const recentSorted = Object.entries(recent7Cores).sort((a, b) => b[1] - a[1]);
     const recentTopLabel = recentSorted[0] ? (CORE_EMOTIONS.find((c) => c.key === recentSorted[0][0]) || {}).label : null;
-    html += `<div style="font-family:sans-serif;font-size:0.88rem;color:var(--text);border-top:1px solid var(--border);padding-top:1rem;margin-top:0.5rem;">`;
+    html += `<div style="font-family:Quicksand,sans-serif;font-size:0.88rem;color:var(--text);border-top:1px solid var(--border);padding-top:1rem;margin-top:0.5rem;">`;
     html += `<strong>Last 7 days:</strong> ${last7.length} check-in${last7.length === 1 ? "" : "s"}`;
     if (recentTopLabel) html += `, mostly <strong>${recentTopLabel}</strong>`;
     html += `<br><strong>All time top:</strong> ${sortedCores.slice(0, 3).map(([k, v]) => { const c = CORE_EMOTIONS.find((c) => c.key === k); return c ? `${c.emoji} ${c.label} (${v})` : ""; }).join(", ")}`;
@@ -4773,11 +4949,11 @@ function setupPWA() {
     short_name: "Groundwork",
     description: "Your private mental health emotion tracker",
     display: "standalone",
-    background_color: "#f7f5f0",
-    theme_color: "#5e7a68",
+    background_color: "#fdf2f6",
+    theme_color: "#e85d93",
     start_url: ".",
     icons: [{
-      src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%235e7a68'/%3E%3Ctext x='256' y='320' font-size='260' text-anchor='middle' fill='white'%3E%F0%9F%92%9A%3C/text%3E%3C/svg%3E",
+      src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%23e85d93'/%3E%3Ctext x='256' y='320' font-size='260' text-anchor='middle' fill='white'%3E%F0%9F%8C%B8%3C/text%3E%3C/svg%3E",
       sizes: "any",
       type: "image/svg+xml",
       purpose: "any",
@@ -4951,7 +5127,7 @@ function renderTodos() {
     return true;
   });
   if (filtered.length === 0) {
-    container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">' + (todos.length === 0 ? "No tasks yet. Add one above!" : "Nothing here.") + '</p>';
+    container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">' + (todos.length === 0 ? "No tasks yet. Add one above!" : "Nothing here.") + '</p>';
     updateTodoCount();
     return;
   }
@@ -5035,7 +5211,7 @@ function renderTodaySchedule() {
   try { completed = JSON.parse(localStorage.getItem(completedKey) || "{}"); } catch (e) {}
 
   if (todaySlots.length === 0) {
-    container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">Nothing scheduled for today.</p>';
+    container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">Nothing scheduled for today.</p>';
     return;
   }
   var nowMinutes = now.getHours() * 60 + now.getMinutes();
@@ -5621,7 +5797,7 @@ function renderSocratic() {
   if (container.children.length > 0) return;
   SOCRATIC_QUESTIONS.forEach((q) => {
     const item = document.createElement("div");
-    item.style.cssText = "background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:0.8rem 1rem;cursor:pointer;font-family:sans-serif;";
+    item.style.cssText = "background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:0.8rem 1rem;cursor:pointer;font-family:Quicksand,sans-serif;";
     item.innerHTML = `<strong style="color:var(--primary-dark);">${escapeHtml(q.q)}</strong><div id="sq-${q.q.replace(/\W/g,'')}" style="display:none;margin-top:0.5rem;font-size:0.82rem;color:var(--text-muted);font-style:italic;">${escapeHtml(q.prompt)}</div>`;
     item.addEventListener("click", () => {
       const hint = item.querySelector("div");
@@ -5642,7 +5818,7 @@ function renderCBTSaved() {
 function renderTRSaved() {
   const container = document.getElementById("trSaved");
   const records = getCBT("thoughtRecord");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No thought records saved yet.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No thought records saved yet.</p>'; return; }
   container.innerHTML = "";
   records.forEach((r) => {
     const item = document.createElement("div");
@@ -5673,7 +5849,7 @@ function renderTRSaved() {
 function renderABCSaved() {
   const container = document.getElementById("abcSaved");
   const records = getCBT("abc");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No ABC records saved yet.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No ABC records saved yet.</p>'; return; }
   container.innerHTML = "";
   records.forEach((r) => {
     const item = document.createElement("div");
@@ -5701,7 +5877,7 @@ function renderABCSaved() {
 function renderBASaved() {
   const container = document.getElementById("baSaved");
   const records = getCBT("behavioralActivation");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No activities logged yet.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No activities logged yet.</p>'; return; }
   container.innerHTML = "";
   records.forEach((r) => {
     const item = document.createElement("div");
@@ -5752,7 +5928,7 @@ document.getElementById("ehClear").addEventListener("click", () => {
 });
 function renderEH() {
   var container = document.getElementById("ehList");
-  if (ehList.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No items on your ladder yet.</p>'; return; }
+  if (ehList.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No items on your ladder yet.</p>'; return; }
   ehList.sort((a, b) => a.suds - b.suds);
   container.innerHTML = "";
   ehList.forEach((item, i) => {
@@ -5760,7 +5936,7 @@ function renderEH() {
     var div = document.createElement("div");
     div.className = "tr-saved-item";
     div.style.borderLeftColor = sudsColor;
-    div.innerHTML = '<button class="tr-del" data-id="' + item.id + '">Delete</button><div style="font-family:sans-serif;font-size:0.75rem;color:var(--text-muted);">Rung ' + (i + 1) + '</div><div class="tr-row"><div class="tr-row-label">Trigger</div><div class="tr-row-val">' + escapeHtml(item.situation) + '</div></div>' + (item.compulsion ? '<div class="tr-row"><div class="tr-row-label">Resist compulsion</div><div class="tr-row-val">' + escapeHtml(item.compulsion) + '</div></div>' : '') + '<div class="tr-row"><div class="tr-row-label">SUDS</div><div class="tr-row-val" style="font-weight:bold;color:' + sudsColor + ';">' + item.suds + '/100</div></div>';
+    div.innerHTML = '<button class="tr-del" data-id="' + item.id + '">Delete</button><div style="font-family:Quicksand,sans-serif;font-size:0.75rem;color:var(--text-muted);">Rung ' + (i + 1) + '</div><div class="tr-row"><div class="tr-row-label">Trigger</div><div class="tr-row-val">' + escapeHtml(item.situation) + '</div></div>' + (item.compulsion ? '<div class="tr-row"><div class="tr-row-label">Resist compulsion</div><div class="tr-row-val">' + escapeHtml(item.compulsion) + '</div></div>' : '') + '<div class="tr-row"><div class="tr-row-label">SUDS</div><div class="tr-row-val" style="font-weight:bold;color:' + sudsColor + ';">' + item.suds + '/100</div></div>';
     container.appendChild(div);
   });
   container.querySelectorAll(".tr-del").forEach((b) => {
@@ -5784,7 +5960,7 @@ document.getElementById("psClear").addEventListener("click", () => { ["psProblem
 function renderPSSaved() {
   var container = document.getElementById("psSaved");
   var records = getCBT("problemSolving");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No problem records saved yet.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No problem records saved yet.</p>'; return; }
   container.innerHTML = "";
   records.forEach((r) => {
     var item = document.createElement("div");
@@ -5810,7 +5986,7 @@ document.getElementById("cbClear").addEventListener("click", () => { ["cbBelief"
 function renderCBSaved() {
   var container = document.getElementById("cbSaved");
   var records = getCBT("coreBelief");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No core beliefs saved yet.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No core beliefs saved yet.</p>'; return; }
   container.innerHTML = "";
   records.forEach((r) => {
     var item = document.createElement("div");
@@ -5838,12 +6014,12 @@ document.getElementById("ccClear").addEventListener("click", () => { document.ge
 function renderCCSaved() {
   var container = document.getElementById("ccSaved");
   var records = getCBT("copingCard");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No coping cards saved yet.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No coping cards saved yet.</p>'; return; }
   container.innerHTML = "";
   records.forEach((r) => {
     var card = document.createElement("div");
     card.style.cssText = "background:var(--input-bg);border:1px solid var(--border);border-left:3px solid var(--primary);border-radius:8px;padding:1rem;position:relative;";
-    card.innerHTML = '<button class="tr-del" data-id="' + r.id + '">Delete</button>' + (r.trigger ? '<div style="font-family:sans-serif;font-size:0.72rem;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.4rem;">' + escapeHtml(r.trigger) + '</div>' : "") + '<div style="font-family:Georgia,serif;font-size:0.92rem;color:var(--text);line-height:1.5;">&ldquo;' + escapeHtml(r.statement) + '&rdquo;</div>';
+    card.innerHTML = '<button class="tr-del" data-id="' + r.id + '">Delete</button>' + (r.trigger ? '<div style="font-family:Quicksand,sans-serif;font-size:0.72rem;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.4rem;">' + escapeHtml(r.trigger) + '</div>' : "") + '<div style="font-family:Georgia,serif;font-size:0.92rem;color:var(--text);line-height:1.5;">&ldquo;' + escapeHtml(r.statement) + '&rdquo;</div>';
     container.appendChild(card);
   });
   container.querySelectorAll(".tr-del").forEach((b) => { b.addEventListener("click", () => { cbtRecords = cbtRecords.filter((r) => r.id !== b.dataset.id); saveCBT(); renderCCSaved(); }); });
@@ -5865,7 +6041,7 @@ document.getElementById("wrClear").addEventListener("click", () => { document.ge
 function renderWRSaved() {
   var container = document.getElementById("wrSaved");
   var records = getCBT("worryRecord");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No worries logged yet.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No worries logged yet.</p>'; return; }
   container.innerHTML = "";
   records.slice(0, 10).forEach((r) => {
     var item = document.createElement("div");
@@ -5893,7 +6069,7 @@ document.getElementById("rgClear").addEventListener("click", () => { ["rgPlace",
 function renderRGSaved() {
   var container = document.getElementById("rgSaved");
   var records = getCBT("grounding");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No grounding logs yet. Use this when you come out of dissociation.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No grounding logs yet. Use this when you come out of dissociation.</p>'; return; }
   container.innerHTML = "";
   records.slice(0, 8).forEach((r) => {
     var item = document.createElement("div");
@@ -5927,7 +6103,7 @@ function renderEI() {
   var listContainer = document.getElementById("eiList");
   if (records.length === 0) {
     chartContainer.innerHTML = "";
-    listContainer.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No emotions logged yet.</p>';
+    listContainer.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No emotions logged yet.</p>';
     return;
   }
   var today = new Date().toDateString();
@@ -5944,7 +6120,7 @@ function renderEI() {
     }).join("");
     chartContainer.innerHTML = '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;max-width:700px;height:auto;"><text x="' + pad + '" y="15" font-family="sans-serif" font-size="11" fill="var(--text-muted)">Today (0-10 intensity)</text>' + (todayRecs.length >= 2 ? '<polyline points="' + polyline + '" fill="none" stroke="var(--primary)" stroke-width="2"/>' : "") + dots + '<line x1="' + pad + '" y1="' + (h - pad) + '" x2="' + (w - pad) + '" y2="' + (h - pad) + '" stroke="var(--border)" stroke-width="1"/><line x1="' + pad + '" y1="' + pad + '" x2="' + pad + '" y2="' + (h - pad) + '" stroke="var(--border)" stroke-width="1"/></svg>';
   } else {
-    chartContainer.innerHTML = '<p style="font-family:sans-serif;font-size:0.82rem;color:var(--text-muted);">Log 2+ emotions today to see a chart.</p>';
+    chartContainer.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.82rem;color:var(--text-muted);">Log 2+ emotions today to see a chart.</p>';
   }
   listContainer.innerHTML = "";
   records.slice(0, 10).forEach((r) => {
@@ -5993,12 +6169,12 @@ document.getElementById("dbtClear").addEventListener("click", () => { document.q
 function renderDBTSaved() {
   var container = document.getElementById("dbtSaved");
   var records = getCBT("dbtSkills");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No skills logged yet. Even one skill counts.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No skills logged yet. Even one skill counts.</p>'; return; }
   container.innerHTML = "";
   records.slice(0, 10).forEach((r) => {
     var item = document.createElement("div");
     item.className = "tr-saved-item";
-    var skillsHtml = (r.skills && r.skills.length) ? '<div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin:0.4rem 0;">' + r.skills.map((s) => '<span style="padding:0.2rem 0.5rem;background:var(--bg);border-radius:4px;font-size:0.75rem;font-family:sans-serif;">' + escapeHtml(s) + '</span>').join("") + '</div>' : "";
+    var skillsHtml = (r.skills && r.skills.length) ? '<div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin:0.4rem 0;">' + r.skills.map((s) => '<span style="padding:0.2rem 0.5rem;background:var(--bg);border-radius:4px;font-size:0.75rem;font-family:Quicksand,sans-serif;">' + escapeHtml(s) + '</span>').join("") + '</div>' : "";
     item.innerHTML = '<button class="tr-del" data-id="' + r.id + '">Delete</button><div class="tr-date">' + formatDate(r.date) + '</div>' + skillsHtml + (r.notes ? '<div class="tr-row"><div class="tr-row-label">Notes</div><div class="tr-row-val">' + escapeHtml(r.notes) + '</div></div>' : "");
     container.appendChild(item);
   });
@@ -6024,7 +6200,7 @@ var URGE_LABELS = { selfharm: "Self-harm", substance: "Substance use", contact: 
 function renderULSaved() {
   var container = document.getElementById("ulSaved");
   var records = getCBT("urgeLog");
-  if (records.length === 0) { container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No urges logged yet.</p>'; return; }
+  if (records.length === 0) { container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No urges logged yet.</p>'; return; }
   container.innerHTML = "";
   records.slice(0, 10).forEach((r) => {
     var color = r.outcome === "resisted" || r.outcome === "resisted_waited" ? "#3DA877" : r.outcome === "acted" ? "#E15B49" : "#F2C541";
@@ -6055,7 +6231,7 @@ document.getElementById("spSave").addEventListener("click", () => {
   setTimeout(() => { btn.textContent = "Save Safety Plan"; }, 2000);
 });
 document.getElementById("spPrint").addEventListener("click", () => {
-  var html = '<html><head><title>My Safety Plan</title><style>body{font-family:Georgia,serif;max-width:600px;margin:40px auto;padding:20px;line-height:1.6;}h1{color:#5e7a68;}h2{border-bottom:1px solid #ccc;padding-bottom:5px;}.contact{font-size:1.1em;margin:5px 0;}.crisis{background:#fff3e0;border:1px solid #f5a623;padding:10px;border-radius:8px;}</style></head><body>';
+  var html = '<html><head><title>My Safety Plan</title><style>body{font-family:Georgia,serif;max-width:600px;margin:40px auto;padding:20px;line-height:1.6;}h1{color:#e85d93;}h2{border-bottom:1px solid #ccc;padding-bottom:5px;}.contact{font-size:1.1em;margin:5px 0;}.crisis{background:#fff3e0;border:1px solid #f5a623;padding:10px;border-radius:8px;}</style></head><body>';
   html += '<h1>My Safety Plan</h1>';
   html += '<h2>Warning signs</h2><p>' + (safetyPlan.spWarning || "") + '</p>';
   html += '<h2>Coping strategies</h2><p>' + (safetyPlan.spCoping || "") + '</p>';
@@ -6103,14 +6279,15 @@ applyFontSize();
  *  Theme customizer
  * ============================================================ */
 var THEME_PRESETS = [
-  { name: "Sage (default)",   primary: "#7c9885", dark: "#5e7a68", bg: "#f7f5f0", surface: "#ffffff" },
-  { name: "Ocean",            primary: "#5b8ca3", dark: "#3d6b80", bg: "#f0f5f8", surface: "#ffffff" },
-  { name: "Lavender",          primary: "#9678b0", dark: "#755a8f", bg: "#f6f2fa", surface: "#ffffff" },
-  { name: "Sunset",            primary: "#e08552", dark: "#b86a30", bg: "#fbf3ed", surface: "#ffffff" },
-  { name: "Rose",              primary: "#c4657a", dark: "#a04556", bg: "#fbf3f5", surface: "#ffffff" },
-  { name: "Teal",              primary: "#2a9d8f", dark: "#1d7569", bg: "#effbf9", surface: "#ffffff" },
-  { name: "Indigo",            primary: "#5c6ab0", dark: "#3f4d8f", bg: "#f2f3fb", surface: "#ffffff" },
-  { name: "Forest",            primary: "#5b8c4a", dark: "#3d6b30", bg: "#f3faf0", surface: "#ffffff" },
+  { name: "🌸 Sakura (default)", primary: "#e85d93", dark: "#b23a68", bg: "#fdf2f6", surface: "#ffffff" },
+  { name: "Sage",               primary: "#7c9885", dark: "#3d5444", bg: "#f7f5f0", surface: "#ffffff" },
+  { name: "Ocean",              primary: "#5b8ca3", dark: "#3d6b80", bg: "#f0f5f8", surface: "#ffffff" },
+  { name: "Lavender",           primary: "#9678b0", dark: "#755a8f", bg: "#f6f2fa", surface: "#ffffff" },
+  { name: "Sunset",             primary: "#e08552", dark: "#b86a30", bg: "#fbf3ed", surface: "#ffffff" },
+  { name: "Rose",               primary: "#c4657a", dark: "#a04556", bg: "#fbf3f5", surface: "#ffffff" },
+  { name: "Teal",               primary: "#2a9d8f", dark: "#1d7569", bg: "#effbf9", surface: "#ffffff" },
+  { name: "Indigo",             primary: "#5c6ab0", dark: "#3f4d8f", bg: "#f2f3fb", surface: "#ffffff" },
+  { name: "Forest",             primary: "#5b8c4a", dark: "#3d6b30", bg: "#f3faf0", surface: "#ffffff" },
 ];
 var themeModal = document.getElementById("themeModal");
 function openThemeModal() {
@@ -6118,7 +6295,7 @@ function openThemeModal() {
   renderThemePresets();
   var saved = localStorage.getItem("mj_customTheme");
   if (saved) {
-    try { document.getElementById("accentColorPicker").value = JSON.parse(saved).primary || "#5e7a68"; } catch (e) {}
+    try { document.getElementById("accentColorPicker").value = JSON.parse(saved).primary || "#e85d93"; } catch (e) {}
   }
   document.getElementById("accentHexLabel").textContent = document.getElementById("accentColorPicker").value.toUpperCase();
 }
@@ -6158,8 +6335,8 @@ function applyCustomTheme(p) {
     root.style.removeProperty("--text");
     root.style.removeProperty("--text-muted");
     root.style.removeProperty("--input-bg");
-    document.getElementById("accentColorPicker").value = "#5e7a68";
-    document.getElementById("accentHexLabel").textContent = "#5E7A68";
+    document.getElementById("accentColorPicker").value = "#e85d93";
+    document.getElementById("accentHexLabel").textContent = "#e85d93";
     return;
   }
   root.style.setProperty("--primary", p.primary);
@@ -6205,7 +6382,7 @@ function renderQuotes() {
   var container = document.getElementById("quotesList");
   container.innerHTML = "";
   if (quotes.length === 0) {
-    container.innerHTML = '<p style="font-family:sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No quotes saved yet. Add one above!</p>';
+    container.innerHTML = '<p style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-style:italic;">No quotes saved yet. Add one above!</p>';
     return;
   }
   quotes.forEach((q) => {
