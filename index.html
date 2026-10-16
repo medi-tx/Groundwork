@@ -1922,8 +1922,8 @@
 
 <nav>
   <button class="tab-btn active" data-view="write">+ Entry</button>
-  <button class="tab-btn" data-view="prompts">Prompts</button>
   <button class="tab-btn" data-view="journal">My Journal</button>
+  <button class="tab-btn" data-view="prompts">Prompts</button>
   <button class="tab-btn" data-view="insights">Insights</button>
   <button class="tab-btn" data-view="schedule">Schedule</button>
   <button class="tab-btn" data-view="selfcare">Self-Care</button>
@@ -2314,14 +2314,13 @@
   <section class="view" id="view-cbt">
     <div class="tracker">
       <h2>Mental Health Toolkit</h2>
-      <p class="cbt-sub">Evidence-based tools drawn from CBT, ERP, and DBT to practice between sessions — plus a library of trusted resources for all kinds of mental health stuff. Not a replacement for professional therapy.</p>
+      <p class="cbt-sub">Evidence-based tools drawn from CBT, ERP, and ACT to practice between sessions — plus a library of trusted resources for all kinds of mental health stuff. Not a replacement for professional therapy.</p>
 
       <div class="cbt-subnav">
         <button class="cbt-subtab active" data-sub="overview">📋 Overview</button>
-        <button class="cbt-subtab" data-sub="thoughts">🧠 Thought Tools</button>
-        <button class="cbt-subtab" data-sub="ocd">🔄 OCD / ERP</button>
-        <button class="cbt-subtab" data-sub="bpd">💔 BPD / DBT</button>
-        <button class="cbt-subtab" data-sub="action">⚡ Action</button>
+        <button class="cbt-subtab" data-sub="cbt">🧠 CBT</button>
+        <button class="cbt-subtab" data-sub="erp">🔄 ERP</button>
+        <button class="cbt-subtab" data-sub="act">⚡ ACT</button>
         <button class="cbt-subtab" data-sub="safety">🛡 Safety Plan</button>
         <button class="cbt-subtab" data-sub="resources">📚 Resources</button>
       </div>
@@ -2338,20 +2337,16 @@
           <h3>What's in each section?</h3>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0.8rem;margin-top:0.8rem;">
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">🧠 Thought Tools</h4>
+              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">🧠 CBT</h4>
               <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Thought Record, ABC Model, Socratic Questioning, Core Beliefs</p>
             </div>
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">🔄 OCD / ERP</h4>
+              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">🔄 ERP</h4>
               <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">ERP Hierarchy, Obsession & Worry Tracker, Coping Cards</p>
             </div>
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">💔 BPD / DBT</h4>
-              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Reality Grounding, Emotion-Intensity Tracker, DBT Skills, Urges Log</p>
-            </div>
-            <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
-              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">⚡ Action</h4>
-              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Behavioral Activation, Problem Solving</p>
+              <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">⚡ ACT</h4>
+              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">Reality Grounding, Emotion-Intensity Tracker, DBT Skills, Urges Log, Behavioral Activation, Problem Solving</p>
             </div>
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
               <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">📚 Resources</h4>
@@ -2361,8 +2356,8 @@
         </div>
       </div>
 
-      <!-- ===== THOUGHT TOOLS ===== -->
-      <div class="cbt-subpage" data-sub="thoughts">
+      <!-- ===== CBT (Thought Tools) ===== -->
+      <div class="cbt-subpage" data-sub="cbt">
 
       <h3>Thought Record</h3>
       <p class="cbt-sub">Write down a stressful thought, identify the distortion, then reframe it. <em>For OCD: intrusive thoughts are not "you" — they're ego-dystonic, meaning they go against who you are and what you value. Reframing isn't about proving the fear wrong — it's about accepting uncertainty.</em></p>
@@ -2490,73 +2485,8 @@
     </div>
       </div>
 
-      <!-- ===== ACTION (Behavioral Activation + Problem Solving) ===== -->
-      <div class="cbt-subpage" data-sub="action">
-      <div class="cbt-tool">
-      <h3>Behavioral Activation</h3>
-      <p class="cbt-sub">When you're low, action often comes before motivation — not after. Pick one small activity to do today. Log how you feel before and after. <em>For BPD/anhedonia or OCD-avoidance: small actions bypass the avoidance cycle. Don't wait until you "feel like it."</em></p>
-      <label style="display:block;font-family:Quicksand,sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:0.5rem;font-weight:bold;">Pick an activity:</label>
-      <div class="ba-grid" id="baGrid"></div>
-      <div class="tr-field" style="margin-top:1rem;">
-        <label>How do you feel BEFORE? (0-10)</label>
-        <input type="number" id="baBefore" min="0" max="10" placeholder="0 = terrible, 10 = great">
-      </div>
-      <div class="tr-field">
-        <label>How do you feel AFTER? (0-10)</label>
-        <input type="number" id="baAfter" min="0" max="10" placeholder="0 = terrible, 10 = great">
-      </div>
-      <div class="tr-field">
-        <label>Notes (optional)</label>
-        <textarea id="baNotes" placeholder="What did you notice?"></textarea>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" id="baSave">Log Activity</button>
-        <button class="btn btn-secondary" id="baClear">Clear</button>
-      </div>
-    </div>
-
-    <div class="cbt-tool">
-      <h3>Activity Log</h3>
-      <div id="baSaved"></div>
-    </div>
-
-    <div class="cbt-tool">
-      <h3>Problem Solving</h3>
-      <p class="cbt-sub">Structured 6-step approach to work through real problems instead of spiraling. <em>For OCD: use this when the problem is situational — not for OCD doubts. OCD thoughts can't be solved through reasoning; they require acceptance of uncertainty.</em></p>
-      <div class="tr-field">
-        <label>1. Define the problem</label>
-        <textarea id="psProblem" placeholder="Be specific and factual. What exactly is the problem?"></textarea>
-      </div>
-      <div class="tr-field">
-        <label>2. Brainstorm possible solutions (list as many as you can)</label>
-        <textarea id="psOptions" placeholder="Don't judge them yet — just list ideas, even bad ones"></textarea>
-      </div>
-      <div class="tr-field">
-        <label>3. Pros & cons of each option</label>
-        <textarea id="psProsCons" placeholder="e.g. Option 1: Pros — quick fix. Cons — doesn't address root cause."></textarea>
-      </div>
-      <div class="tr-field">
-        <label>4. Choose the best option</label>
-        <textarea id="psChoose" placeholder="Which solution seems best and why?"></textarea>
-      </div>
-      <div class="tr-field">
-        <label>5. Action plan — what, when, how</label>
-        <textarea id="psPlan" placeholder="Break it into steps. What will you do first? When?"></textarea>
-      </div>
-      <div class="tr-field">
-        <label>6. Did it work? (fill in after trying)</label>
-        <textarea id="psOutcome" placeholder="What happened? What did you learn?"></textarea>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" id="psSave">Save Problem Record</button>
-        <button class="btn btn-secondary" id="psClear">Clear Form</button>
-      </div>
-      <div id="psSaved"></div>
-    </div>
-      </div>
-
-      <!-- ===== OCD / ERP ===== -->
-      <div class="cbt-subpage" data-sub="ocd">
+      <!-- ===== ERP ===== -->
+      <div class="cbt-subpage" data-sub="erp">
       <div class="cbt-tool">
       <h3>ERP Hierarchy (Exposure Ladder)</h3>
       <p class="cbt-sub">List OCD triggers and obsessions, rate SUDS (Subjective Units of Distress, 0-100), then face them from <em>lowest</em> to highest while <em>not</em> doing compulsions. Work with your therapist on higher rungs.</p>
@@ -2625,8 +2555,8 @@
     </div>
       </div>
 
-      <!-- ===== BPD / DBT ===== -->
-      <div class="cbt-subpage" data-sub="bpd">
+      <!-- ===== ACT (DBT skills + Behavioral Activation) ===== -->
+      <div class="cbt-subpage" data-sub="act">
       <div class="cbt-tool">
       <h3>Reality Grounding Check-In</h3>
       <p class="cbt-sub">Dissociation can make you feel unreal, disconnected, or unsure you existed moments ago. Use this when you "come to" to anchor yourself and log what you can remember — even fragments are valid. <em>You were real the whole time. You are real now.</em></p>
@@ -2799,6 +2729,69 @@
       </div>
       <div id="ulSaved"></div>
     </div>
+
+      <!-- Behavioral Activation + Problem Solving (moved from Action tab) -->
+      <div class="cbt-tool">
+      <h3>Behavioral Activation</h3>
+      <p class="cbt-sub">When you're low, action often comes before motivation — not after. Pick one small activity to do today. Log how you feel before and after. <em>For BPD/anhedonia or OCD-avoidance: small actions bypass the avoidance cycle. Don't wait until you "feel like it."</em></p>
+      <label style="display:block;font-family:Quicksand,sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:0.5rem;font-weight:bold;">Pick an activity:</label>
+      <div class="ba-grid" id="baGrid"></div>
+      <div class="tr-field" style="margin-top:1rem;">
+        <label>How do you feel BEFORE? (0-10)</label>
+        <input type="number" id="baBefore" min="0" max="10" placeholder="0 = terrible, 10 = great">
+      </div>
+      <div class="tr-field">
+        <label>How do you feel AFTER? (0-10)</label>
+        <input type="number" id="baAfter" min="0" max="10" placeholder="0 = terrible, 10 = great">
+      </div>
+      <div class="tr-field">
+        <label>Notes (optional)</label>
+        <textarea id="baNotes" placeholder="What did you notice?"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="baSave">Log Activity</button>
+        <button class="btn btn-secondary" id="baClear">Clear</button>
+      </div>
+    </div>
+
+    <div class="cbt-tool">
+      <h3>Activity Log</h3>
+      <div id="baSaved"></div>
+    </div>
+
+    <div class="cbt-tool">
+      <h3>Problem Solving</h3>
+      <p class="cbt-sub">Structured 6-step approach to work through real problems instead of spiraling. <em>For OCD: use this when the problem is situational — not for OCD doubts. OCD thoughts can't be solved through reasoning; they require acceptance of uncertainty.</em></p>
+      <div class="tr-field">
+        <label>1. Define the problem</label>
+        <textarea id="psProblem" placeholder="Be specific and factual. What exactly is the problem?"></textarea>
+      </div>
+      <div class="tr-field">
+        <label>2. Brainstorm possible solutions (list as many as you can)</label>
+        <textarea id="psOptions" placeholder="Don't judge them yet — just list ideas, even bad ones"></textarea>
+      </div>
+      <div class="tr-field">
+        <label>3. Pros & cons of each option</label>
+        <textarea id="psProsCons" placeholder="e.g. Option 1: Pros — quick fix. Cons — doesn't address root cause."></textarea>
+      </div>
+      <div class="tr-field">
+        <label>4. Choose the best option</label>
+        <textarea id="psChoose" placeholder="Which solution seems best and why?"></textarea>
+      </div>
+      <div class="tr-field">
+        <label>5. Action plan — what, when, how</label>
+        <textarea id="psPlan" placeholder="Break it into steps. What will you do first? When?"></textarea>
+      </div>
+      <div class="tr-field">
+        <label>6. Did it work? (fill in after trying)</label>
+        <textarea id="psOutcome" placeholder="What happened? What did you learn?"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="psSave">Save Problem Record</button>
+        <button class="btn btn-secondary" id="psClear">Clear Form</button>
+      </div>
+      <div id="psSaved"></div>
+    </div>
       </div>
 
       <!-- ===== SAFETY PLAN ===== -->
@@ -2940,7 +2933,7 @@
         <div class="cbt-tool">
           <h3>🤕 Self-harm</h3>
           <div class="res-item"><strong>SAFE Alternatives</strong> — the oldest self-harm treatment referral program in the US · <a href="https://selfinjury.com" target="_blank" rel="noopener">selfinjury.com</a></div>
-          <div class="res-item"><strong>Tip:</strong> the <em>Urges Log</em> in the 💔 BPD / DBT tab can help you track urges and what helps them pass.</div>
+          <div class="res-item"><strong>Tip:</strong> the <em>Urges Log</em> in the ⚡ ACT tab can help you track urges and what helps them pass.</div>
         </div>
 
         <div class="cbt-tool">
@@ -4196,10 +4189,9 @@ document.querySelectorAll(".cbt-subtab").forEach((tab) => {
     tab.classList.add("active");
     var page = document.querySelector('.cbt-subpage[data-sub="' + sub + '"]');
     if (page) page.classList.add("active");
-    if (sub === "thoughts") { renderDistortions(); renderSocratic(); renderCBTSaved(); renderCBSaved(); }
-    if (sub === "ocd") { renderEH(); renderCCSaved(); renderWRSaved(); }
-    if (sub === "bpd") { renderRGSaved(); renderEI(); renderDBTSaved(); renderULSaved(); }
-    if (sub === "action") { renderBAGrid(); renderPSSaved(); renderBASaved(); }
+    if (sub === "cbt") { renderDistortions(); renderSocratic(); renderCBTSaved(); renderCBSaved(); }
+    if (sub === "erp") { renderEH(); renderCCSaved(); renderWRSaved(); }
+    if (sub === "act") { renderRGSaved(); renderEI(); renderDBTSaved(); renderULSaved(); renderBAGrid(); renderPSSaved(); renderBASaved(); }
   });
 });
 
