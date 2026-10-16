@@ -1709,6 +1709,30 @@
   .cbt-subpage { display: none; }
   .cbt-subpage.active { display: block; }
 
+  /* Schedule sub-pages */
+  .sched-subpage { display: none; }
+  .sched-subpage.active { display: block; }
+  .sched-back {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    background: var(--input-bg); border: 1px solid var(--border);
+    border-radius: 100px; padding: 0.4rem 0.9rem; margin-bottom: 1rem;
+    font-family:Quicksand,sans-serif; font-size: 0.8rem; font-weight: 600;
+    color: var(--text); cursor: pointer; transition: all 0.15s;
+  }
+  .sched-back:hover { border-color: var(--primary); background: #ffeef5; color: var(--primary-dark); transform: translateX(-2px); }
+  [data-theme="dark"] .sched-back:hover { background: #3a2437; color: var(--primary); }
+  .sched-home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; margin-top: 1.2rem; }
+  .sched-home-card {
+    display: flex; flex-direction: column; gap: 0.3rem; text-align: left;
+    background: var(--input-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem; cursor: pointer; transition: all 0.15s;
+    font-family:Quicksand,sans-serif; color: var(--text);
+  }
+  .sched-home-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+  .sched-home-card .shc-emoji { font-size: 1.5rem; }
+  .sched-home-card .shc-title { font-weight: 700; color: var(--primary-dark); font-size: 0.95rem; }
+  .sched-home-card .shc-desc { font-size: 0.78rem; color: var(--text-muted); }
+
   /* ===== 🌸 Cherry blossom cuteness layer ===== */
   h2, h3, h4 { font-family:Quicksand,sans-serif; font-weight: 600; }
 
@@ -2158,8 +2182,44 @@
   <!-- SCHEDULE MAKER -->
   <section class="view" id="view-schedule">
     <div class="tracker">
-      <h2>My Schedule</h2>
-      <p class="sub">Build a daily self-care routine. Schedule check-ins, reflections, therapy appointments, and habits — then export to your calendar.</p>
+
+      <!-- Schedule home -->
+      <div class="sched-subpage active" data-sched="home">
+        <h2>My Schedule</h2>
+        <p class="sub">Build a daily self-care routine. Schedule check-ins, reflections, therapy appointments, and habits — then export to your calendar.</p>
+        <div class="sched-home-grid">
+          <button class="sched-home-card" data-sched-go="builder">
+            <span class="shc-emoji">🛠️</span>
+            <span class="shc-title">Build schedule</span>
+            <span class="shc-desc">Add slots, set repeats, and save presets</span>
+          </button>
+          <button class="sched-home-card" data-sched-go="today">
+            <span class="shc-emoji">📅</span>
+            <span class="shc-title">Today's schedule</span>
+            <span class="shc-desc">See what's on your plate today</span>
+          </button>
+          <button class="sched-home-card" data-sched-go="slots">
+            <span class="shc-emoji">🗂️</span>
+            <span class="shc-title">All slots</span>
+            <span class="shc-desc">Review, edit, or delete every slot</span>
+          </button>
+          <button class="sched-home-card" data-sched-go="export">
+            <span class="shc-emoji">📤</span>
+            <span class="shc-title">Export</span>
+            <span class="shc-desc">Download a calendar (.ics) file</span>
+          </button>
+          <button class="sched-home-card" data-sched-go="todo">
+            <span class="shc-emoji">✅</span>
+            <span class="shc-title">To-do list</span>
+            <span class="shc-desc">Tasks and reminders for today</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Builder sub-page -->
+      <div class="sched-subpage" data-sched="builder">
+        <button class="sched-back" data-sched-go="home">← Back</button>
+        <h3>Build schedule</h3>
 
       <div class="schedule-row">
         <div class="sr-field">
@@ -2241,37 +2301,55 @@
       <div style="margin-bottom:1rem;">
         <button class="btn btn-secondary" id="saveAsPreset" style="font-size:0.8rem;padding:0.5rem 1rem;">💾 Save current as preset</button>
       </div>
-
-      <h3>Today's Schedule <span id="todayLabel" style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-weight:normal;"></span></h3>
-      <div id="todaySchedule" style="margin-bottom:1.5rem;"></div>
-
-      <h3>All Scheduled Slots</h3>
-      <div id="slotList" class="slot-list"></div>
-
-      <div class="export-section" style="text-align:left;border-top:1px solid var(--border);padding-top:1.5rem;margin-top:2rem;">
-        <p>Export your schedule so you can import it into your calendar app (Google Calendar, Apple Calendar, Outlook, etc.).</p>
-        <button class="btn btn-secondary" id="exportIcsBtn">Download .ics calendar file</button>
-        <p class="ical-note">.ics is the standard calendar format — open the downloaded file and your calendar app will add these as recurring daily events.</p>
       </div>
 
-      <h3 style="margin-top:2rem;">✅ To-Do List</h3>
-      <p class="sub">Tasks and reminders for today. Check them off as you go.</p>
-      <div class="todo-add-row">
-        <input type="text" id="todoInput" placeholder="Add a task and press Enter...">
-        <select id="todoPriority" style="padding:0.5rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.82rem;background:var(--input-bg);color:var(--text);">
-          <option value="normal">Normal</option>
-          <option value="high">⭐ High</option>
-          <option value="low">Low</option>
-        </select>
-        <button class="btn btn-primary" id="todoAdd" style="font-size:0.85rem;padding:0.5rem 1.2rem;white-space:nowrap;">Add</button>
+      <!-- Today sub-page -->
+      <div class="sched-subpage" data-sched="today">
+        <button class="sched-back" data-sched-go="home">← Back</button>
+        <h3>Today's Schedule <span id="todayLabel" style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--text-muted);font-weight:normal;"></span></h3>
+        <div id="todaySchedule" style="margin-bottom:1.5rem;"></div>
       </div>
-      <div class="todo-filters">
-        <button class="cd-btn selected" id="todoFilterAll">All</button>
-        <button class="cd-btn" id="todoFilterActive">Active</button>
-        <button class="cd-btn" id="todoFilterDone">Done</button>
-        <span id="todoCount" style="margin-left:auto;font-family:Quicksand,sans-serif;font-size:0.78rem;color:var(--text-muted);"></span>
+
+      <!-- All slots sub-page -->
+      <div class="sched-subpage" data-sched="slots">
+        <button class="sched-back" data-sched-go="home">← Back</button>
+        <h3>All Scheduled Slots</h3>
+        <div id="slotList" class="slot-list"></div>
       </div>
-      <div id="todoList" class="todo-list"></div>
+
+      <!-- Export sub-page -->
+      <div class="sched-subpage" data-sched="export">
+        <button class="sched-back" data-sched-go="home">← Back</button>
+        <h3>Export schedule</h3>
+        <div class="export-section" style="text-align:left;">
+          <p>Export your schedule so you can import it into your calendar app (Google Calendar, Apple Calendar, Outlook, etc.).</p>
+          <button class="btn btn-secondary" id="exportIcsBtn">Download .ics calendar file</button>
+          <p class="ical-note">.ics is the standard calendar format — open the downloaded file and your calendar app will add these as recurring daily events.</p>
+        </div>
+      </div>
+
+      <!-- To-do sub-page -->
+      <div class="sched-subpage" data-sched="todo">
+        <button class="sched-back" data-sched-go="home">← Back</button>
+        <h3>✅ To-Do List</h3>
+        <p class="sub">Tasks and reminders for today. Check them off as you go.</p>
+        <div class="todo-add-row">
+          <input type="text" id="todoInput" placeholder="Add a task and press Enter...">
+          <select id="todoPriority" style="padding:0.5rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.82rem;background:var(--input-bg);color:var(--text);">
+            <option value="normal">Normal</option>
+            <option value="high">⭐ High</option>
+            <option value="low">Low</option>
+          </select>
+          <button class="btn btn-primary" id="todoAdd" style="font-size:0.85rem;padding:0.5rem 1.2rem;white-space:nowrap;">Add</button>
+        </div>
+        <div class="todo-filters">
+          <button class="cd-btn selected" id="todoFilterAll">All</button>
+          <button class="cd-btn" id="todoFilterActive">Active</button>
+          <button class="cd-btn" id="todoFilterDone">Done</button>
+          <span id="todoCount" style="margin-left:auto;font-family:Quicksand,sans-serif;font-size:0.78rem;color:var(--text-muted);"></span>
+        </div>
+        <div id="todoList" class="todo-list"></div>
+      </div>
     </div>
   </section>
 
@@ -4172,7 +4250,7 @@ function switchView(view) {
   document.getElementById("view-" + view).classList.add("active");
   if (view === "journal") renderEntries();
   if (view === "insights") refreshAllViews();
-  if (view === "schedule") renderScheduleSlots();
+  if (view === "schedule") { showSchedPage("home"); renderScheduleSlots(); }
   if (view === "prompts") renderPrompts();
   if (view === "selfcare") { /* nothing dynamic needed */ }
   if (view === "cbt") { renderDistortions(); renderBAGrid(); renderSocratic(); renderCBTSaved(); renderEH(); renderPSSaved(); renderCBSaved(); renderCCSaved(); renderWRSaved(); renderRGSaved(); renderEI(); renderDBTSaved(); renderULSaved(); }
@@ -4192,6 +4270,14 @@ document.querySelectorAll(".cbt-subtab").forEach((tab) => {
     if (sub === "erp") { renderEH(); renderCCSaved(); renderWRSaved(); }
     if (sub === "act") { renderRGSaved(); renderEI(); renderDBTSaved(); renderULSaved(); renderBAGrid(); renderPSSaved(); renderBASaved(); }
   });
+});
+
+/* Schedule sub-page switching */
+function showSchedPage(name) {
+  document.querySelectorAll(".sched-subpage").forEach((p) => p.classList.toggle("active", p.dataset.sched === name));
+}
+document.querySelectorAll("[data-sched-go]").forEach((el) => {
+  el.addEventListener("click", () => showSchedPage(el.dataset.schedGo));
 });
 
 document.querySelectorAll(".tab-btn").forEach((btn) => {
