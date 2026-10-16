@@ -1688,8 +1688,8 @@
   .todo-del { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 1.1rem; padding: 0.2rem; flex-shrink: 0; }
   .todo-del:hover { color: #c66; }
 
-  /* OCD / BPD notice box */
-  .ocd-notice { background: var(--input-bg); border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0 1.5rem; font-family:Quicksand,sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.55; }
+  /* Tool notice box */
+  .tool-notice { background: var(--input-bg); border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0 1.5rem; font-family:Quicksand,sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.55; }
 
   /* DBT skills modules */
   .dbt-modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.8rem; margin-bottom: 1rem; }
@@ -2305,8 +2305,7 @@
       <p>Text <strong>HOME</strong> to <strong>741741</strong> (Crisis Text Line)</p>
       <p>International: Find helplines at <strong>findahelpline.com</strong></p>
       <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0;">
-      <p style="font-size:0.85rem;"><strong>OCD-specific:</strong> <a href="https://iocdf.org" target="_blank" rel="noopener" style="color:var(--primary-dark);">International OCD Foundation</a> · <a href="https://www.treatmyocd.com" target="_blank" rel="noopener" style="color:var(--primary-dark);">NOCD</a> (live ERP therapy)</p>
-      <p style="font-size:0.85rem;"><strong>BPD-specific:</strong> <a href="https://www.borderlinepersonalitydisorder.org" target="_blank" rel="noopener" style="color:var(--primary-dark);">NEABPD</a> · <a href="https://dbt.tools" target="_blank" rel="noopener" style="color:var(--primary-dark);">DBT Self-Help</a> · <a href="https://www.linehaninstitute.org" target="_blank" rel="noopener" style="color:var(--primary-dark);">Linehan Institute</a></p>
+      <p style="font-size:0.85rem;">More helplines, therapist finders, and condition-specific organizations (OCD, BPD, depression, trauma, and more) live in the <strong>📚 Resources</strong> tab of the Mental Health Toolkit.</p>
     </div>
   </section>
 
@@ -2327,11 +2326,11 @@
 
       <!-- ===== OVERVIEW ===== -->
       <div class="cbt-subpage active" data-sub="overview">
-        <div class="ocd-notice">
-          <p><strong>About ERP for OCD:</strong> ERP works by facing triggers and <em>choosing not to do compulsions</em>. Anxiety will spike — that's normal, and proof the treatment is working. The goal isn't to remove anxiety immediately; it's to learn you can tolerate it. With practice, anxiety drops on its own (habituation).</p>
-          <p style="margin-top:0.6rem;"><strong>⚠ Reassurance is a compulsion too.</strong> If you find yourself checking this app to "make sure" or seeking certainty — that's OCD. Use these tools to practice <em>sitting with uncertainty</em>, not to neutralize it.</p>
-          <p style="margin-top:0.6rem;"><strong>For BPD / dissociation:</strong> You may not remember how you felt. That's okay — log what you can, even fragments. The app remembers for you. Your feelings were real even if you forgot them.</p>
-          <p style="margin-top:0.6rem;font-size:0.78rem;color:var(--text-muted);">OCD resources: <a href="https://iocdf.org" target="_blank" rel="noopener" style="color:var(--primary-dark);">International OCD Foundation (iocdf.org)</a> · <a href="https://www.treatmyocd.com" target="_blank" rel="noopener" style="color:var(--primary-dark);">NOCD</a><br>BPD resources: <a href="https://www.borderlinepersonalitydisorder.org" target="_blank" rel="noopener" style="color:var(--primary-dark);">NEABPD</a> · <a href="https://dbt.tools" target="_blank" rel="noopener" style="color:var(--primary-dark);">DBT Self-Help</a> · <a href="https://www.linehaninstitute.org" target="_blank" rel="noopener" style="color:var(--primary-dark);">Linehan Institute</a><br>In crisis, call or text <strong>988</strong> (US).</p>
+        <div class="tool-notice">
+          <p><strong>About these tools:</strong> Small, practice-between-sessions tools drawn from approaches like CBT, ERP, and ACT. Start with whatever matches how you feel today — a thought record, a grounding check, one small action. A few minutes counts.</p>
+          <p style="margin-top:0.6rem;"><strong>⚠ These tools are for reflection, not certainty.</strong> If you find yourself checking this app over and over to "make sure" how you feel, pause — re-checking feeds anxiety. Use these tools to practice <em>sitting with uncertainty</em> and letting feelings be, not to neutralize them.</p>
+          <p style="margin-top:0.6rem;"><strong>If you can't remember how you felt:</strong> That's okay — log what you can, even fragments. The app remembers for you. Your feelings were real even if you forgot them.</p>
+          <p style="margin-top:0.6rem;font-size:0.78rem;color:var(--text-muted);">In crisis, call or text <strong>988</strong> (US). Helplines, therapist finders, and condition-specific organizations (including OCD, BPD, and trauma support) live in the <strong>📚 Resources</strong> tab.</p>
         </div>
         <div style="margin-top:1.5rem;">
           <h3>What's in each section?</h3>
@@ -2342,7 +2341,7 @@
             </div>
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
               <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">🔄 ERP</h4>
-              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">ERP Hierarchy, Obsession & Worry Tracker, Coping Cards</p>
+              <p style="font-family:Quicksand,sans-serif;font-size:0.8rem;color:var(--text-muted);margin:0;">ERP Hierarchy, Worry Tracker, Coping Cards</p>
             </div>
             <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">
               <h4 style="font-family:Quicksand,sans-serif;color:var(--primary-dark);margin:0 0 0.4rem;font-size:0.92rem;">⚡ ACT</h4>
@@ -2360,34 +2359,34 @@
       <div class="cbt-subpage" data-sub="cbt">
 
       <h3>Thought Record</h3>
-      <p class="cbt-sub">Write down a stressful thought, identify the distortion, then reframe it. <em>For OCD: intrusive thoughts are not "you" — they're ego-dystonic, meaning they go against who you are and what you value. Reframing isn't about proving the fear wrong — it's about accepting uncertainty.</em></p>
+      <p class="cbt-sub">Write down a stressful thought, identify the distortion, then reframe it. <em>Unwanted or intrusive thoughts are not "you" — they say nothing about your character. Reframing isn't about proving the fear wrong — it's about making room for uncertainty and letting the thought pass.</em></p>
       <div class="tr-field">
         <label>The situation or intrusive thought (what happened / what popped into your mind?)</label>
-        <textarea id="trSituation" placeholder="e.g. The thought 'what if I hurt someone' popped into my head"></textarea>
+        <textarea id="trSituation" placeholder="e.g. Got a vague message from my boss and my mind jumped to the worst case"></textarea>
       </div>
       <div class="tr-field">
         <label>The automatic thought (what did your brain make of it?)</label>
-        <textarea id="trThought" placeholder="e.g. Having this thought means I'm a bad person (OCD says the thought = fact — it doesn't)"></textarea>
+        <textarea id="trThought" placeholder="e.g. Having this thought means something is wrong with me (a thought isn't a fact)"></textarea>
       </div>
       <div class="tr-field">
         <label>Emotion & intensity (0-100)</label>
-        <input type="text" id="trEmotion" placeholder="e.g. Anxiety 85, Guilt 60, Shame 50 (SUDS score helpful for ERP)">
+        <input type="text" id="trEmotion" placeholder="e.g. Anxiety 85, Guilt 60, Shame 50">
       </div>
 
       <label style="display:block;font-family:Quicksand,sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:0.5rem;font-weight:bold;">Which cognitive distortions apply? (tap all that fit)</label>
       <div class="distortion-list" id="distortionList"></div>
 
       <div class="tr-field" style="margin-top:1rem;">
-        <label>Alternative interpretation (don't seek certainty — accept it)</label>
-        <textarea id="trEvidence" placeholder="e.g. Thoughts are just thoughts. Having them doesn't make me act on them. I can't know with 100% certainty I'd never act — and I don't need to. My behavior shows who I am."></textarea>
+        <label>Alternative interpretation (it doesn't have to be 100% certain)</label>
+        <textarea id="trEvidence" placeholder="e.g. This is one possibility, not the only one. I don't need to solve it right now. What would I say to a friend in this spot?"></textarea>
       </div>
       <div class="tr-field">
         <label>Reframed / balanced stance</label>
-        <textarea id="trReframe" placeholder="e.g. 'Maybe, maybe not. I'll tolerate the discomfort and not seek reassurance.' The goal is not to disprove the fear — it's to accept the uncertainty."></textarea>
+        <textarea id="trReframe" placeholder="e.g. 'Maybe, maybe not. I can handle not knowing for sure.' The goal isn't to prove the fear wrong — it's to make peace with the uncertainty."></textarea>
       </div>
       <div class="tr-field">
         <label>New emotion & intensity (0-100)</label>
-        <input type="text" id="trNewEmotion" placeholder="e.g. Anxiety 55 (down from 85 after not neutralizing)">
+        <input type="text" id="trNewEmotion" placeholder="e.g. Anxiety 55 (down from 85 after taking a step back)">
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" id="trSave">Save Thought Record</button>
@@ -2401,7 +2400,7 @@
 
     <div class="cbt-tool">
       <h3>ABC Model</h3>
-      <p class="cbt-sub">A = Activating event, B = Belief about it, C = Consequences (feelings & behavior). Understanding this chain helps you change unhelpful beliefs. <em>For BPD: this helps separate what happened from how you interpreted it, especially during emotional spirals or dissociation.</em></p>
+      <p class="cbt-sub">A = Activating event, B = Belief about it, C = Consequences (feelings & behavior). Understanding this chain helps you change unhelpful beliefs. <em>Especially useful in emotional spirals or when things feel foggy — it separates what actually happened from what you told yourself about it.</em></p>
       <div class="abc-step">
         <div class="abc-letter">A</div>
         <div class="abc-content">
@@ -2456,14 +2455,14 @@
 
     <div class="cbt-tool">
       <h3>Core Beliefs</h3>
-      <p class="cbt-sub">Core beliefs are deep, often unspoken assumptions about yourself, others, and the world. OCD and BPD often share similar themes: fear of abandonment, "I'm broken," "I can't trust myself," "Something is wrong with me." Identifying them is the first step to changing unhelpful ones.</p>
+      <p class="cbt-sub">Core beliefs are deep, often unspoken assumptions about yourself, others, and the world. Common ones: fear of abandonment, "I'm broken," "I can't trust myself," "Something is wrong with me." Naming yours is the first step to loosening its grip.</p>
       <div class="tr-field">
         <label>What core belief do you hold? (e.g. "I'm not good enough", "People will abandon me", "I can't trust my own mind")</label>
         <input type="text" id="cbBelief" placeholder="State the belief in one sentence" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Where does this belief come from?</label>
-        <textarea id="cbOrigin" placeholder="Childhood experiences, past events, things you were told, or OCD/BPD patterns..."></textarea>
+        <textarea id="cbOrigin" placeholder="Childhood experiences, past events, things you were told, or patterns you keep repeating..."></textarea>
       </div>
       <div class="tr-field">
         <label>Evidence that supports this belief</label>
@@ -2489,10 +2488,10 @@
       <div class="cbt-subpage" data-sub="erp">
       <div class="cbt-tool">
       <h3>ERP Hierarchy (Exposure Ladder)</h3>
-      <p class="cbt-sub">List OCD triggers and obsessions, rate SUDS (Subjective Units of Distress, 0-100), then face them from <em>lowest</em> to highest while <em>not</em> doing compulsions. Work with your therapist on higher rungs.</p>
+      <p class="cbt-sub">List your triggers and the thoughts that hook you, rate SUDS (Subjective Units of Distress, 0-100), then face them from <em>lowest</em> to highest while <em>not</em> doing the ritual or avoidance. Work with your therapist on higher rungs.</p>
       <div class="tr-field">
-        <label>Obsession / situation (what triggers your anxiety?)</label>
-        <input type="text" id="ehSituation" placeholder="e.g. Touching a doorknob without washing hands" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <label>Trigger / situation (what spikes your anxiety?)</label>
+        <input type="text" id="ehSituation" placeholder="e.g. Sending an email without re-reading it" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>SUDS level (0=calm, 100=worst anxiety imaginable)</label>
@@ -2500,8 +2499,8 @@
         <span id="ehAnxietyVal" style="font-family:Quicksand,sans-serif;font-size:0.85rem;color:var(--primary-dark);font-weight:bold;">50</span>
       </div>
       <div class="tr-field">
-        <label>Compulsion you want to resist</label>
-        <input type="text" id="ehCompulsion" placeholder="e.g. Hand washing, checking, mental review" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <label>Ritual / compulsion / avoidance you want to resist</label>
+        <input type="text" id="ehCompulsion" placeholder="e.g. Re-reading, seeking reassurance, avoiding, mental reviewing" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" id="ehAdd">Add to Ladder</button>
@@ -2512,14 +2511,14 @@
 
     <div class="cbt-tool">
       <h3>Coping Cards</h3>
-      <p class="cbt-sub">Write coping statements to read when you're distressed. Keep them on your phone or print them. <em>For OCD: avoid statements that seek certainty or neutralize the fear — the goal is acceptance, not reassurance.</em></p>
+      <p class="cbt-sub">Write coping statements to read when you're distressed. Keep them on your phone or print them. <em>Aim for statements that sit with uncertainty and discomfort — not ones that argue the fear away or demand certainty.</em></p>
       <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:0.8rem;margin-bottom:1rem;font-family:Quicksand,sans-serif;font-size:0.82rem;color:var(--text-muted);">
-        <strong>Good OCD coping:</strong> "Maybe, maybe not. I can handle the uncertainty."<br>
-        <strong>Avoid (reassurance):</strong> "You would never do that. You're a good person."
+        <strong>Helpful:</strong> "Maybe, maybe not. I can handle not knowing."<br>
+        <strong>Less helpful:</strong> "Reassure me that nothing bad will happen." (asks for certainty instead of building tolerance)
       </div>
       <div class="tr-field">
         <label>Trigger / situation (when will you use this card?)</label>
-        <input type="text" id="ccTrigger" placeholder="e.g. When I have a harm intrusive thought" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="ccTrigger" placeholder="e.g. When anxiety spikes before a big conversation" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Coping statement</label>
@@ -2533,11 +2532,11 @@
     </div>
 
     <div class="cbt-tool">
-      <h3>Obsession & Worry Tracker</h3>
-      <p class="cbt-sub">Track intrusive thoughts and worries over time. For OCD: the goal is <em>not</em> to check whether they came true (that becomes a compulsion). The goal is to log them and practice letting go of certainty.</p>
+      <h3>Worry & Intrusive Thought Tracker</h3>
+      <p class="cbt-sub">Track intrusive thoughts and worries over time. The goal is <em>not</em> to check whether they came true — re-checking feeds the loop. Log them, then practice letting go of certainty.</p>
       <div class="tr-field">
         <label>Intrusive thought or worry</label>
-        <input type="text" id="wrWorry" placeholder="e.g. What if I lose control and hurt someone?" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
+        <input type="text" id="wrWorry" placeholder="e.g. What if everything goes wrong tomorrow?" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
       </div>
       <div class="tr-field">
         <label>Anxiety level (0-100)</label>
@@ -2545,7 +2544,7 @@
       </div>
       <div class="tr-field">
         <label>Stance (not a reassurance — just acceptance)</label>
-        <textarea id="wrAdvice" placeholder="e.g. 'Maybe, maybe not. I don't need to know for sure. This is OCD, not a real threat.'"></textarea>
+        <textarea id="wrAdvice" placeholder="e.g. 'Maybe, maybe not. I don't need to know for sure right now.'"></textarea>
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" id="wrLog">Log It</button>
@@ -2609,7 +2608,7 @@
 
     <div class="cbt-tool">
       <h3>Emotion-Intensity Tracker</h3>
-      <p class="cbt-sub">BPD emotions can spike fast and drop fast — but dissociation can wipe the memory of the spike. Logging intensity over the day builds a record you can review to validate what you actually felt. Pattern: emotions are real, even if you forgot them.</p>
+      <p class="cbt-sub">Big emotions can spike fast and drop fast — and stress, fog, or dissociation can wipe the memory of the spike. Logging intensity over the day builds a record you can review to validate what you actually felt. Pattern: emotions are real, even if you forgot them.</p>
       <div class="tr-field">
         <label>What emotion? (one word)</label>
         <input type="text" id="eiEmotion" placeholder="e.g. Anger, shame, love, emptiness" style="width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:8px;font-family:Quicksand,sans-serif;font-size:0.9rem;background:var(--input-bg);color:var(--text);">
@@ -2646,7 +2645,7 @@
 
     <div class="cbt-tool">
       <h3>DBT Skills Used</h3>
-      <p class="cbt-sub">DBT (Dialectical Behavior Therapy) is the gold-standard therapy for BPD. Log the skills you actually used today — even one counts. You can't always stop the emotion, but you can choose a skill.</p>
+      <p class="cbt-sub">DBT (Dialectical Behavior Therapy) is a practical skills system for managing intense emotions, distress, and crisis moments. Log the skills you actually used today — even one counts. You can't always stop the emotion, but you can choose a skill.</p>
       <div class="dbt-modules">
         <div class="dbt-module">
           <h4>🧘 Mindfulness</h4>
@@ -2694,9 +2693,9 @@
           <option value="restrict">Restrict food</option>
           <option value="binge">Binge</option>
           <option value="purge">Purge</option>
-          <option value="reassurance">Seek reassurance (OCD)</option>
-          <option value="compulsion">Do compulsion (OCD)</option>
-          <option value="check">Check something (OCD)</option>
+          <option value="reassurance">Seek reassurance</option>
+          <option value="compulsion">Do a compulsion / ritual</option>
+          <option value="check">Check something</option>
           <option value="other">Other</option>
         </select>
       </div>
@@ -2733,7 +2732,7 @@
       <!-- Behavioral Activation + Problem Solving (moved from Action tab) -->
       <div class="cbt-tool">
       <h3>Behavioral Activation</h3>
-      <p class="cbt-sub">When you're low, action often comes before motivation — not after. Pick one small activity to do today. Log how you feel before and after. <em>For BPD/anhedonia or OCD-avoidance: small actions bypass the avoidance cycle. Don't wait until you "feel like it."</em></p>
+      <p class="cbt-sub">When you're low, action often comes before motivation — not after. Pick one small activity to do today. Log how you feel before and after. <em>For low mood, anhedonia, or avoidance: small actions bypass the cycle. Don't wait until you "feel like it."</em></p>
       <label style="display:block;font-family:Quicksand,sans-serif;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:0.5rem;font-weight:bold;">Pick an activity:</label>
       <div class="ba-grid" id="baGrid"></div>
       <div class="tr-field" style="margin-top:1rem;">
@@ -2761,7 +2760,7 @@
 
     <div class="cbt-tool">
       <h3>Problem Solving</h3>
-      <p class="cbt-sub">Structured 6-step approach to work through real problems instead of spiraling. <em>For OCD: use this when the problem is situational — not for OCD doubts. OCD thoughts can't be solved through reasoning; they require acceptance of uncertainty.</em></p>
+      <p class="cbt-sub">Structured 6-step approach to work through real problems instead of spiraling. <em>Use this for real-world, solvable problems. For sticky "what if" doubts: those aren't solved by reasoning — they ease when you practice letting them be.</em></p>
       <div class="tr-field">
         <label>1. Define the problem</label>
         <textarea id="psProblem" placeholder="Be specific and factual. What exactly is the problem?"></textarea>
@@ -5613,12 +5612,12 @@ const COGNITIVE_DISTORTIONS = [
   { key: "emotionalreason", name: "Emotional Reasoning", desc: "If I feel it, it must be true" },
   { key: "filtering",       name: "Mental Filtering",  desc: "Only see negatives, ignore positives" },
   { key: "comparison",      name: "Comparing",         desc: "Measuring yourself against others unfavorably" },
-  { key: "thoughtfusion",   name: "Thought-Action Fusion",  desc: "OCD: Having the thought = doing it / being it" },
-  { key: "intoleranceunc",  name: "Intolerance of Uncertainty", desc: "OCD: I must know 100% for sure before I can act" },
-  { key: "inflatedresp",    name: "Inflated Responsibility", desc: "OCD: I alone am responsible for preventing harm" },
-  { key: "reassuranceseek",  name: "Reassurance Seeking",     desc: "OCD: Checking to feel certain = compulsion, not solution" },
-  { key: "perfectcontrol",   name: "Need for Perfect Control", desc: "OCD: If I'm not perfectly in control, something bad happens" },
-  { key: "justright",        name: "'Just Right'&nbsp;Perfectionism", desc: "OCD: Things must feel right / be symmetrical" },
+  { key: "thoughtfusion",   name: "Thought-Action Fusion",  desc: "Having the thought feels like doing it / being it" },
+  { key: "intoleranceunc",  name: "Intolerance of Uncertainty", desc: "I must know 100% for sure before I can act" },
+  { key: "inflatedresp",    name: "Inflated Responsibility", desc: "I alone am responsible for preventing harm" },
+  { key: "reassuranceseek",  name: "Reassurance Seeking",     desc: "Checking to feel certain becomes a loop, not a solution" },
+  { key: "perfectcontrol",   name: "Need for Perfect Control", desc: "If I'm not perfectly in control, something bad happens" },
+  { key: "justright",        name: "'Just Right'&nbsp;Perfectionism", desc: "Things must feel just right / be symmetrical" },
 ];
 
 const BA_ACTIVITIES = [
@@ -5641,14 +5640,14 @@ const BA_ACTIVITIES = [
 ];
 
 const SOCRATIC_QUESTIONS = [
-  { q: "Is this a thought, or a fact?", prompt: "OCD confuses the two. A thought in your head is not the same as something happening in reality." },
-  { q: "Can I live with 95% certainty instead of 100%?", prompt: "OCD demands 100%. Real life runs on probability. What would 95% certainty look like?" },
-  { q: "Am I trying to solve a real problem, or seek reassurance?", prompt: "If you keep asking the same question, that's OCD demanding certainty — not a real question needing an answer." },
+  { q: "Is this a thought, or a fact?", prompt: "An anxious mind blurs the two. A thought in your head is not the same as something happening in reality." },
+  { q: "Can I live with 95% certainty instead of 100%?", prompt: "Anxiety demands 100%. Real life runs on probability. What would 95% certainty look like?" },
+  { q: "Am I trying to solve a real problem, or seek reassurance?", prompt: "If you keep asking the same question, that's anxiety demanding certainty — not a real question needing an answer." },
   { q: "What would I tell a friend with this exact thought?", prompt: "You'd probably not tell them to check or neutralize. Why hold yourself to different rules?" },
-  { q: "Is this thought ego-dystonic?", prompt: "Does it go against what you actually care about and value? That's a hallmark of OCD, not you." },
+  { q: "Is this thought against my values?", prompt: "Does it go against what you actually care about and value? If so, it's a thought you're having — not who you are." },
   { q: "What would 'sitting with the discomfort' look like?", prompt: "Not neutralizing, not checking, not seeking reassurance — just letting the anxiety be there." },
-  { q: "What is my behavior telling me?", prompt: "OCD attacks what you value most. The intrusive thought shows what you'd actually never do." },
-  { q: "Will checking again actually satisfy OCD?", prompt: "Usually no — it just teaches your brain that checking is necessary. Each check makes the urge stronger." },
+  { q: "What is my behavior telling me?", prompt: "Scary thoughts attack what you value most. The intrusive thought shows what you'd actually never do." },
+  { q: "Will checking again actually satisfy this urge?", prompt: "Usually no — it just teaches your brain that checking is necessary. Each check makes the urge stronger." },
   { q: "Have I done this compulsion before — did it work long-term?", prompt: "Compulsions feel good for minutes. ERP feels hard for minutes, then pays off for years." },
   { q: "Am I treating this thought as dangerous by reacting to it?", prompt: "Reacting to a thought teaches the brain it matters. Not reacting teaches the brain it's noise." },
 ];
@@ -6018,7 +6017,7 @@ function renderCCSaved() {
 }
 
 /* ============================================================ *
- *  Obsession & Worry Tracker
+ *  Worry & Intrusive Thought Tracker
  * ============================================================ */
 document.getElementById("wrLog").addEventListener("click", () => {
   var worry = document.getElementById("wrWorry").value.trim();
@@ -6045,7 +6044,7 @@ function renderWRSaved() {
 }
 
 /* ============================================================ *
- *  Reality Grounding Check-In (BPD / dissociation)
+ *  Reality Grounding Check-In (grounding / dissociation)
  * ============================================================ */
 document.getElementById("rgLevel").addEventListener("input", (e) => { document.getElementById("rgLevelVal").textContent = e.target.value; });
 document.getElementById("rgSave").addEventListener("click", () => {
@@ -6073,7 +6072,7 @@ function renderRGSaved() {
 }
 
 /* ============================================================ *
- *  Emotion-Intensity Tracker (BPD)
+ *  Emotion-Intensity Tracker
  * ============================================================ */
 document.getElementById("eiIntensity").addEventListener("input", (e) => { document.getElementById("eiIntensityVal").textContent = e.target.value; });
 document.getElementById("eiAdd").addEventListener("click", () => {
@@ -6188,7 +6187,7 @@ document.getElementById("ulAdd").addEventListener("click", () => {
   renderULSaved();
 });
 document.getElementById("ulClear").addEventListener("click", () => { document.getElementById("ulTrigger").value = ""; document.getElementById("ulSkill").value = ""; document.getElementById("ulIntensity").value = 5; document.getElementById("ulIntensityVal").textContent = "5"; });
-var URGE_LABELS = { selfharm: "Self-harm", substance: "Substance use", contact: "Impulsive contact", flee: "Flee", fight: "Fight/aggression", restrict: "Restrict food", binge: "Binge", purge: "Purge", reassurance: "Reassurance (OCD)", compulsion: "Compulsion (OCD)", check: "Checking (OCD)", other: "Other" };
+var URGE_LABELS = { selfharm: "Self-harm", substance: "Substance use", contact: "Impulsive contact", flee: "Flee", fight: "Fight/aggression", restrict: "Restrict food", binge: "Binge", purge: "Purge", reassurance: "Reassurance", compulsion: "Compulsion / ritual", check: "Checking", other: "Other" };
 function renderULSaved() {
   var container = document.getElementById("ulSaved");
   var records = getCBT("urgeLog");
