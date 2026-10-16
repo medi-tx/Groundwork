@@ -2,7 +2,7 @@
    The app is a single index.html plus three Firebase CDN scripts and Google Fonts,
    so the shell + those assets are what we cache. */
 
-const CACHE = "groundwork-v1";
+const CACHE = "groundwork-v2";
 
 const SHELL = ["./", "./index.html"];
 
