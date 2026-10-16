@@ -4741,6 +4741,7 @@ function initApp() {
   checkOnThisDay();
   restoreDraft();
   setupPWA();
+  registerServiceWorker();
 }
 
 initApp();
@@ -5044,6 +5045,13 @@ function setupPWA() {
     e.preventDefault();
     deferredPrompt = e;
     showPwaBanner();
+  });
+}
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => { /* offline support is optional */ });
   });
 }
 
